@@ -1,9 +1,9 @@
 import Card from '../../components/card/card';
 type MainScreenProps = {
-  favoriteCount: number;
+  rentalPlacesCount: number;
 };
 
-function MainScreen({ favoriteCount }: MainScreenProps): JSX.Element {
+function MainScreen({ rentalPlacesCount }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -31,9 +31,7 @@ function MainScreen({ favoriteCount }: MainScreenProps): JSX.Element {
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">
-                      {favoriteCount}
-                    </span>
+                    <span className="header__favorite-count">3</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -89,7 +87,9 @@ function MainScreen({ favoriteCount }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">
+                {rentalPlacesCount} places to stay in Amsterdam
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

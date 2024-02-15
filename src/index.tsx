@@ -9,8 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      favoriteCount = {Setting.FavoriteCount}
-    />
-  </React.StrictMode>,
+    <App rentalPlacesCount={Setting.RentalPlacesCount} />
+  </React.StrictMode>
 );
