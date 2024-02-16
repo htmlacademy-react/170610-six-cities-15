@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
 function NotFoundScreen(): JSX.Element {
@@ -83,9 +84,9 @@ function NotFoundScreen(): JSX.Element {
                 <p className="cities__status-description">
                   We could not find any property available at the moment.
                   Please, go{' '}
-                  <a href="/" style={{ textDecoration: 'underline' }}>
+                  <Link to="/" style={{ textDecoration: 'underline' }}>
                     back to the main page
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>
