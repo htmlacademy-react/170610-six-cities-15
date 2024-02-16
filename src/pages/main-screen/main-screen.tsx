@@ -1,4 +1,5 @@
 import Card from '../../components/card/card';
+
 type MainScreenProps = {
   rentalPlacesCount: number;
 };
