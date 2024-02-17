@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Card from '../../components/card/card';
+import OffersList from '../../components/offersList/offersList';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type MainScreenProps = {
@@ -126,9 +126,7 @@ function MainScreen({ data }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {filteredData.map((offer) => (<Card key={offer.offer.id} {...offer}/>))}
-              </div>
+              <OffersList data={filteredData} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
