@@ -1,14 +1,9 @@
 import faker from 'faker';
 import generateOfferMock from './offer';
 import generateCommentMock from './review';
-import { Offer } from '../types/offer';
 import { Comment } from '../types/review';
+import { OfferWithComments } from '../types/offerWithComments';
 import { Setting } from './const';
-
-export interface OfferWithComments {
-  offer: Offer;
-  comments: Comment[];
-}
 
 const generateOffersWithComments = (): OfferWithComments[] => {
   const offersWithComments: OfferWithComments[] = [];

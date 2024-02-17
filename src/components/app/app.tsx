@@ -7,7 +7,8 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { OfferWithComments } from '../../mocks/data';
+import { OfferWithComments } from '../../types/offerWithComments';
+
 type AppScreenProps = {
   data: OfferWithComments[];
 };

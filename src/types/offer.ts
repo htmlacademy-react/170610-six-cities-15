@@ -32,4 +32,3 @@ export type Offer = {
   images: string[];
   maxAdults: number;
 }
-

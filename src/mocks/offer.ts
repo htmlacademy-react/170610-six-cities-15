@@ -1,10 +1,7 @@
 import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../types/offer';
-
-function capitalize(word: string): string {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
+import capitalize from './utils';
 
 function generateOfferMock(): Offer {
   return {

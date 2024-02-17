@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card/card';
-import { OfferWithComments } from '../../mocks/data';
+import { OfferWithComments } from '../../types/offerWithComments';
 
 type MainScreenProps = {
   data: OfferWithComments[];
