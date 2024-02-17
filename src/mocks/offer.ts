@@ -1,40 +1,6 @@
 import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
-
-export interface Offer {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  city: City;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  description: string;
-  bedrooms: number;
-  goods: string[];
-  host: Host;
-  images: string[];
-  maxAdults: number;
-}
-
-interface City {
-  name: string;
-  location: Location;
-}
-
-interface Location {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-interface Host {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-}
+import { Offer } from '../types/offer';
 
 function capitalize(word: string): string {
   return word.charAt(0).toUpperCase() + word.slice(1);

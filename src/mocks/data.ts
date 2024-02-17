@@ -1,8 +1,8 @@
 import faker from 'faker';
 import generateOfferMock from './offer';
 import generateCommentMock from './review';
-import { Offer } from './offer';
-import { Comment } from './review';
+import { Offer } from '../types/offer';
+import { Comment } from '../types/review';
 import { Setting } from './const';
 
 export interface OfferWithComments {

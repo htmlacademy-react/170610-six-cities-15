@@ -1,18 +1,6 @@
 import faker from 'faker';
+import { Comment } from '../types/review';
 
-interface User {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-}
-
-export interface Comment {
-  id: string;
-  date: Date;
-  user: User;
-  comment: string;
-  rating: number;
-}
 
 function generateCommentMock(offerId: string): Comment {
   return {
