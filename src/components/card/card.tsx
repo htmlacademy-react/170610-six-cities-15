@@ -4,18 +4,17 @@ type OffersListProps = {
   offer: Offer;
 };
 
-
 function Card({offer}: OffersListProps): JSX.Element {
 
-  const {title, type, price, rating, isFavorite} = offer;
+  const {title, type, price, rating, isFavorite, isPremium} = offer;
   const starsWidth = 100 / rating;
   const isFavoriteClass = isFavorite ? 'place-card__bookmark-button--active' : '';
+  const premiumMark = (<div className="place-card__mark"><span>Premium</span></div>);
+  const isPremiumMark = isPremium ? premiumMark : '';
 
   return (
     <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremiumMark}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
