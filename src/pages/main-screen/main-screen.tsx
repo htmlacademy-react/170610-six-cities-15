@@ -1,11 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card/card';
+import { OfferWithComments } from '../../mocks/data';
 
 type MainScreenProps = {
-  rentalPlacesCount: number;
+  data: OfferWithComments[];
 };
 
-function MainScreen({ rentalPlacesCount }: MainScreenProps): JSX.Element {
+
+function MainScreen({ data }: MainScreenProps): JSX.Element {
+
+  const filteredData = data.filter((offer) => offer.offer.city.name === 'Amsterdam');
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -93,7 +98,7 @@ function MainScreen({ rentalPlacesCount }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {rentalPlacesCount} places to stay in Amsterdam
+                {filteredData.length} places to stay in Amsterdam
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -122,11 +127,7 @@ function MainScreen({ rentalPlacesCount }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {filteredData.map((offer) => (<Card key={offer.offer.id} {...offer}/>))}
               </div>
             </section>
             <div className="cities__right-section">

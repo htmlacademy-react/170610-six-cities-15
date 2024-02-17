@@ -7,19 +7,19 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-
+import { OfferWithComments } from '../../mocks/data';
 type AppScreenProps = {
-  rentalPlacesCount: number;
+  data: OfferWithComments[];
 };
 
-function App({ rentalPlacesCount }: AppScreenProps): JSX.Element {
+function App({ data }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen rentalPlacesCount={rentalPlacesCount} />}
+            element={<MainScreen data={data} />}
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route

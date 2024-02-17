@@ -47,7 +47,7 @@ function generateOfferMock(): Offer {
     type: faker.random.arrayElement(['apartment', 'house', 'room']),
     price: faker.datatype.number({ min: 50, max: 300 }),
     city: {
-      name: faker.address.city(),
+      name: faker.random.arrayElement(['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf']),
       location: {
         latitude: parseFloat(faker.address.latitude()),
         longitude: parseFloat(faker.address.longitude()),

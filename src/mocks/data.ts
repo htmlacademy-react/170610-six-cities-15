@@ -5,7 +5,7 @@ import { Offer } from './offer';
 import { Comment } from './review';
 import { Setting } from './const';
 
-interface OfferWithComments {
+export interface OfferWithComments {
   offer: Offer;
   comments: Comment[];
 }

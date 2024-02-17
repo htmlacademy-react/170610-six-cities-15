@@ -11,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App rentalPlacesCount={data.length} />
+    <App data={data} />
   </React.StrictMode>
 );
