@@ -64,7 +64,7 @@ function generateOfferMock(): Offer {
     rating: faker.datatype.number({ min: 1, max: 5, precision: 0.1 }),
     description: faker.lorem.paragraph(),
     bedrooms: faker.datatype.number({ min: 1, max: 5 }),
-    goods: faker.random.arrayElements(['Heating', 'Kitchen', 'Wi-Fi', 'TV', 'Parking']),
+    goods: faker.random.arrayElements(['Heating', 'Kitchen', 'Wi-Fi', 'TV', 'Parking', 'Washing machine', 'Towels', 'Coffee machine', 'Baby seat', 'Dishwasher', 'Cabel TV', 'Fridge', 'Fireplace']),
     host: {
       name: faker.name.firstName(),
       avatarUrl: faker.image.avatar(),
