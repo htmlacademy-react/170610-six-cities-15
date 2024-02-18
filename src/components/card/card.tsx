@@ -1,19 +1,25 @@
 import { Offer } from '../../types/offer';
 
-type OffersListProps = {
+type CardProps = {
   offer: Offer;
+  isActive: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 };
 
-function Card({offer}: OffersListProps): JSX.Element {
-
-  const {title, type, price, rating, isFavorite, isPremium} = offer;
+function Card({ offer, isActive, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+  const { title, type, price, rating, isFavorite, isPremium } = offer;
   const fillWidth = (rating / 5) * 100;
   const isFavoriteClass = isFavorite ? 'place-card__bookmark-button--active' : '';
-  const premiumMark = (<div className="place-card__mark"><span>Premium</span></div>);
+  const premiumMark = <div className="place-card__mark"><span>Premium</span></div>;
   const isPremiumMark = isPremium ? premiumMark : '';
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className={`cities__card place-card ${isActive ? 'active' : ''}`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremiumMark}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
