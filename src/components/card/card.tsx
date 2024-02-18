@@ -7,7 +7,7 @@ type OffersListProps = {
 function Card({offer}: OffersListProps): JSX.Element {
 
   const {title, type, price, rating, isFavorite, isPremium} = offer;
-  const starsWidth = 100 / rating;
+  const fillWidth = (rating / 5) * 100;
   const isFavoriteClass = isFavorite ? 'place-card__bookmark-button--active' : '';
   const premiumMark = (<div className="place-card__mark"><span>Premium</span></div>);
   const isPremiumMark = isPremium ? premiumMark : '';
@@ -41,7 +41,7 @@ function Card({offer}: OffersListProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${starsWidth}%` }}></span>
+            <span style={{ width: `${fillWidth}%` }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
