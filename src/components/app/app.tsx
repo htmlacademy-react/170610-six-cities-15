@@ -20,7 +20,7 @@ function App({ props }: AppScreenProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen props={props} />}
+            element={<MainScreen props={props} filter={[]} />}
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
@@ -32,6 +32,7 @@ function App({ props }: AppScreenProps): JSX.Element {
             }
           />
           <Route path={AppRoute.Offer} element={<OfferScreen />} />
+          <Route path={AppRoute.DevFavorites} element={<FavoritesScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </BrowserRouter>
