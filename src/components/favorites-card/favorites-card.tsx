@@ -1,11 +1,14 @@
 import { OfferWithComments } from '../../types/offerWithComments';
+import getRandomArrayElement from '../../utils/utils';
 
 type FavoritesCardProps = {
   offer: OfferWithComments;
 };
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-  const { type, title, price, rating, isPremium } = offer.offer;
+  const { type, title, price, rating, images, isPremium } = offer.offer;
+
+  const img = getRandomArrayElement(images);
   const fillWidth = (rating / 5) * 100;
   const premiumMark = (
     <div className="place-card__mark">
@@ -21,7 +24,7 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-small-03.jpg"
+            src={img}
             width="150"
             height="110"
             alt="Place image"

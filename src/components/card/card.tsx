@@ -1,4 +1,5 @@
 import { Offer } from '../../types/offer';
+import getRandomArrayElement from '../../utils/utils';
 
 type CardProps = {
   offer: Offer;
@@ -13,7 +14,9 @@ function Card({
   onMouseEnter,
   onMouseLeave,
 }: CardProps): JSX.Element {
-  const { title, type, price, rating, isFavorite, isPremium } = offer;
+  const { title, type, price, rating, images, isFavorite, isPremium } = offer;
+
+  const img = getRandomArrayElement(images);
   const fillWidth = (rating / 5) * 100;
   const isFavoriteClass = isFavorite
     ? 'place-card__bookmark-button--active'
@@ -36,7 +39,7 @@ function Card({
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={img}
             width="260"
             height="200"
             alt="Place image"
