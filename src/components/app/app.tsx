@@ -10,17 +10,17 @@ import { HelmetProvider } from 'react-helmet-async';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type AppScreenProps = {
-  data: OfferWithComments[];
+  props: OfferWithComments[];
 };
 
-function App({ data }: AppScreenProps): JSX.Element {
+function App({ props }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen data={data} />}
+            element={<MainScreen props={props} />}
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route

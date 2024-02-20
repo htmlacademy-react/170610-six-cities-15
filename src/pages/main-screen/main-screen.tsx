@@ -1,15 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import OffersList from '../../components/offersList/offersList';
+import OffersList from '../../components/offers-list/offers-list.tsx';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type MainScreenProps = {
-  data: OfferWithComments[];
+  props: OfferWithComments[];
+  filter: OfferWithComments[];
 };
 
 
-function MainScreen({ data }: MainScreenProps): JSX.Element {
+function MainScreen({ props }: MainScreenProps): JSX.Element {
 
-  const filteredData = data.filter((offer) => offer.offer.city.name === 'Amsterdam');
+  const filteredData = props.filter((offer) => offer.offer.city.name === 'Amsterdam');
 
   return (
     <div className="page page--gray page--main">
@@ -126,7 +127,7 @@ function MainScreen({ data }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList data={filteredData} />
+              <OffersList props={filteredData} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
