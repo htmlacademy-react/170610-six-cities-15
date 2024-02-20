@@ -127,7 +127,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList props={filteredData} />
+              <OffersList props={filteredData} map={[]} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
