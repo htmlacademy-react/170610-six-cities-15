@@ -11,9 +11,14 @@ import { OfferWithComments } from '../../types/offerWithComments';
 
 type AppScreenProps = {
   props: OfferWithComments[];
+  filter: OfferWithComments[];
 };
 
 function App({ props }: AppScreenProps): JSX.Element {
+  const favoriteOffers = props.filter(
+    (offer) => offer.offer.isFavorite === true
+  );
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -27,12 +32,15 @@ function App({ props }: AppScreenProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen />
+                <FavoritesScreen favoriteOffers={favoriteOffers} />
               </PrivateRoute>
             }
           />
           <Route path={AppRoute.Offer} element={<OfferScreen />} />
-          <Route path={AppRoute.DevFavorites} element={<FavoritesScreen />} />
+          <Route
+            path={AppRoute.DevFavorites}
+            element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
+          />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </BrowserRouter>
