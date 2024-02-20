@@ -10,7 +10,7 @@ type MainScreenProps = {
 
 function MainScreen({ props }: MainScreenProps): JSX.Element {
 
-  const filteredData = props.filter((offer) => offer.offer.city.name === 'Amsterdam');
+  const filteredByCityProps = props.filter((offer) => offer.offer.city.name === 'Amsterdam');
 
   return (
     <div className="page page--gray page--main">
@@ -99,7 +99,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredData.length} places to stay in Amsterdam
+                {filteredByCityProps.length} places to stay in Amsterdam
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -127,7 +127,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList props={filteredData} map={[]} />
+              <OffersList props={filteredByCityProps} map={[]} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
