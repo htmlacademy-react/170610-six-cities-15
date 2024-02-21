@@ -1,6 +1,25 @@
+import React, { useState } from 'react';
+
 function ReviewsForm(): JSX.Element {
+  const [rating, setRating] = useState('');
+  const [review, setReview] = useState('');
+
+  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRating(event.target.value);
+  };
+
+  const handleReviewChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setReview(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -11,6 +30,8 @@ function ReviewsForm(): JSX.Element {
           value="5"
           id="5-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={rating === '5'}
         />
         <label
           htmlFor="5-stars"
@@ -21,13 +42,14 @@ function ReviewsForm(): JSX.Element {
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
-
         <input
           className="form__rating-input visually-hidden"
           name="rating"
           value="4"
           id="4-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={rating === '4'}
         />
         <label
           htmlFor="4-stars"
@@ -45,6 +67,8 @@ function ReviewsForm(): JSX.Element {
           value="3"
           id="3-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={rating === '3'}
         />
         <label
           htmlFor="3-stars"
@@ -62,6 +86,8 @@ function ReviewsForm(): JSX.Element {
           value="2"
           id="2-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={rating === '2'}
         />
         <label
           htmlFor="2-stars"
@@ -79,6 +105,8 @@ function ReviewsForm(): JSX.Element {
           value="1"
           id="1-star"
           type="radio"
+          onChange={handleRatingChange}
+          checked={rating === '1'}
         />
         <label
           htmlFor="1-star"
@@ -95,8 +123,9 @@ function ReviewsForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-      >
-      </textarea>
+        value={review}
+        onChange={handleReviewChange}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
@@ -106,7 +135,7 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!rating || !review || review.trim().length < 10}
         >
           Submit
         </button>
