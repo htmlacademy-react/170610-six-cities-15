@@ -51,7 +51,10 @@ function generateOfferMock(): Offer {
     ]),
     host: {
       name: faker.name.firstName(),
-      avatarUrl: faker.image.avatar(),
+      avatarUrl: faker.random.arrayElement([
+        'img/avatar-angelina.jpg',
+        'img/avatar-max.jpg',
+      ]),
       isPro: faker.datatype.boolean(),
     },
     images: faker.random.arrayElements([

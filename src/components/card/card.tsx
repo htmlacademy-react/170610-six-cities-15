@@ -19,16 +19,10 @@ function Card({
     offer;
 
   const img = getRandomArrayElement(images);
-  const fillWidth = (rating / 5) * 100;
+
   const isFavoriteClass = isFavorite
     ? 'place-card__bookmark-button--active'
     : '';
-  const premiumMark = (
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
-  );
-  const isPremiumMark = isPremium ? premiumMark : '';
 
   return (
     <article
@@ -36,7 +30,11 @@ function Card({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isPremiumMark}
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
@@ -66,14 +64,12 @@ function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${fillWidth}%` }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
         <Link to={`/offer/${id}`}>
-          <h2 className="place-card__name">
-            <a href="#">{title}</a>
-          </h2>
+          <h2 className="place-card__name">{title}</h2>
         </Link>
         <p className="place-card__type">{type}</p>
       </div>

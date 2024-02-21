@@ -2,7 +2,7 @@ type User = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
-}
+};
 
 export type Comment = {
   id: string;
@@ -10,4 +10,4 @@ export type Comment = {
   user: User;
   comment: string;
   rating: number;
-}
+};
