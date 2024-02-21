@@ -6,7 +6,7 @@ type ReviewsItemProps = {
 };
 
 function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
-  const { user } = comment;
+  const { user, rating } = comment;
   const date = dayjs(comment.date);
   const formattedDate = date.format('MMMM YYYY');
   const formattedDateTime = date.format('YYYY-MM-DD');
@@ -28,7 +28,7 @@ function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
