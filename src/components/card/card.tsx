@@ -1,5 +1,6 @@
 import { Offer } from '../../types/offer';
 import getRandomArrayElement from '../../utils/utils';
+import { Link } from 'react-router-dom';
 
 type CardProps = {
   offer: Offer;
@@ -14,7 +15,8 @@ function Card({
   onMouseEnter,
   onMouseLeave,
 }: CardProps): JSX.Element {
-  const { title, type, price, rating, images, isFavorite, isPremium } = offer;
+  const { id, title, type, price, rating, images, isFavorite, isPremium } =
+    offer;
 
   const img = getRandomArrayElement(images);
   const fillWidth = (rating / 5) * 100;
@@ -68,9 +70,11 @@ function Card({
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <h2 className="place-card__name">
-          <a href="#">{title}</a>
-        </h2>
+        <Link to={`/offer/${id}`}>
+          <h2 className="place-card__name">
+            <a href="#">{title}</a>
+          </h2>
+        </Link>
         <p className="place-card__type">{type}</p>
       </div>
     </article>

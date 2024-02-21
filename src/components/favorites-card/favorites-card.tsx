@@ -1,12 +1,13 @@
 import { OfferWithComments } from '../../types/offerWithComments';
 import getRandomArrayElement from '../../utils/utils';
+import { Link } from 'react-router-dom';
 
 type FavoritesCardProps = {
   offer: OfferWithComments;
 };
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-  const { type, title, price, rating, images, isPremium } = offer.offer;
+  const { id, type, title, price, rating, images, isPremium } = offer.offer;
 
   const img = getRandomArrayElement(images);
   const fillWidth = (rating / 5) * 100;
@@ -53,9 +54,11 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
-          <a href="#">{title}</a>
-        </h2>
+        <Link to={`/offer/${id}`}>
+          <h2 className="place-card__name">
+            <a href="#">{title}</a>
+          </h2>
+        </Link>
         <p className="place-card__type">{type}</p>
       </div>
     </article>
