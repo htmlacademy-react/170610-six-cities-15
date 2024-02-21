@@ -7,30 +7,43 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { OfferWithComments } from '../../types/offerWithComments';
 
 type AppScreenProps = {
-  rentalPlacesCount: number;
+  props: OfferWithComments[];
+  filter: OfferWithComments[];
 };
 
-function App({ rentalPlacesCount }: AppScreenProps): JSX.Element {
+function App({ props }: AppScreenProps): JSX.Element {
+  const favoriteOffers = props.filter(
+    (offer) => offer.offer.isFavorite === true
+  );
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen rentalPlacesCount={rentalPlacesCount} />}
+            element={<MainScreen props={props} filter={[]} />}
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen />
+                <FavoritesScreen favoriteOffers={favoriteOffers} />
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen />} />
+          <Route
+            path={AppRoute.Offer}
+            element={<OfferScreen props={props} find={[]} />}
+          />
+          <Route
+            path={AppRoute.DevFavorites}
+            element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
+          />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </BrowserRouter>
