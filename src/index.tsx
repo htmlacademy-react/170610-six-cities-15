@@ -11,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App props={props} />
+    <App props={props} filter={[]} />
   </React.StrictMode>
 );
