@@ -1,18 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/ui/header/header.tsx';
-import Tabs from '../../components/tabs/tabs.tsx';
-import OffersList from '../../components/offers-list/offers-list.tsx';
-import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
+import Header from '../../components/ui/header/header';
+import Tabs from '../../components/tabs/tabs';
+import OffersList from '../../components/offers-list/offers-list';
+import SortingOptions from '../../components/sorting-options/sorting-options';
 import { OfferWithComments } from '../../types/offerWithComments';
-import Map from '../../components/map/map.tsx';
-import { cities } from '../../const.ts';
+import Map from '../../components/map/map';
+import { cities } from '../../const';
 
 type MainScreenProps = {
   props: OfferWithComments[];
   length: number;
 };
 
-function MainScreen({ props }: MainScreenProps): JSX.Element {
+function MainScreen({ props, length }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -27,7 +27,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {props.length} places to stay in Amsterdam
+                {length} places to stay in Amsterdam{' '}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -43,7 +43,12 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map latitude={52.379189} longitude={4.899431} zoom={14} />
+                <Map
+                  defaultLatitude={52.379189}
+                  defaultLongitude={4.899431}
+                  defaultZoom={12}
+                  markersData={props}
+                />
               </section>
             </div>
           </div>
