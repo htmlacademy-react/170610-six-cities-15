@@ -135,7 +135,7 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!rating || !review || review.trim().length < 10}
+          disabled={!rating || !review || review.trim().length < 50}
         >
           Submit
         </button>
