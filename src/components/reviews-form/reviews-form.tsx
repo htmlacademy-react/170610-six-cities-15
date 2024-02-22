@@ -1,6 +1,6 @@
-// ReviewsForm.tsx
 import React, { useState } from 'react';
 import RatingInput from '../rating-input/rating-Input';
+import { ratingsData } from '../../const';
 
 function ReviewsForm(): JSX.Element {
   const [rating, setRating] = useState('');
@@ -26,36 +26,15 @@ function ReviewsForm(): JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        <RatingInput
-          value="5"
-          onChange={handleRatingChange}
-          checked={rating === '5'}
-          title="perfect"
-        />
-        <RatingInput
-          value="4"
-          onChange={handleRatingChange}
-          checked={rating === '4'}
-          title="good"
-        />
-        <RatingInput
-          value="3"
-          onChange={handleRatingChange}
-          checked={rating === '3'}
-          title="not bad"
-        />
-        <RatingInput
-          value="2"
-          onChange={handleRatingChange}
-          checked={rating === '2'}
-          title="badly"
-        />
-        <RatingInput
-          value="1"
-          onChange={handleRatingChange}
-          checked={rating === '1'}
-          title="terribly"
-        />
+        {ratingsData.map((data) => (
+          <RatingInput
+            key={data.value}
+            value={data.value}
+            onChange={handleRatingChange}
+            checked={rating === data.value}
+            title={data.title}
+          />
+        ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
