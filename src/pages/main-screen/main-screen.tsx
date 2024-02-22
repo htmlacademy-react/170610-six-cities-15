@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header.tsx';
+import Header from '../../components/ui/header/header.tsx';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import { OfferWithComments } from '../../types/offerWithComments';
 

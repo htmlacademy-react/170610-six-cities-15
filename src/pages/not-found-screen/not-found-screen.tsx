@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import Logo from '../../components/ui/logo/logo';
 
 function NotFoundScreen(): JSX.Element {
   return (
