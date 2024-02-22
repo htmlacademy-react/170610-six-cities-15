@@ -12,6 +12,7 @@ import { OfferWithComments } from '../../types/offerWithComments';
 type AppScreenProps = {
   props: OfferWithComments[];
   filter: OfferWithComments[];
+  length: number;
 };
 
 function App({ props }: AppScreenProps): JSX.Element {
@@ -25,7 +26,7 @@ function App({ props }: AppScreenProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen props={props} filter={[]} />}
+            element={<MainScreen props={props} length={props.length} />}
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route

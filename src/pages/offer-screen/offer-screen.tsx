@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import Header from '../../components/header/header';
+import Header from '../../components/ui/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';

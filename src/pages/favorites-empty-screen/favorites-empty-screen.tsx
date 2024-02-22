@@ -1,4 +1,4 @@
-import Logo from '../../components/logo/logo';
+import Logo from '../../components/ui/logo/logo';
 
 function FavoritesEmptyScreen(): JSX.Element {
   return (

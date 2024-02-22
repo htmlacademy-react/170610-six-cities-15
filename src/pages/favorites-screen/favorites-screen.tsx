@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import Logo from '../../components/ui/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import { OfferWithComments } from '../../types/offerWithComments';
 
@@ -7,8 +7,9 @@ type FavoritesScreenProps = {
   favoriteOffers: OfferWithComments[];
 };
 
-
-function FavoritesScreen({ favoriteOffers }: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen({
+  favoriteOffers,
+}: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>
