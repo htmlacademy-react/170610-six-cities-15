@@ -4,6 +4,7 @@ import Tabs from '../../components/tabs/tabs.tsx';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 import { OfferWithComments } from '../../types/offerWithComments';
+import Map from '../../components/map/map.tsx';
 import { cities } from '../../const.ts';
 
 type MainScreenProps = {
@@ -45,7 +46,9 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
               <OffersList props={filteredByCityProps} map={[]} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map latitude={52.379189} longitude={4.899431} zoom={14} />
+              </section>
             </div>
           </div>
         </div>
