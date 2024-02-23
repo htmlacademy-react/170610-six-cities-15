@@ -8,6 +8,7 @@ type MapProps = {
   defaultLongitude: number;
   defaultZoom: number;
   markersData: OfferWithComments[];
+  maxWidth?: number; // Добавляем опциональный проп для максимальной ширины
 };
 
 const Map: React.FC<MapProps> = ({
@@ -15,6 +16,7 @@ const Map: React.FC<MapProps> = ({
   defaultLongitude,
   defaultZoom,
   markersData,
+  maxWidth = 500, // Устанавливаем значение по умолчанию
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
@@ -45,7 +47,17 @@ const Map: React.FC<MapProps> = ({
     }
   }, [defaultLatitude, defaultLongitude, defaultZoom, markersData]);
 
-  return <div ref={mapRef} style={{ height: '100%', width: '100%' }} />;
+  return (
+    <div
+      ref={mapRef}
+      style={{
+        height: '100%',
+        width: '100%',
+        maxWidth: `${maxWidth}px`,
+        margin: '0 auto',
+      }} // Добавляем стиль для ограничения ширины и автоматических отступов слева и справа
+    />
+  );
 };
 
 export default Map;

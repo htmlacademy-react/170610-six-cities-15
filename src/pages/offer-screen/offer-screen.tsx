@@ -131,6 +131,7 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
               defaultLongitude={4.899431}
               defaultZoom={12}
               markersData={neighborhoodOffers}
+              maxWidth={1144}
             />
           </section>
         </section>

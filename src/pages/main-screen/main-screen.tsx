@@ -52,6 +52,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                   defaultLongitude={4.899431}
                   defaultZoom={12}
                   markersData={props}
+                  maxWidth={682}
                 />
               </section>
             </div>
