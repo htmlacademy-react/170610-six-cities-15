@@ -1,3 +1,3 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const incrementStep = createAction('game/incrementStep');
+export const filterByCityName = createAction('filterByCityName');
