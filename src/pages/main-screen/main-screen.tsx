@@ -39,7 +39,11 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                 </span>
                 <SortingOptions />
               </form>
-              <OffersList props={props} map={[]} />
+              <OffersList
+                props={props}
+                map={[]}
+                className="cities__places-list places__list tabs__content"
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -48,6 +52,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                   defaultLongitude={4.899431}
                   defaultZoom={12}
                   markersData={props}
+                  maxWidth={682}
                 />
               </section>
             </div>
