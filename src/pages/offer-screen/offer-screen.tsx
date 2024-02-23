@@ -12,11 +12,13 @@ import { OfferWithComments } from '../../types/offerWithComments';
 type OfferScreenProps = {
   props: OfferWithComments[];
   find: OfferWithComments[];
+  slice: OfferWithComments[];
 };
 
 function OfferScreen({ props }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
   const foundOffer = props.find((item) => item.offer.id === id);
+  const neighborhoodOffers = props.slice(0, 3);
 
   if (!foundOffer) {
     return <NotFoundScreen />;
@@ -128,7 +130,7 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
               defaultLatitude={52.379189}
               defaultLongitude={4.899431}
               defaultZoom={12}
-              markersData={props}
+              markersData={neighborhoodOffers}
             />
           </section>
         </section>
@@ -138,7 +140,7 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <OffersList
-              props={props}
+              props={neighborhoodOffers}
               map={[]}
               className="near-places__list places__list"
             />
