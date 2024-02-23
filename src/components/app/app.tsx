@@ -39,7 +39,7 @@ function App({ props }: AppScreenProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen props={props} find={[]} />}
+            element={<OfferScreen props={props} find={[]} slice={[]} />}
           />
           <Route
             path={AppRoute.DevFavorites}
