@@ -6,7 +6,7 @@ type User = {
 
 export type Comment = {
   id: string;
-  date: Date;
+  date: string;
   user: User;
   comment: string;
   rating: number;
