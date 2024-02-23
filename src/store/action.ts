@@ -1,3 +1,3 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const filterByCityName = createAction('filterByCityName');
+export const setActiveCity = createAction<string>('setActiveCity');

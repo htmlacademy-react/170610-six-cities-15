@@ -1,15 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { filterByCityName } from './action';
-import { OfferWithComments } from '../types/offerWithComments';
+import { setActiveCity } from './action';
 
-const initialState = {
-  city: '' as string | undefined,
-  offers: [] as OfferWithComments[],
+// Тип для начального состояния
+type State = {
+  city: string | undefined;
 };
 
+// Начальное состояние
+const initialState: State = {
+  city: undefined,
+};
+
+// Создание редьюсера
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(filterByCityName, (state, action) => {
+  builder.addCase(setActiveCity, (state, action) => {
     state.city = action.payload;
   });
 });
+
+// Экспорт редьюсера
 export { reducer };
