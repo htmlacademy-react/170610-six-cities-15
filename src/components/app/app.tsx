@@ -19,9 +19,7 @@ function App({ offers }: AppScreenProps): JSX.Element {
   const dispatch = useDispatch();
   dispatch(setAllOffers(offers));
 
-  const favoriteOffers = offers.filter(
-    (offer) => offer.offer.isFavorite === true
-  );
+  const favoriteOffers = offers.filter((offer) => offer.offer.isFavorite);
 
   return (
     <HelmetProvider>
