@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
 import Header from '../../components/ui/header/header';
 import Tabs from '../../components/tabs/tabs';
 import OffersList from '../../components/offers-list/offers-list';
@@ -7,16 +8,19 @@ import { OfferWithComments } from '../../types/offerWithComments';
 import Map from '../../components/map/map';
 import { cities } from '../../const';
 
-type MainScreenProps = {
-  offers: OfferWithComments[];
-};
-
-function MainScreen({ offers }: MainScreenProps): JSX.Element {
-  const filteredOffersByCity = offers.filter(
-    (offer) => offer.offer.city.name === cities.AMSTERDAM
-  );
-
+function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
+  const offers = useSelector((state: RootState) => state.app.allOffers);
+  const activeCity = useSelector((state: RootState) => state.app.city);
+
+  function filterOffersByCityName(
+    offers: OfferWithComments[],
+    cityName: string
+  ) {
+    return offers.filter((offer) => offer.offer.city.name === cityName);
+  }
+
+  const mapPoints = filterOffersByCityName(offers, activeCity);
 
   return (
     <div className="page page--gray page--main">
@@ -32,7 +36,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffersByCity.length} places to stay in Amsterdam{' '}
+                {mapPoints.length} places to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -45,7 +49,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
                 <SortingOptions />
               </form>
               <OffersList
-                offers={filteredOffersByCity}
+                offers={mapPoints}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -55,7 +59,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
                   defaultLatitude={52.379189}
                   defaultLongitude={4.899431}
                   defaultZoom={12}
-                  markersData={offers}
+                  markersData={mapPoints}
                   maxWidth={682}
                 />
               </section>
