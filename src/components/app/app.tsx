@@ -1,4 +1,6 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../store';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -21,34 +23,36 @@ function App({ props }: AppScreenProps): JSX.Element {
   );
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainScreen props={props} length={props.length} />}
-          />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen favoriteOffers={favoriteOffers} />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Offer}
-            element={<OfferScreen props={props} find={[]} slice={[]} />}
-          />
-          <Route
-            path={AppRoute.DevFavorites}
-            element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
-          />
-          <Route path="*" element={<NotFoundScreen />} />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+    <Provider store={store}>
+      <HelmetProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path={AppRoute.Main}
+              element={<MainScreen props={props} length={props.length} />}
+            />
+            <Route path={AppRoute.Login} element={<LoginScreen />} />
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                  <FavoritesScreen favoriteOffers={favoriteOffers} />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={AppRoute.Offer}
+              element={<OfferScreen props={props} find={[]} slice={[]} />}
+            />
+            <Route
+              path={AppRoute.DevFavorites}
+              element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
+            />
+            <Route path="*" element={<NotFoundScreen />} />
+          </Routes>
+        </BrowserRouter>
+      </HelmetProvider>
+    </Provider>
   );
 }
 
