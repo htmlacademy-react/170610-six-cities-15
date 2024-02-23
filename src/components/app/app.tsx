@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from '../../store';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useDispatch } from 'react-redux';
+import { setAllOffers } from '../../store/action';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
@@ -16,41 +16,42 @@ type AppScreenProps = {
 };
 
 function App({ offers }: AppScreenProps): JSX.Element {
+  const dispatch = useDispatch();
+  dispatch(setAllOffers(offers));
+
   const favoriteOffers = offers.filter(
     (offer) => offer.offer.isFavorite === true
   );
 
   return (
-    <Provider store={store}>
-      <HelmetProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path={AppRoute.Main}
-              element={<MainScreen offers={offers} />}
-            />
-            <Route path={AppRoute.Login} element={<LoginScreen />} />
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                  <FavoritesScreen favoriteOffers={favoriteOffers} />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={AppRoute.Offer}
-              element={<OfferScreen offers={offers} />}
-            />
-            <Route
-              path={AppRoute.DevFavorites}
-              element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
-            />
-            <Route path="*" element={<NotFoundScreen />} />
-          </Routes>
-        </BrowserRouter>
-      </HelmetProvider>
-    </Provider>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={<MainScreen offers={offers} />}
+          />
+          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesScreen favoriteOffers={favoriteOffers} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.Offer}
+            element={<OfferScreen offers={offers} />}
+          />
+          <Route
+            path={AppRoute.DevFavorites}
+            element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
+          />
+          <Route path="*" element={<NotFoundScreen />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

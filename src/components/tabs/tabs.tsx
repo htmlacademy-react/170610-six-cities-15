@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store'; // Подключаем корневой тип состояния
+import { RootState } from '../../store';
 import { setActiveCity } from '../../store/action';
 
 type TabsProps = {
