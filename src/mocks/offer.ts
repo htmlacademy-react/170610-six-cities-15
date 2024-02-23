@@ -4,6 +4,8 @@ import { Offer } from '../types/offer';
 import capitalize from './utils';
 import { cities } from '../const';
 
+const citiesNames = Object.values(cities);
+
 function getRandomCoordinates(): { latitude: number; longitude: number } {
   const coordinates = [
     { latitude: 52.3909553943508, longitude: 4.85309666406198 },
@@ -22,7 +24,7 @@ function generateOfferMock(): Offer {
 
   // Выбираем случайный город из списка
 
-  const randomCity = faker.random.arrayElement(cities);
+  const randomCity = faker.random.arrayElement(citiesNames);
 
   if (randomCity === 'Amsterdam') {
     // Для Амстердама используем фиксированные координаты

@@ -8,14 +8,15 @@ import Map from '../../components/map/map';
 import { cities } from '../../const';
 
 type MainScreenProps = {
-  props: OfferWithComments[];
-  filter: OfferWithComments[];
+  offers: OfferWithComments[];
 };
 
-function MainScreen({ props }: MainScreenProps): JSX.Element {
-  const filteredOffersByCity = props.filter(
-    (offer) => offer.offer.city.name === 'Amsterdam'
+function MainScreen({ offers }: MainScreenProps): JSX.Element {
+  const filteredOffersByCity = offers.filter(
+    (offer) => offer.offer.city.name === cities.AMSTERDAM
   );
+
+  const citiesNames = Object.values(cities);
 
   return (
     <div className="page page--gray page--main">
@@ -25,7 +26,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs cities={cities} />
+        <Tabs cities={citiesNames} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -44,8 +45,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
                 <SortingOptions />
               </form>
               <OffersList
-                props={filteredOffersByCity}
-                map={[]}
+                offers={filteredOffersByCity}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -55,7 +55,7 @@ function MainScreen({ props }: MainScreenProps): JSX.Element {
                   defaultLatitude={52.379189}
                   defaultLongitude={4.899431}
                   defaultZoom={12}
-                  markersData={props}
+                  markersData={offers}
                   maxWidth={682}
                 />
               </section>

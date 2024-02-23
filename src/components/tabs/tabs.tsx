@@ -3,11 +3,13 @@ type TabsProps = {
 };
 
 function Tabs({ cities }: TabsProps): JSX.Element {
+  const citiesNames = Object.values(cities);
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities.map((city) => (
+          {citiesNames.map((city) => (
             <li key={city} className="locations__item">
               <a href="#" className="locations__item-link tabs__item">
                 <span>{city}</span>

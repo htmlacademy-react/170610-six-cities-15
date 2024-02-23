@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import generateOffersWithComments from './mocks/data';
 
-const props = generateOffersWithComments();
+const offers = generateOffersWithComments();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App props={props} filter={[]} length={props.length} />
+    <App offers={offers} />
   </React.StrictMode>
 );

@@ -12,13 +12,11 @@ import { HelmetProvider } from 'react-helmet-async';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type AppScreenProps = {
-  props: OfferWithComments[];
-  filter: OfferWithComments[];
-  length: number;
+  offers: OfferWithComments[];
 };
 
-function App({ props }: AppScreenProps): JSX.Element {
-  const favoriteOffers = props.filter(
+function App({ offers }: AppScreenProps): JSX.Element {
+  const favoriteOffers = offers.filter(
     (offer) => offer.offer.isFavorite === true
   );
 
@@ -29,7 +27,7 @@ function App({ props }: AppScreenProps): JSX.Element {
           <Routes>
             <Route
               path={AppRoute.Main}
-              element={<MainScreen props={props} length={props.length} />}
+              element={<MainScreen offers={offers} />}
             />
             <Route path={AppRoute.Login} element={<LoginScreen />} />
             <Route
@@ -42,7 +40,7 @@ function App({ props }: AppScreenProps): JSX.Element {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferScreen props={props} find={[]} slice={[]} />}
+              element={<OfferScreen props={offers} find={[]} slice={[]} />}
             />
             <Route
               path={AppRoute.DevFavorites}
