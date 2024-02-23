@@ -9,10 +9,14 @@ import { cities } from '../../const';
 
 type MainScreenProps = {
   props: OfferWithComments[];
-  length: number;
+  filter: OfferWithComments[];
 };
 
-function MainScreen({ props, length }: MainScreenProps): JSX.Element {
+function MainScreen({ props }: MainScreenProps): JSX.Element {
+  const filteredOffersByCity = props.filter(
+    (offer) => offer.offer.city.name === 'Amsterdam'
+  );
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -27,7 +31,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {length} places to stay in Amsterdam{' '}
+                {filteredOffersByCity.length} places to stay in Amsterdam{' '}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -40,7 +44,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                 <SortingOptions />
               </form>
               <OffersList
-                props={props}
+                props={filteredOffersByCity}
                 map={[]}
                 className="cities__places-list places__list tabs__content"
               />
