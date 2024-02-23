@@ -6,6 +6,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OffersList from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type OfferScreenProps = {
@@ -122,7 +123,14 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <Map
+              defaultLatitude={52.379189}
+              defaultLongitude={4.899431}
+              defaultZoom={12}
+              markersData={props}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
