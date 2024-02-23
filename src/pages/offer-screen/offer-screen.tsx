@@ -137,7 +137,7 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">
-              Other places in the neighbourhood
+              Other places in the neighborhood
             </h2>
             <OffersList
               props={neighborhoodOffers}
