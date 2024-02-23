@@ -5,7 +5,7 @@ import Header from '../../components/ui/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import NeighborhoodOffersList from '../../components/neighborhood-offers-list/neighborhood-offers-list';
+import OffersList from '../../components/offers-list/offers-list';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type OfferScreenProps = {
@@ -129,7 +129,11 @@ function OfferScreen({ props }: OfferScreenProps): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <NeighborhoodOffersList props={props} map={[]} />
+            <OffersList
+              props={props}
+              map={[]}
+              className="near-places__list places__list"
+            />
           </section>
         </div>
       </main>
