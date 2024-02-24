@@ -15,7 +15,12 @@ function MainScreen(): JSX.Element {
   const activeCity = useAppSelector((state) => state.app.city);
 
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
+  const [sortingOptionsVisible, setSortingOptionsVisible] =
+    useState<boolean>(false);
 
+  const handleSortOptionClick = () => {
+    setSortingOptionsVisible(true);
+  };
   const handleSort = (option: string) => {
     setSortOption(option);
   };
@@ -56,13 +61,22 @@ function MainScreen(): JSX.Element {
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
+                <span
+                  className="places__sorting-type"
+                  tabIndex={0}
+                  onClick={handleSortOptionClick}
+                >
                   {sortOption}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <SortingOptions handleSort={handleSort} />
+                {sortingOptionsVisible && (
+                  <SortingOptions
+                    handleSort={handleSort}
+                    setSortingOptionsVisible={setSortingOptionsVisible}
+                  />
+                )}
               </form>
               <OffersList
                 offers={filteredOffers}

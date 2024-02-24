@@ -3,9 +3,13 @@ import { sortingOptions } from '../../const';
 
 interface SortingOptionsProps {
   handleSort: (sortOption: string) => void;
+  setSortingOptionsVisible: (visible: boolean) => void;
 }
 
-function SortingOptions({ handleSort }: SortingOptionsProps): JSX.Element {
+function SortingOptions({
+  handleSort,
+  setSortingOptionsVisible,
+}: SortingOptionsProps): JSX.Element {
   const [selectedSortOption, setSelectedSortOption] = useState<string>(
     sortingOptions.POPULAR
   );
@@ -13,6 +17,7 @@ function SortingOptions({ handleSort }: SortingOptionsProps): JSX.Element {
   const handleOptionClick = (option: string) => {
     setSelectedSortOption(option);
     handleSort(option);
+    setSortingOptionsVisible(false);
   };
 
   return (
