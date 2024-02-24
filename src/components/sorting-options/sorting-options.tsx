@@ -14,6 +14,8 @@ function SortingOptions({
     sortingOptions.POPULAR
   );
 
+  const sortingOptionList = Array.from(Object.values(sortingOptions));
+
   const handleOptionClick = (option: string) => {
     setSelectedSortOption(option);
     handleSort(option);
@@ -22,46 +24,17 @@ function SortingOptions({
 
   return (
     <ul className="places__options places__options--custom places__options--opened">
-      <li
-        className={`places__option ${
-          selectedSortOption === sortingOptions.POPULAR
-            ? 'places__option--active'
-            : ''
-        }`}
-        onClick={() => handleOptionClick(sortingOptions.POPULAR)}
-      >
-        {sortingOptions.POPULAR}
-      </li>
-      <li
-        className={`places__option ${
-          selectedSortOption === sortingOptions.PRICE_LOW_TO_HIGH
-            ? 'places__option--active'
-            : ''
-        }`}
-        onClick={() => handleOptionClick(sortingOptions.PRICE_LOW_TO_HIGH)}
-      >
-        {sortingOptions.PRICE_LOW_TO_HIGH}
-      </li>
-      <li
-        className={`places__option ${
-          selectedSortOption === sortingOptions.PRICE_HIGH_TO_LOW
-            ? 'places__option--active'
-            : ''
-        }`}
-        onClick={() => handleOptionClick(sortingOptions.PRICE_HIGH_TO_LOW)}
-      >
-        {sortingOptions.PRICE_HIGH_TO_LOW}
-      </li>
-      <li
-        className={`places__option ${
-          selectedSortOption === sortingOptions.TOP_RATED_FIRST
-            ? 'places__option--active'
-            : ''
-        }`}
-        onClick={() => handleOptionClick(sortingOptions.TOP_RATED_FIRST)}
-      >
-        {sortingOptions.TOP_RATED_FIRST}
-      </li>
+      {sortingOptionList.map((option) => (
+        <li
+          key={option}
+          className={`places__option ${
+            selectedSortOption === option ? 'places__option--active' : ''
+          }`}
+          onClick={() => handleOptionClick(option)}
+        >
+          {option}
+        </li>
+      ))}
     </ul>
   );
 }
