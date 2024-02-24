@@ -1,5 +1,5 @@
 import { OfferWithComments } from '../../types/offerWithComments';
-import getRandomArrayElement from '../../utils/utils';
+import { getRandomArrayElement } from '../../utils/common';
 import { Link } from 'react-router-dom';
 
 type FavoritesCardProps = {

@@ -1,5 +1,5 @@
 import { Offer } from '../../types/offer';
-import getRandomArrayElement from '../../utils/utils';
+import { getRandomArrayElement } from '../../utils/common';
 import { Link } from 'react-router-dom';
 
 type CardProps = {

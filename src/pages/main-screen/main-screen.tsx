@@ -4,21 +4,14 @@ import Header from '../../components/ui/header/header';
 import Tabs from '../../components/tabs/tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { OfferWithComments } from '../../types/offerWithComments';
 import Map from '../../components/map/map';
+import { filterOffersByCityName } from '../../utils/common';
 import { cities } from '../../const';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
   const allOffers = useAppSelector((state) => state.app.allOffers);
   const activeCity = useAppSelector((state) => state.app.city);
-
-  function filterOffersByCityName(
-    offers: OfferWithComments[],
-    cityName: string
-  ): OfferWithComments[] {
-    return offers.filter((offer) => offer.offer.city.name === cityName);
-  }
 
   const filteredOffers = filterOffersByCityName(allOffers, activeCity);
 
