@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Header from '../../components/ui/header/header';
@@ -6,14 +7,36 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import { filterOffersByCityName } from '../../utils/common';
-import { cities } from '../../const';
+import { cities, sortingOptions } from '../../const';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
   const allOffers = useAppSelector((state) => state.app.allOffers);
   const activeCity = useAppSelector((state) => state.app.city);
 
+  const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
+
+  const handleSort = (option: string) => {
+    setSortOption(option);
+  };
+
   const filteredOffers = filterOffersByCityName(allOffers, activeCity);
+
+  switch (sortOption) {
+    case sortingOptions.POPULAR:
+      break;
+    case sortingOptions.PRICE_LOW_TO_HIGH:
+      filteredOffers.sort((a, b) => a.offer.price - b.offer.price);
+      break;
+    case sortingOptions.PRICE_HIGH_TO_LOW:
+      filteredOffers.sort((a, b) => b.offer.price - a.offer.price);
+      break;
+    case sortingOptions.TOP_RATED_FIRST:
+      filteredOffers.sort((a, b) => b.offer.rating - a.offer.rating);
+      break;
+    default:
+      break;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -34,12 +57,12 @@ function MainScreen(): JSX.Element {
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
-                  Popular
+                  {sortOption}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <SortingOptions />
+                <SortingOptions handleSort={handleSort} />
               </form>
               <OffersList
                 offers={filteredOffers}
