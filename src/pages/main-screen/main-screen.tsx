@@ -17,12 +17,17 @@ function MainScreen(): JSX.Element {
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
     useState<boolean>(false);
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
 
   const handleSortOptionClick = () => {
     setSortingOptionsVisible(true);
   };
   const handleSort = (option: string) => {
     setSortOption(option);
+  };
+
+  const handleOfferHover = (offerId: string) => {
+    setHoveredOfferId(offerId);
   };
 
   const filteredOffers = filterOffersByCityName(allOffers, activeCity);
@@ -80,6 +85,7 @@ function MainScreen(): JSX.Element {
               </form>
               <OffersList
                 offers={filteredOffers}
+                onOfferHover={handleOfferHover}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -91,6 +97,7 @@ function MainScreen(): JSX.Element {
                   defaultZoom={12}
                   markersData={filteredOffers}
                   maxWidth={682}
+                  hoveredOfferId={hoveredOfferId}
                 />
               </section>
             </div>

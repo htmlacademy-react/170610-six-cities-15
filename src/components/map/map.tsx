@@ -9,6 +9,7 @@ type MapProps = {
   defaultZoom: number;
   markersData: OfferWithComments[];
   maxWidth?: number; // Добавляем опциональный проп для максимальной ширины
+  hoveredOfferId?: string;
 };
 
 const Map: React.FC<MapProps> = ({
@@ -17,9 +18,12 @@ const Map: React.FC<MapProps> = ({
   defaultZoom,
   markersData,
   maxWidth = 500, // Устанавливаем значение по умолчанию
+  hoveredOfferId,
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
+
+  console.log(hoveredOfferId);
 
   useEffect(() => {
     if (
@@ -38,8 +42,8 @@ const Map: React.FC<MapProps> = ({
         mapInstance.current
       );
 
-      markersData.forEach((markerData) => {
-        const { latitude, longitude } = markerData.offer.location;
+      markersData.forEach(({ offer }) => {
+        const { latitude, longitude } = offer.location;
         if (mapInstance.current) {
           L.marker([latitude, longitude]).addTo(mapInstance.current);
         }
