@@ -20,11 +20,11 @@ export const ratingsData = [
   { value: '1', title: 'terribly' },
 ];
 
-export const cities = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
+export const cities = {
+  PARIS: 'Paris',
+  COLOGNE: 'Cologne',
+  BRUSSELS: 'Brussels',
+  AMSTERDAM: 'Amsterdam',
+  HAMBURG: 'Hamburg',
+  DUSSELDORF: 'Dusseldorf',
+} as const;

@@ -1,5 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { setAllOffers } from '../../store/action';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
@@ -10,24 +12,20 @@ import { HelmetProvider } from 'react-helmet-async';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type AppScreenProps = {
-  props: OfferWithComments[];
-  filter: OfferWithComments[];
-  length: number;
+  offers: OfferWithComments[];
 };
 
-function App({ props }: AppScreenProps): JSX.Element {
-  const favoriteOffers = props.filter(
-    (offer) => offer.offer.isFavorite === true
-  );
+function App({ offers }: AppScreenProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(setAllOffers(offers));
+
+  const favoriteOffers = offers.filter((offer) => offer.offer.isFavorite);
 
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainScreen props={props} length={props.length} />}
-          />
+          <Route path={AppRoute.Main} element={<MainScreen />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Favorites}
@@ -39,7 +37,7 @@ function App({ props }: AppScreenProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen props={props} find={[]} slice={[]} />}
+            element={<OfferScreen offers={offers} />}
           />
           <Route
             path={AppRoute.DevFavorites}

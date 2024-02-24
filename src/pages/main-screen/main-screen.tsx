@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks';
 import Header from '../../components/ui/header/header';
 import Tabs from '../../components/tabs/tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { OfferWithComments } from '../../types/offerWithComments';
 import Map from '../../components/map/map';
+import { filterOffersByCityName } from '../../utils/common';
 import { cities } from '../../const';
 
-type MainScreenProps = {
-  props: OfferWithComments[];
-  length: number;
-};
+function MainScreen(): JSX.Element {
+  const citiesNames = Object.values(cities);
+  const allOffers = useAppSelector((state) => state.app.allOffers);
+  const activeCity = useAppSelector((state) => state.app.city);
 
-function MainScreen({ props, length }: MainScreenProps): JSX.Element {
+  const filteredOffers = filterOffersByCityName(allOffers, activeCity);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -21,13 +23,13 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs cities={cities} />
+        <Tabs cities={citiesNames} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {length} places to stay in Amsterdam{' '}
+                {filteredOffers.length} places to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -40,8 +42,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                 <SortingOptions />
               </form>
               <OffersList
-                props={props}
-                map={[]}
+                offers={filteredOffers}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -51,7 +52,7 @@ function MainScreen({ props, length }: MainScreenProps): JSX.Element {
                   defaultLatitude={52.379189}
                   defaultLongitude={4.899431}
                   defaultZoom={12}
-                  markersData={props}
+                  markersData={filteredOffers}
                   maxWidth={682}
                 />
               </section>

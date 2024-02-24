@@ -3,12 +3,11 @@ import Card from '../card/card';
 import { OfferWithComments } from '../../types/offerWithComments';
 
 type OffersListProps = {
-  props: OfferWithComments[];
-  map: OfferWithComments[];
+  offers: OfferWithComments[];
   className?: string;
 };
 
-function OffersList({ props, className }: OffersListProps): JSX.Element {
+function OffersList({ offers, className }: OffersListProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const handleCardMouseEnter = (id: string) => {
@@ -21,7 +20,7 @@ function OffersList({ props, className }: OffersListProps): JSX.Element {
 
   return (
     <div className={`${className}`}>
-      {props.map(({ offer }) => (
+      {offers.map(({ offer }) => (
         <Card
           key={offer.id}
           offer={offer}

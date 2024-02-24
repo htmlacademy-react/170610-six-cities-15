@@ -2,6 +2,9 @@ import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../types/offer';
 import capitalize from './utils';
+import { cities } from '../const';
+
+const citiesNames = Object.values(cities);
 
 function getRandomCoordinates(): { latitude: number; longitude: number } {
   const coordinates = [
@@ -16,7 +19,24 @@ function getRandomCoordinates(): { latitude: number; longitude: number } {
 }
 
 function generateOfferMock(): Offer {
-  const { latitude, longitude } = getRandomCoordinates();
+  let cityCoordinates;
+  let cityName;
+
+  // Выбираем случайный город из списка
+
+  const randomCity = faker.random.arrayElement(citiesNames);
+
+  if (randomCity === 'Amsterdam') {
+    // Для Амстердама используем фиксированные координаты
+    cityCoordinates = { latitude: 52.379189, longitude: 4.899431 };
+    cityName = 'Amsterdam';
+  } else {
+    // Для других городов генерируем случайные координаты
+    cityCoordinates = getRandomCoordinates();
+    cityName = randomCity;
+  }
+
+  const { latitude, longitude } = cityCoordinates;
 
   return {
     id: uuidv4(),
@@ -24,10 +44,10 @@ function generateOfferMock(): Offer {
     type: faker.random.arrayElement(['apartment', 'house', 'room']),
     price: faker.datatype.number({ min: 50, max: 300 }),
     city: {
-      name: faker.random.arrayElement(['Amsterdam']),
+      name: cityName,
       location: {
-        latitude: 52.379189,
-        longitude: 4.899431,
+        latitude,
+        longitude,
         zoom: faker.datatype.number({ min: 8, max: 12 }),
       },
     },
