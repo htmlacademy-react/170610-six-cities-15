@@ -5,13 +5,11 @@ import { cities } from '../const';
 type State = {
   city: string;
   allOffers: OfferWithComments[];
-  cityOffers: OfferWithComments[];
 };
 
 const initialState: State = {
   city: cities.PARIS,
   allOffers: [],
-  cityOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
