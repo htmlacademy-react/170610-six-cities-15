@@ -1,22 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks';
 import Header from '../../components/ui/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { OfferWithComments } from '../../types/offerWithComments';
 
-type OfferScreenProps = {
-  offers: OfferWithComments[];
-};
+function OfferScreen(): JSX.Element {
+  const allOffers = useAppSelector((state) => state.app.allOffers);
 
-function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
-  const foundOffer = offers.find((item) => item.offer.id === id);
-  const neighborhoodOffers = offers.slice(0, 3);
+  const foundOffer = allOffers.find((item) => item.offer.id === id);
+  const neighborhoodOffers = allOffers.slice(0, 3);
 
   if (!foundOffer) {
     return <NotFoundScreen />;
