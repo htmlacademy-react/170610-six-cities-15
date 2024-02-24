@@ -1,17 +1,61 @@
-function SortingOptions(): JSX.Element {
+import { useState } from 'react';
+import { sortingOptions } from '../../const';
+
+interface SortingOptionsProps {
+  handleSort: (sortOption: string) => void;
+}
+
+function SortingOptions({ handleSort }: SortingOptionsProps): JSX.Element {
+  const [selectedSortOption, setSelectedSortOption] = useState<string>(
+    sortingOptions.POPULAR
+  );
+
+  const handleOptionClick = (option: string) => {
+    setSelectedSortOption(option);
+    handleSort(option);
+  };
+
   return (
     <ul className="places__options places__options--custom places__options--opened">
-      <li className="places__option places__option--active" tabIndex={0}>
-        Popular
+      <li
+        className={`places__option ${
+          selectedSortOption === sortingOptions.POPULAR
+            ? 'places__option--active'
+            : ''
+        }`}
+        onClick={() => handleOptionClick(sortingOptions.POPULAR)}
+      >
+        {sortingOptions.POPULAR}
       </li>
-      <li className="places__option" tabIndex={0}>
-        Price: low to high
+      <li
+        className={`places__option ${
+          selectedSortOption === sortingOptions.PRICE_LOW_TO_HIGH
+            ? 'places__option--active'
+            : ''
+        }`}
+        onClick={() => handleOptionClick(sortingOptions.PRICE_LOW_TO_HIGH)}
+      >
+        {sortingOptions.PRICE_LOW_TO_HIGH}
       </li>
-      <li className="places__option" tabIndex={0}>
-        Price: high to low
+      <li
+        className={`places__option ${
+          selectedSortOption === sortingOptions.PRICE_HIGH_TO_LOW
+            ? 'places__option--active'
+            : ''
+        }`}
+        onClick={() => handleOptionClick(sortingOptions.PRICE_HIGH_TO_LOW)}
+      >
+        {sortingOptions.PRICE_HIGH_TO_LOW}
       </li>
-      <li className="places__option" tabIndex={0}>
-        Top rated first
+      <li
+        className={`places__option ${
+          selectedSortOption === sortingOptions.TOP_RATED_FIRST
+            ? 'places__option--active'
+            : ''
+        }`}
+        onClick={() => handleOptionClick(sortingOptions.TOP_RATED_FIRST)}
+      >
+        {sortingOptions.TOP_RATED_FIRST}
       </li>
     </ul>
   );
