@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { setAllOffers } from '../../store/action';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -16,7 +16,7 @@ type AppScreenProps = {
 };
 
 function App({ offers }: AppScreenProps): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   dispatch(setAllOffers(offers));
 
   const favoriteOffers = offers.filter((offer) => offer.offer.isFavorite);
@@ -25,10 +25,7 @@ function App({ offers }: AppScreenProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainScreen offers={offers} />}
-          />
+          <Route path={AppRoute.Main} element={<MainScreen />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Favorites}
