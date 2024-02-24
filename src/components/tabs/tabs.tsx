@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/action';
 
 type TabsProps = {
@@ -7,8 +6,8 @@ type TabsProps = {
 };
 
 function Tabs({ cities }: TabsProps): JSX.Element {
-  const dispatch = useDispatch();
-  const activeCity = useSelector((state: RootState) => state.app.city);
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector((state) => state.app.city);
 
   const handleCityClick = (city: string) => {
     dispatch(setActiveCity(city));

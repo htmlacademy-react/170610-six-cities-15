@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks';
 import Header from '../../components/ui/header/header';
 import Tabs from '../../components/tabs/tabs';
 import OffersList from '../../components/offers-list/offers-list';
@@ -10,17 +10,17 @@ import { cities } from '../../const';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
-  const offers = useSelector((state: RootState) => state.app.allOffers);
-  const activeCity = useSelector((state: RootState) => state.app.city);
+  const allOffers = useAppSelector((state) => state.app.allOffers);
+  const activeCity = useAppSelector((state) => state.app.city);
 
   function filterOffersByCityName(
     offers: OfferWithComments[],
     cityName: string
-  ) {
+  ): OfferWithComments[] {
     return offers.filter((offer) => offer.offer.city.name === cityName);
   }
 
-  const mapPoints = filterOffersByCityName(offers, activeCity);
+  const filteredOffers = filterOffersByCityName(allOffers, activeCity);
 
   return (
     <div className="page page--gray page--main">
@@ -36,7 +36,7 @@ function MainScreen(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {mapPoints.length} places to stay in {activeCity}
+                {filteredOffers.length} places to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -49,7 +49,7 @@ function MainScreen(): JSX.Element {
                 <SortingOptions />
               </form>
               <OffersList
-                offers={mapPoints}
+                offers={filteredOffers}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -59,7 +59,7 @@ function MainScreen(): JSX.Element {
                   defaultLatitude={52.379189}
                   defaultLongitude={4.899431}
                   defaultZoom={12}
-                  markersData={mapPoints}
+                  markersData={filteredOffers}
                   maxWidth={682}
                 />
               </section>
