@@ -57,7 +57,9 @@ const Map: React.FC<MapProps> = ({
 
         marker.setIcon(customIcon);
 
-        marker.addTo(mapInstance.current);
+        if (mapInstance.current) {
+          marker.addTo(mapInstance.current);
+        }
       });
     }
   }, [
@@ -70,7 +72,9 @@ const Map: React.FC<MapProps> = ({
 
   // Обновляем состояние активного оффера при изменении hoveredOfferId
   useEffect(() => {
-    setActiveOfferId(hoveredOfferId);
+    if (hoveredOfferId !== undefined) {
+      setActiveOfferId(hoveredOfferId);
+    }
   }, [hoveredOfferId]);
 
   // Обрабатываем сброс активного оффера при наведении на карточку

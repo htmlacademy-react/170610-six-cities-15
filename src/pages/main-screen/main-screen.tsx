@@ -100,7 +100,7 @@ function MainScreen(): JSX.Element {
                   defaultZoom={12}
                   markersData={filteredOffers}
                   maxWidth={682}
-                  hoveredOfferId={hoveredOfferId}
+                  hoveredOfferId={hoveredOfferId ?? undefined}
                 />
               </section>
             </div>
