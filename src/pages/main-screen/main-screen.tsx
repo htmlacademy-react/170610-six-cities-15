@@ -22,10 +22,12 @@ function MainScreen(): JSX.Element {
   const handleSortOptionClick = () => {
     setSortingOptionsVisible(true);
   };
+
   const handleSort = (option: string) => {
     setSortOption(option);
   };
 
+  // Обработчик для установки hoveredOfferId при наведении на карточку
   const handleOfferHover = (offerId: string) => {
     setHoveredOfferId(offerId);
   };
@@ -83,6 +85,7 @@ function MainScreen(): JSX.Element {
                   />
                 )}
               </form>
+              {/* Передаем обработчик handleOfferHover в OffersList */}
               <OffersList
                 offers={filteredOffers}
                 onOfferHover={handleOfferHover}

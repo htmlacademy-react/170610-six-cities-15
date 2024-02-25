@@ -1,3 +1,3 @@
 export const Setting = {
-  RentalPlacesCount: 1,
+  RentalPlacesCount: 12,
 };
