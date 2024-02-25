@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Header from '../../components/ui/header/header';
@@ -6,14 +7,48 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import { filterOffersByCityName } from '../../utils/common';
-import { cities } from '../../const';
+import { cities, sortingOptions } from '../../const';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
   const allOffers = useAppSelector((state) => state.app.allOffers);
   const activeCity = useAppSelector((state) => state.app.city);
 
+  const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
+  const [sortingOptionsVisible, setSortingOptionsVisible] =
+    useState<boolean>(false);
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
+
+  const handleSortOptionClick = () => {
+    setSortingOptionsVisible(true);
+  };
+
+  const handleSort = (option: string) => {
+    setSortOption(option);
+  };
+
+  // Обработчик для установки hoveredOfferId при наведении на карточку
+  const handleOfferHover = (offerId: string) => {
+    setHoveredOfferId(offerId);
+  };
+
   const filteredOffers = filterOffersByCityName(allOffers, activeCity);
+
+  switch (sortOption) {
+    case sortingOptions.POPULAR:
+      break;
+    case sortingOptions.PRICE_LOW_TO_HIGH:
+      filteredOffers.sort((a, b) => a.offer.price - b.offer.price);
+      break;
+    case sortingOptions.PRICE_HIGH_TO_LOW:
+      filteredOffers.sort((a, b) => b.offer.price - a.offer.price);
+      break;
+    case sortingOptions.TOP_RATED_FIRST:
+      filteredOffers.sort((a, b) => b.offer.rating - a.offer.rating);
+      break;
+    default:
+      break;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -33,16 +68,27 @@ function MainScreen(): JSX.Element {
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
+                <span
+                  className="places__sorting-type"
+                  tabIndex={0}
+                  onClick={handleSortOptionClick}
+                >
+                  {sortOption}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <SortingOptions />
+                {sortingOptionsVisible && (
+                  <SortingOptions
+                    handleSort={handleSort}
+                    setSortingOptionsVisible={setSortingOptionsVisible}
+                  />
+                )}
               </form>
+              {/* Передаем обработчик handleOfferHover в OffersList */}
               <OffersList
                 offers={filteredOffers}
+                onOfferHover={handleOfferHover}
                 className="cities__places-list places__list tabs__content"
               />
             </section>
@@ -54,6 +100,7 @@ function MainScreen(): JSX.Element {
                   defaultZoom={12}
                   markersData={filteredOffers}
                   maxWidth={682}
+                  hoveredOfferId={hoveredOfferId ?? undefined}
                 />
               </section>
             </div>

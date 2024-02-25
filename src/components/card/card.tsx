@@ -5,16 +5,10 @@ import { Link } from 'react-router-dom';
 type CardProps = {
   offer: Offer;
   isActive: boolean;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onOfferHover: (offerId: string) => void; // Добавляем проп для обработки наведения мыши на карточку
 };
 
-function Card({
-  offer,
-  isActive,
-  onMouseEnter,
-  onMouseLeave,
-}: CardProps): JSX.Element {
+function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
   const { id, title, type, price, rating, images, isFavorite, isPremium } =
     offer;
 
@@ -27,8 +21,8 @@ function Card({
   return (
     <article
       className={`cities__card place-card ${isActive ? 'active' : ''}`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => onOfferHover(id)} // Добавляем обработчик наведения мыши на карточку
+      onMouseLeave={() => onOfferHover('')} // Добавляем обработчик ухода мыши с карточки
     >
       {isPremium && (
         <div className="place-card__mark">
@@ -36,7 +30,9 @@ function Card({
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${id}`}>
+          {' '}
+          {/* Используем Link для навигации */}
           <img
             className="place-card__image"
             src={img}
@@ -44,7 +40,7 @@ function Card({
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

@@ -1,15 +1,12 @@
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks';
 import Logo from '../../components/ui/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
-import { OfferWithComments } from '../../types/offerWithComments';
 
-type FavoritesScreenProps = {
-  favoriteOffers: OfferWithComments[];
-};
+function FavoritesScreen(): JSX.Element {
+  const allOffers = useAppSelector((state) => state.app.allOffers);
+  const favoriteOffers = allOffers.filter((offer) => offer.offer.isFavorite);
 
-function FavoritesScreen({
-  favoriteOffers,
-}: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>

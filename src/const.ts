@@ -1,4 +1,4 @@
-export enum AppRoute {
+enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
@@ -6,13 +6,13 @@ export enum AppRoute {
   DevFavorites = '/dev-favorites',
 }
 
-export enum AuthorizationStatus {
+enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export const ratingsData = [
+const ratingsData = [
   { value: '5', title: 'perfect' },
   { value: '4', title: 'good' },
   { value: '3', title: 'not bad' },
@@ -20,7 +20,7 @@ export const ratingsData = [
   { value: '1', title: 'terribly' },
 ];
 
-export const cities = {
+const cities = {
   PARIS: 'Paris',
   COLOGNE: 'Cologne',
   BRUSSELS: 'Brussels',
@@ -28,3 +28,12 @@ export const cities = {
   HAMBURG: 'Hamburg',
   DUSSELDORF: 'Dusseldorf',
 } as const;
+
+const sortingOptions = {
+  POPULAR: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED_FIRST: 'Top rated first',
+} as const;
+
+export { AppRoute, AuthorizationStatus, ratingsData, cities, sortingOptions };

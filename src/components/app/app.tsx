@@ -19,8 +19,6 @@ function App({ offers }: AppScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
   dispatch(setAllOffers(offers));
 
-  const favoriteOffers = offers.filter((offer) => offer.offer.isFavorite);
-
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -31,18 +29,12 @@ function App({ offers }: AppScreenProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen favoriteOffers={favoriteOffers} />
+                <FavoritesScreen />
               </PrivateRoute>
             }
           />
-          <Route
-            path={AppRoute.Offer}
-            element={<OfferScreen offers={offers} />}
-          />
-          <Route
-            path={AppRoute.DevFavorites}
-            element={<FavoritesScreen favoriteOffers={favoriteOffers} />}
-          />
+          <Route path={AppRoute.Offer} element={<OfferScreen />} />
+          <Route path={AppRoute.DevFavorites} element={<FavoritesScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </BrowserRouter>

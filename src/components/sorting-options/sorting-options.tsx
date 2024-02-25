@@ -1,18 +1,40 @@
-function SortingOptions(): JSX.Element {
+import { useState } from 'react';
+import { sortingOptions } from '../../const';
+
+interface SortingOptionsProps {
+  handleSort: (sortOption: string) => void;
+  setSortingOptionsVisible: (visible: boolean) => void;
+}
+
+function SortingOptions({
+  handleSort,
+  setSortingOptionsVisible,
+}: SortingOptionsProps): JSX.Element {
+  const [selectedSortOption, setSelectedSortOption] = useState<string>(
+    sortingOptions.POPULAR
+  );
+
+  const sortingOptionList = Array.from(Object.values(sortingOptions));
+
+  const handleOptionClick = (option: string) => {
+    setSelectedSortOption(option);
+    handleSort(option);
+    setSortingOptionsVisible(false);
+  };
+
   return (
     <ul className="places__options places__options--custom places__options--opened">
-      <li className="places__option places__option--active" tabIndex={0}>
-        Popular
-      </li>
-      <li className="places__option" tabIndex={0}>
-        Price: low to high
-      </li>
-      <li className="places__option" tabIndex={0}>
-        Price: high to low
-      </li>
-      <li className="places__option" tabIndex={0}>
-        Top rated first
-      </li>
+      {sortingOptionList.map((option) => (
+        <li
+          key={option}
+          className={`places__option ${
+            selectedSortOption === option ? 'places__option--active' : ''
+          }`}
+          onClick={() => handleOptionClick(option)}
+        >
+          {option}
+        </li>
+      ))}
     </ul>
   );
 }
