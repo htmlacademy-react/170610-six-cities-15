@@ -1,26 +1,26 @@
-import { v4 as uuidv4 } from 'uuid';
-import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
-import Header from '../../components/ui/header/header';
-import ReviewsList from '../../components/reviews-list/reviews-list';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
-import OffersList from '../../components/offers-list/offers-list';
+import { useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Map from '../../components/map/map';
+import OffersList from '../../components/offers-list/offers-list';
+import ReviewsForm from '../../components/reviews-form/reviews-form';
+import ReviewsList from '../../components/reviews-list/reviews-list';
+import Header from '../../components/ui/header/header';
+import { useAppSelector } from '../../hooks';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
-  const allOffers = useAppSelector((state) => state.app.allOffers);
+  const offers = useAppSelector((state) => state.offers);
 
-  const { id } = useParams();
-  const foundOffer = allOffers.find((item) => item.offer.id === id);
-  const neighborhoodOffers = allOffers.slice(0, 3);
+  const { id } = useParams<{ id: string }>();
+  const foundOffer = offers.find((offer) => offer.id === id);
+  const neighborhoodOffers = offers.slice(0, 3);
 
   if (!foundOffer) {
     return <NotFoundScreen />;
   }
 
-  const { offer, comments } = foundOffer;
+  const offer = foundOffer;
 
   return (
     <div className="page">
@@ -114,9 +114,12 @@ function OfferScreen(): JSX.Element {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
-                  <span className="reviews__amount">{comments.length}</span>
+                  <span className="reviews__amount">
+                    {/* {comments.length: number} */}
+                    12
+                  </span>
                 </h2>
-                <ReviewsList comments={comments} />
+                <ReviewsList comments={[]} />
                 <ReviewsForm />
               </section>
             </div>

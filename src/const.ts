@@ -1,9 +1,18 @@
+const TIMEOUT_SHOW_ERROR = 2000;
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
   DevFavorites = '/dev-favorites',
+}
+
+enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 enum AuthorizationStatus {
@@ -36,4 +45,12 @@ const sortingOptions = {
   TOP_RATED_FIRST: 'Top rated first',
 } as const;
 
-export { AppRoute, AuthorizationStatus, ratingsData, cities, sortingOptions };
+export {
+  AppRoute,
+  APIRoute,
+  AuthorizationStatus,
+  ratingsData,
+  cities,
+  sortingOptions,
+  TIMEOUT_SHOW_ERROR,
+};

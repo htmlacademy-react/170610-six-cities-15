@@ -1,5 +1,4 @@
 import { Offer } from '../../types/offer';
-import { getRandomArrayElement } from '../../utils/common';
 import { Link } from 'react-router-dom';
 
 type CardProps = {
@@ -9,10 +8,18 @@ type CardProps = {
 };
 
 function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
-  const { id, title, type, price, rating, images, isFavorite, isPremium } =
-    offer;
+  // console.log(offer);
 
-  const img = getRandomArrayElement(images);
+  const {
+    id,
+    title,
+    type,
+    price,
+    rating,
+    previewImage,
+    isFavorite,
+    isPremium,
+  } = offer;
 
   const isFavoriteClass = isFavorite
     ? 'place-card__bookmark-button--active'
@@ -35,7 +42,7 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
           {/* Используем Link для навигации */}
           <img
             className="place-card__image"
-            src={img}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"

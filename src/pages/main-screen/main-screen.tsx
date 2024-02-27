@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
-import Header from '../../components/ui/header/header';
-import Tabs from '../../components/tabs/tabs';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import Map from '../../components/map/map';
-import { filterOffersByCityName } from '../../utils/common';
+import Tabs from '../../components/tabs/tabs';
+import Header from '../../components/ui/header/header';
 import { cities, sortingOptions } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { filterOffersByCityName } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
-  const allOffers = useAppSelector((state) => state.app.allOffers);
-  const activeCity = useAppSelector((state) => state.app.city);
+
+  const offers = useAppSelector((state) => state.offers);
+  const activeCity = useAppSelector((state) => state.city);
 
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
@@ -27,24 +28,23 @@ function MainScreen(): JSX.Element {
     setSortOption(option);
   };
 
-  // Обработчик для установки hoveredOfferId при наведении на карточку
   const handleOfferHover = (offerId: string) => {
     setHoveredOfferId(offerId);
   };
 
-  const filteredOffers = filterOffersByCityName(allOffers, activeCity);
+  const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   switch (sortOption) {
     case sortingOptions.POPULAR:
       break;
     case sortingOptions.PRICE_LOW_TO_HIGH:
-      filteredOffers.sort((a, b) => a.offer.price - b.offer.price);
+      filteredOffers.sort((a, b) => a.price - b.price);
       break;
     case sortingOptions.PRICE_HIGH_TO_LOW:
-      filteredOffers.sort((a, b) => b.offer.price - a.offer.price);
+      filteredOffers.sort((a, b) => b.price - a.price);
       break;
     case sortingOptions.TOP_RATED_FIRST:
-      filteredOffers.sort((a, b) => b.offer.rating - a.offer.rating);
+      filteredOffers.sort((a, b) => b.rating - a.rating);
       break;
     default:
       break;
@@ -85,7 +85,6 @@ function MainScreen(): JSX.Element {
                   />
                 )}
               </form>
-              {/* Передаем обработчик handleOfferHover в OffersList */}
               <OffersList
                 offers={filteredOffers}
                 onOfferHover={handleOfferHover}

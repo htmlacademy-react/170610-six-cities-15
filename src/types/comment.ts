@@ -11,3 +11,5 @@ export type Comment = {
   comment: string;
   rating: number;
 };
+
+export type Comments = Comment[];
