@@ -7,7 +7,7 @@ type MapProps = {
   defaultLatitude: number;
   defaultLongitude: number;
   defaultZoom: number;
-  markersData: Offers[];
+  markersData: Offers;
   maxWidth?: number;
   hoveredOfferId?: string;
 };

@@ -13,14 +13,7 @@ function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
 
   const offers = useAppSelector((state) => state.offers);
-  console.log(offers);
-
-  // if (step >= questions.length || !question) {
-  //   return <Navigate to={AppRoute.Result} />;
-  // }
-
   const activeCity = useAppSelector((state) => state.city);
-  console.log(activeCity);
 
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
@@ -35,7 +28,6 @@ function MainScreen(): JSX.Element {
     setSortOption(option);
   };
 
-  // Обработчик для установки hoveredOfferId при наведении на карточку
   const handleOfferHover = (offerId: string) => {
     setHoveredOfferId(offerId);
   };
@@ -46,13 +38,13 @@ function MainScreen(): JSX.Element {
     case sortingOptions.POPULAR:
       break;
     case sortingOptions.PRICE_LOW_TO_HIGH:
-      filteredOffers.sort((a, b) => a.offer.price - b.offer.price);
+      filteredOffers.sort((a, b) => a.price - b.price);
       break;
     case sortingOptions.PRICE_HIGH_TO_LOW:
-      filteredOffers.sort((a, b) => b.offer.price - a.offer.price);
+      filteredOffers.sort((a, b) => b.price - a.price);
       break;
     case sortingOptions.TOP_RATED_FIRST:
-      filteredOffers.sort((a, b) => b.offer.rating - a.offer.rating);
+      filteredOffers.sort((a, b) => b.rating - a.rating);
       break;
     default:
       break;
@@ -93,7 +85,6 @@ function MainScreen(): JSX.Element {
                   />
                 )}
               </form>
-              {/* Передаем обработчик handleOfferHover в OffersList */}
               <OffersList
                 offers={filteredOffers}
                 onOfferHover={handleOfferHover}

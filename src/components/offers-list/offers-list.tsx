@@ -2,7 +2,7 @@ import Card from '../card/card';
 import { Offers } from '../../types/offer';
 
 type OffersListProps = {
-  offers: Offers[];
+  offers: Offers;
   className?: string;
   onOfferHover?: (offerId: string) => void; // Сделаем onOfferHover опциональным добавив знак вопроса
 };

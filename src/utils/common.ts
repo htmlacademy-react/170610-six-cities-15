@@ -1,6 +1,6 @@
-import { Offers } from './../types/offer';
+import { Offers } from '../types/offer';
 
-const filterOffersByCityName = (offers: Offers[], cityName: string): Offers[] =>
-  offers.filter((offer) => offer.city.name === cityName);
-
-export { filterOffersByCityName };
+export const filterOffersByCityName = (
+  cityOffers: Offers,
+  cityName: string
+): Offers => cityOffers.filter((offer) => offer.city.name === cityName);
