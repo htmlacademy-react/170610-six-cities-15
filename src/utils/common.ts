@@ -1,4 +1,4 @@
-import { OfferWithComments } from '../types/offerWithComments';
+import { Offers } from './../types/offer';
 
 const getRandomArrayElement = <T>(array: T[]): T | undefined => {
   if (array.length === 0) {
@@ -8,10 +8,7 @@ const getRandomArrayElement = <T>(array: T[]): T | undefined => {
   return array[randomIndex]; // Возвращаем элемент по случайному индексу
 };
 
-const filterOffersByCityName = (
-  offers: OfferWithComments[],
-  cityName: string
-): OfferWithComments[] =>
+const filterOffersByCityName = (offers: Offers[], cityName: string): Offers[] =>
   offers.filter((offer) => offer.offer.city.name === cityName);
 
 export { getRandomArrayElement, filterOffersByCityName };
