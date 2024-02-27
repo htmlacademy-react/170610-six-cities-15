@@ -4,8 +4,8 @@ import Logo from '../../components/ui/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 
 function FavoritesScreen(): JSX.Element {
-  const allOffers = useAppSelector((state) => state.app.allOffers);
-  const favoriteOffers = allOffers.filter((offer) => offer.offer.isFavorite);
+  const favoriteOffers = useAppSelector((state) => state.favorites);
+  console.log(favoriteOffers);
 
   return (
     <div className="page">

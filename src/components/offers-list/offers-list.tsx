@@ -1,8 +1,8 @@
 import Card from '../card/card';
-import { OfferWithComments } from '../../types/offerWithComments';
+import { Offers } from '../../types/offer';
 
 type OffersListProps = {
-  offers: OfferWithComments[];
+  offers: Offers[];
   className?: string;
   onOfferHover?: (offerId: string) => void; // Сделаем onOfferHover опциональным добавив знак вопроса
 };
@@ -14,7 +14,7 @@ function OffersList({
 }: OffersListProps): JSX.Element {
   return (
     <div className={`${className}`}>
-      {offers.map(({ offer }) => (
+      {offers.map((offer) => (
         <Card
           key={offer.id}
           offer={offer}

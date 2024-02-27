@@ -1,5 +1,3 @@
-import { OfferWithComments } from '../../types/offerWithComments';
-import { getRandomArrayElement } from '../../utils/common';
 import { Link } from 'react-router-dom';
 
 type FavoritesCardProps = {
@@ -7,9 +5,9 @@ type FavoritesCardProps = {
 };
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-  const { id, type, title, price, rating, images, isPremium } = offer.offer;
+  const { id, type, title, price, rating, images, isPremium } = offer;
 
-  const img = getRandomArrayElement(images);
+  const img = images[0];
 
   return (
     <article className="favorites__card place-card">

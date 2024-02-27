@@ -7,21 +7,20 @@ import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
 import { cities, sortingOptions } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { loadOffers } from '../../store/action';
 import { filterOffersByCityName } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
 
-  const offers = useAppSelector((state) => state.offers.loadOffers);
-
+  const offers = useAppSelector((state) => state.offers);
   console.log(offers);
 
   // if (step >= questions.length || !question) {
   //   return <Navigate to={AppRoute.Result} />;
   // }
 
-  const activeCity = useAppSelector((state) => state.app.city);
+  const activeCity = useAppSelector((state) => state.city);
+  console.log(activeCity);
 
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
   const [sortingOptionsVisible, setSortingOptionsVisible] =

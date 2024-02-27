@@ -7,7 +7,7 @@ type TabsProps = {
 
 function Tabs({ cities }: TabsProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeCity = useAppSelector((state) => state.app.city);
+  const activeCity = useAppSelector((state) => state.city);
 
   const handleCityClick = (city: string) => {
     dispatch(setActiveCity(city));

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { OfferWithComments } from '../../types/offerWithComments';
+import { Offers } from '../../types/offer';
 
 type MapProps = {
   defaultLatitude: number;
   defaultLongitude: number;
   defaultZoom: number;
-  markersData: OfferWithComments[];
+  markersData: Offers[];
   maxWidth?: number;
   hoveredOfferId?: string;
 };
@@ -41,7 +41,7 @@ const Map: React.FC<MapProps> = ({
         mapInstance.current
       );
 
-      markersData.forEach(({ offer }) => {
+      markersData.forEach((offer) => {
         const { latitude, longitude } = offer.location;
         const marker = L.marker([latitude, longitude]);
 
