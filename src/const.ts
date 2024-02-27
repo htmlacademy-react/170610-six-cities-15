@@ -1,3 +1,5 @@
+const TIMEOUT_SHOW_ERROR = 2000;
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -50,4 +52,5 @@ export {
   ratingsData,
   cities,
   sortingOptions,
+  TIMEOUT_SHOW_ERROR,
 };
