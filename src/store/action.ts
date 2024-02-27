@@ -9,6 +9,9 @@ export const loadFavoriteOffers = createAction<Offers>(
 );
 export const loadComments = createAction<Comments>('data/loadComments');
 export const setActiveCity = createAction<string>('app/setActiveCity');
+export const setOffersDataLoadingStatus = createAction<boolean>(
+  'data/setQuestionsDataLoadingStatus'
+);
 export const requireAuthorization = createAction<AuthorizationStatus>(
   'user/requireAuthorization'
 );

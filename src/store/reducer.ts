@@ -10,6 +10,7 @@ import {
   setActiveCity,
   requireAuthorization,
   setError,
+  setOffersDataLoadingStatus,
 } from './action';
 
 type InitialState = {
@@ -18,6 +19,7 @@ type InitialState = {
   comments: Comments;
   city: string;
   authorizationStatus: AuthorizationStatus;
+  isOffersDataLoading: boolean;
   error: string | null;
 };
 
@@ -27,6 +29,7 @@ const initialState: InitialState = {
   comments: [],
   city: cities.PARIS,
   authorizationStatus: AuthorizationStatus.Unknown,
+  isOffersDataLoading: false,
   error: null,
 };
 
@@ -43,6 +46,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
