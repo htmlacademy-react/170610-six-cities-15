@@ -12,3 +12,4 @@ export const setActiveCity = createAction<string>('app/setActiveCity');
 export const requireAuthorization = createAction<AuthorizationStatus>(
   'user/requireAuthorization'
 );
+export const setError = createAction<string | null>('app/setError');

@@ -9,6 +9,7 @@ import {
   loadComments,
   setActiveCity,
   requireAuthorization,
+  setError,
 } from './action';
 
 type InitialState = {
@@ -17,6 +18,7 @@ type InitialState = {
   comments: Comments;
   city: string;
   authorizationStatus: AuthorizationStatus;
+  error: string | null;
 };
 
 const initialState: InitialState = {
@@ -25,6 +27,7 @@ const initialState: InitialState = {
   comments: [],
   city: cities.PARIS,
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -43,6 +46,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
