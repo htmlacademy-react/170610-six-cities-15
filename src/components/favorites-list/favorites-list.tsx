@@ -1,8 +1,8 @@
+import { Offers } from '../../types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
-import { OfferWithComments } from '../../types/offerWithComments';
 
 type FavoritesListProps = {
-  favoriteOffers: OfferWithComments[];
+  favoriteOffers: Offers;
 };
 
 function FavoritesList({ favoriteOffers }: FavoritesListProps): JSX.Element {
