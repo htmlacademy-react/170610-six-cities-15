@@ -1,7 +1,7 @@
 import faker from 'faker';
 import generateOfferMock from './offer';
 import generateCommentMock from './review';
-import { Comment } from '../types/review';
+import { Comment } from '../types/comment';
 import { OfferWithComments } from '../types/offerWithComments';
 import { Setting } from './const';
 

@@ -1,18 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { cities } from '../const';
 import { Offers } from '../types/offer';
-import { OfferWithComments } from '../types/offerWithComments';
-import { setActiveCity, setAllOffers, loadOffers } from './action';
+import { Comments } from '../types/comment';
+import { loadOffers, loadComments, setActiveCity } from './action';
 type State = {
   city: string;
   offers: Offers[];
-  allOffers: OfferWithComments[];
+  comments: Comments[];
 };
 
 const initialState: State = {
-  city: cities.PARIS,
   offers: [],
-  allOffers: [],
+  comments: [],
+  city: cities.PARIS,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -20,11 +20,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
-    })
-    .addCase(setAllOffers, (state, action) => {
-      state.allOffers = action.payload.map((offer) => ({ ...offer }));
     });
 });
 

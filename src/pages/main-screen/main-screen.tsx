@@ -1,17 +1,26 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
-import Header from '../../components/ui/header/header';
-import Tabs from '../../components/tabs/tabs';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import Map from '../../components/map/map';
-import { filterOffersByCityName } from '../../utils/common';
+import Tabs from '../../components/tabs/tabs';
+import Header from '../../components/ui/header/header';
 import { cities, sortingOptions } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { loadOffers } from '../../store/action';
+import { filterOffersByCityName } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
-  const allOffers = useAppSelector((state) => state.app.allOffers);
+
+  const offers = useAppSelector((state) => state.offers.loadOffers);
+
+  console.log(offers);
+
+  // if (step >= questions.length || !question) {
+  //   return <Navigate to={AppRoute.Result} />;
+  // }
+
   const activeCity = useAppSelector((state) => state.app.city);
 
   const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
@@ -32,7 +41,7 @@ function MainScreen(): JSX.Element {
     setHoveredOfferId(offerId);
   };
 
-  const filteredOffers = filterOffersByCityName(allOffers, activeCity);
+  const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   switch (sortOption) {
     case sortingOptions.POPULAR:

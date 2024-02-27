@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import faker from 'faker';
-import { Comment } from '../types/review';
+import { Comment } from '../types/comment';
 
 function generateCommentMock(offerId: string): Comment {
   const formattedDate = dayjs().toISOString();

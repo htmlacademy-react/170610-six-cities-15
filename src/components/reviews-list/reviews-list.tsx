@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Comment } from '../../types/review';
+import { Comment } from '../../types/comment';
 import ReviewsItem from '../reviews-item/reviews-item';
 
 type ReviewsListProps = {
