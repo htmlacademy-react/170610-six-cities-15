@@ -1,5 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { cities, AuthorizationStatus } from '../const';
+import { Offers } from '../types/offer';
+import { Comments } from '../types/comment';
 
 import {
   loadOffers,
@@ -8,7 +10,14 @@ import {
   requireAuthorization,
 } from './action';
 
-const initialState = {
+type InitialState = {
+  offers: Offers;
+  comments: Comments;
+  city: string;
+  authorizationStatus: AuthorizationStatus;
+};
+
+const initialState: InitialState = {
   offers: [],
   comments: [],
   city: cities.PARIS,
