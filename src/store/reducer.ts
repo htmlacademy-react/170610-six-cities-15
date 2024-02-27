@@ -1,19 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setActiveCity, setAllOffers } from './action';
-import { OfferWithComments } from '../types/offerWithComments';
 import { cities } from '../const';
+import { Offers } from '../types/offer';
+import { OfferWithComments } from '../types/offerWithComments';
+import { setActiveCity, setAllOffers, loadOffers } from './action';
 type State = {
   city: string;
+  offers: Offers[];
   allOffers: OfferWithComments[];
 };
 
 const initialState: State = {
   city: cities.PARIS,
+  offers: [],
   allOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+    })
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
     })
