@@ -1,7 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offers } from '../types/offer';
 import { Comments } from '../types/comment';
+import { AuthorizationStatus } from '../const';
 
-export const loadOffers = createAction<Offers>('loadOffers');
-export const loadComments = createAction<Comments>('loadComments');
-export const setActiveCity = createAction<string>('setActiveCity');
+export const loadOffers = createAction<Offers>('data/loadOffers');
+export const loadComments = createAction<Comments>('data/loadComments');
+export const setActiveCity = createAction<string>('app/setActiveCity');
+export const requireAuthorization = createAction<AuthorizationStatus>(
+  'user/requireAuthorization'
+);

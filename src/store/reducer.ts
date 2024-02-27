@@ -1,18 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { cities } from '../const';
-import { Offers } from '../types/offer';
-import { Comments } from '../types/comment';
-import { loadOffers, loadComments, setActiveCity } from './action';
-type State = {
-  city: string;
-  offers: Offers[];
-  comments: Comments[];
-};
+import { cities, AuthorizationStatus } from '../const';
 
-const initialState: State = {
+import {
+  loadOffers,
+  loadComments,
+  setActiveCity,
+  requireAuthorization,
+} from './action';
+
+const initialState = {
   offers: [],
   comments: [],
   city: cities.PARIS,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -25,6 +25,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
