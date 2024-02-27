@@ -36,4 +36,18 @@ const sortingOptions = {
   TOP_RATED_FIRST: 'Top rated first',
 } as const;
 
-export { AppRoute, AuthorizationStatus, ratingsData, cities, sortingOptions };
+enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export {
+  AppRoute,
+  AuthorizationStatus,
+  ratingsData,
+  cities,
+  sortingOptions,
+  APIRoute,
+};
