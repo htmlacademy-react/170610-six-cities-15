@@ -6,6 +6,13 @@ enum AppRoute {
   DevFavorites = '/dev-favorites',
 }
 
+enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -36,18 +43,11 @@ const sortingOptions = {
   TOP_RATED_FIRST: 'Top rated first',
 } as const;
 
-enum APIRoute {
-  Offers = '/offers',
-  Favorite = '/favorite',
-  Login = '/login',
-  Logout = '/logout',
-}
-
 export {
   AppRoute,
+  APIRoute,
   AuthorizationStatus,
   ratingsData,
   cities,
   sortingOptions,
-  APIRoute,
 };
