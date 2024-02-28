@@ -1,4 +1,6 @@
 const TIMEOUT_SHOW_ERROR = 2000;
+const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
+const REQUEST_TIMEOUT = 5000;
 
 enum AppRoute {
   Main = '/',
@@ -53,4 +55,6 @@ export {
   cities,
   sortingOptions,
   TIMEOUT_SHOW_ERROR,
+  BACKEND_URL,
+  REQUEST_TIMEOUT,
 };

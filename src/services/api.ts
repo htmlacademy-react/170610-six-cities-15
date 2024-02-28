@@ -1,13 +1,14 @@
 import axios, {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError,
   AxiosRequestHeaders,
+  AxiosResponse,
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { getToken } from './token';
+import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import { processErrorHandle } from './process-error-handle';
+import { getToken } from './token';
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
@@ -27,8 +28,6 @@ const StatusCodeMapping: Record<number, boolean> = {
 const shouldDisplayError = (response: AxiosResponse) =>
   !!StatusCodeMapping[response.status];
 
-const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
-const REQUEST_TIMEOUT = 5000;
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
