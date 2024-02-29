@@ -1,6 +1,11 @@
 import Logo from '../logo/logo';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { logoutAction } from '../../../store/api-actions';
 
 function Header() {
+  const dispatch = useAppDispatch();
+
   return (
     <header className="header">
       <div className="container">
@@ -23,9 +28,16 @@ function Header() {
                 </a>
               </li>
               <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
+                <Link
+                  className="header__nav-link"
+                  to="/"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(logoutAction());
+                  }}
+                >
                   <span className="header__signout">Sign out</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
