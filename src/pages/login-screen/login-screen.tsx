@@ -1,10 +1,10 @@
-import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
-import { AppRoute } from '../../const';
+import { useRef, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -56,9 +56,9 @@ function LoginScreen(): JSX.Element {
                 <input
                   ref={loginRef}
                   className="login__input form__input"
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="text"
+                  name="name"
+                  id="name"
                   placeholder="Email"
                   required
                 />
@@ -68,7 +68,7 @@ function LoginScreen(): JSX.Element {
                 <input
                   ref={passwordRef}
                   className="login__input form__input"
-                  type="password"
+                  type="text"
                   name="password"
                   placeholder="Password"
                   id="password"
@@ -76,9 +76,9 @@ function LoginScreen(): JSX.Element {
                 />
               </div>
               <button
-                onClick={() => navigate(AppRoute.Favorites)}
+                onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
-                type="submit"
+                type="button"
               >
                 Sign in
               </button>

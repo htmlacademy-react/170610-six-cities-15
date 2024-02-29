@@ -24,6 +24,7 @@ function App(): JSX.Element {
   ) {
     return <LoadingScreen />;
   }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
