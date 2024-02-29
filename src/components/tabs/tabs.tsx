@@ -42,11 +42,6 @@ function Tabs({ cities }: TabsProps): JSX.Element {
               <span>Login</span>
             </Link>
           </li>
-          <li className="locations__item">
-            <Link className="locations__item-link tabs__item" to="/logout">
-              <span>Logout</span>
-            </Link>
-          </li>
         </ul>
       </section>
     </div>
