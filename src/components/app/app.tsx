@@ -42,7 +42,6 @@ function App(): JSX.Element {
             }
           />
           <Route path={AppRoute.Offer} element={<OfferScreen />} />
-          <Route path={AppRoute.DevFavorites} element={<FavoritesScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </HistoryRouter>
