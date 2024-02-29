@@ -37,17 +37,13 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
-          {' '}
-          {/* Используем Link для навигации */}
-          <img
-            className="place-card__image"
-            src={previewImage}
-            width="260"
-            height="200"
-            alt="Place image"
-          />
-        </Link>
+        <img
+          className="place-card__image"
+          src={previewImage}
+          width="260"
+          height="200"
+          alt="Place image"
+        />
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
