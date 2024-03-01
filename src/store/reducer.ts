@@ -13,6 +13,7 @@ import {
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
+  clearOffer,
 } from './action';
 
 type InitialState = {
@@ -32,24 +33,7 @@ const initialState: InitialState = {
   offers: [],
   favoriteOffers: [],
   nearbyOffers: [],
-  offer: {
-    id: '',
-    title: '',
-    type: '',
-    price: 0,
-    previewImage: '',
-    city: { name: '', location: { latitude: 0, longitude: 0, zoom: 0 } },
-    location: { latitude: 0, longitude: 0, zoom: 0 },
-    isFavorite: false,
-    isPremium: false,
-    rating: 0,
-    description: '',
-    bedrooms: 0,
-    goods: [],
-    host: { name: '', avatarUrl: '', isPro: false },
-    images: [],
-    maxAdults: 0,
-  },
+  offer: {} as Offer,
   city: cities.PARIS,
   comments: [],
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -76,6 +60,9 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFavoriteOffersDataLoading = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(clearOffer, (state, action) => {
       state.offer = action.payload;
     })
     .addCase(loadNearbyOffers, (state, action) => {

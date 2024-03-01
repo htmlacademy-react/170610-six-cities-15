@@ -19,6 +19,8 @@ export const loadOffer = createAction<Offer>('data/loadOffer');
 export const setOfferDataLoadingStatus = createAction<boolean>(
   'data/setOfferDataLoadingStatus'
 );
+export const clearOffer = createAction<Offer>('data/clearOffer');
+
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
 export const loadComments = createAction<Comments>('data/loadComments');
 
