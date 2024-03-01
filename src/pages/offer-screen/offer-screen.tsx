@@ -5,6 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
+import { cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
@@ -12,6 +13,11 @@ function OfferScreen(): JSX.Element {
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const comments = useAppSelector((state) => state.comments);
+
+  const activeCity = useAppSelector((state) => state.city);
+  const activeCityCoordinates = cityCoordinates.find(
+    (city) => city.name.toUpperCase() === activeCity.toUpperCase()
+  );
 
   if (!offer.id) {
     return <NotFoundScreen />;
@@ -119,8 +125,8 @@ function OfferScreen(): JSX.Element {
           </div>
           <section className="offer__map map">
             <Map
-              defaultLatitude={52.379189}
-              defaultLongitude={4.899431}
+              defaultLatitude={activeCityCoordinates?.latitude}
+              defaultLongitude={activeCityCoordinates?.longitude}
               defaultZoom={12}
               markersData={nearbyOffers}
               maxWidth={1144}
