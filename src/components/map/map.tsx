@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef, useState } from 'react';
-import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
+import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT, MAP_LAYER } from '../../const';
 import { Offers } from '../../types/offer';
 
 type MapProps = {
@@ -38,9 +38,7 @@ const Map: React.FC<MapProps> = ({
         [defaultLatitude, defaultLongitude],
         defaultZoom
       );
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
-        mapInstance.current
-      );
+      L.tileLayer(MAP_LAYER).addTo(mapInstance.current);
 
       markersData.forEach((offer) => {
         const { latitude, longitude } = offer.location;
