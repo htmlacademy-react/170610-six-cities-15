@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
@@ -10,17 +9,13 @@ import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offer = useAppSelector((state) => state.offer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
 
-  const { id } = useParams<{ id: string }>();
-  const foundOffer = offers.find((offer) => offer.id === id);
-  const neighborhoodOffers = offers.slice(0, 3);
-
-  if (!foundOffer) {
+  if (!offer.id) {
     return <NotFoundScreen />;
   }
-
-  const offer = foundOffer;
 
   return (
     <div className="page">
@@ -114,12 +109,9 @@ function OfferScreen(): JSX.Element {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
-                  <span className="reviews__amount">
-                    {/* {comments.length: number} */}
-                    12
-                  </span>
+                  <span className="reviews__amount">{comments.length}</span>
                 </h2>
-                <ReviewsList comments={[]} />
+                <ReviewsList comments={comments} />
                 <ReviewsForm />
               </section>
             </div>
@@ -129,7 +121,7 @@ function OfferScreen(): JSX.Element {
               defaultLatitude={52.379189}
               defaultLongitude={4.899431}
               defaultZoom={12}
-              markersData={neighborhoodOffers}
+              markersData={nearbyOffers}
               maxWidth={1144}
             />
           </section>
@@ -140,7 +132,7 @@ function OfferScreen(): JSX.Element {
               Other places in the neighborhood
             </h2>
             <OffersList
-              offers={neighborhoodOffers}
+              offers={nearbyOffers}
               className="near-places__list places__list"
             />
           </section>

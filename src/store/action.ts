@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer, Offers } from '../types/offer';
 import { AppRoute, AuthorizationStatus } from '../const';
+import { Comments } from '../types/comment';
+import { Offer, Offers } from '../types/offer';
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
 export const setOffersDataLoadingStatus = createAction<boolean>(
@@ -18,6 +19,8 @@ export const loadOffer = createAction<Offer>('data/loadOffer');
 export const setOfferDataLoadingStatus = createAction<boolean>(
   'data/setOfferDataLoadingStatus'
 );
+export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
+export const loadComments = createAction<Comments>('data/loadComments');
 
 export const setActiveCity = createAction<string>('app/setActiveCity');
 

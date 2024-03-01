@@ -3,18 +3,21 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
+import { Comments } from '../types/comment.js';
 import { Offer, Offers } from '../types/offer.js';
 import { AppDispatch, State } from '../types/state.js';
 import { UserData } from '../types/user-data';
 import {
+  loadComments,
   loadFavoriteOffers,
+  loadNearbyOffers,
+  loadOffer,
   loadOffers,
   redirectToRoute,
   requireAuthorization,
   setFavoriteOffersDataLoadingStatus,
-  setOffersDataLoadingStatus,
-  loadOffer,
   setOfferDataLoadingStatus,
+  setOffersDataLoadingStatus,
 } from './action';
 
 export const fetchOffersAction = createAsyncThunk<
@@ -43,8 +46,12 @@ export const fetchOfferAction = createAsyncThunk<
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setOfferDataLoadingStatus(true));
   const { data } = await api.get<Offer>(`/offers/${id}`);
+  const { data: nearby } = await api.get<Offers>(`/offers/${id}/nearby`);
+  const { data: comments } = await api.get<Comments>(`/comments/${id}`);
   dispatch(setOfferDataLoadingStatus(false));
   dispatch(loadOffer(data));
+  dispatch(loadNearbyOffers(nearby));
+  dispatch(loadComments(comments));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
