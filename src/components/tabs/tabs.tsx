@@ -20,15 +20,15 @@ function Tabs({ cities }: TabsProps): JSX.Element {
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
             <li key={city} className="locations__item">
-              <a
-                href="#"
+              <Link
+                to={`?city=${city}`}
                 className={`locations__item-link tabs__item ${
                   activeCity === city ? 'tabs__item--active' : ''
                 }`}
                 onClick={() => handleCityClick(city)}
               >
                 <span>{city}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
