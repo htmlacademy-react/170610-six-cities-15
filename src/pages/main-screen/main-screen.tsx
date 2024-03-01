@@ -98,8 +98,8 @@ function MainScreen(): JSX.Element {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  defaultLatitude={activeCityCoordinates.latitude}
-                  defaultLongitude={activeCityCoordinates.longitude}
+                  defaultLatitude={activeCityCoordinates?.latitude}
+                  defaultLongitude={activeCityCoordinates?.longitude}
                   defaultZoom={12}
                   markersData={filteredOffers}
                   maxWidth={682}

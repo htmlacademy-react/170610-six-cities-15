@@ -5,8 +5,8 @@ import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
 import { Offers } from '../../types/offer';
 
 type MapProps = {
-  defaultLatitude: number;
-  defaultLongitude: number;
+  defaultLatitude: number | undefined;
+  defaultLongitude: number | undefined;
   defaultZoom: number;
   markersData: Offers;
   maxWidth?: number;
