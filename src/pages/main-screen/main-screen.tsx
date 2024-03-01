@@ -57,7 +57,7 @@ function MainScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>6 cities :: Main</title>
+        <title>6 cities :: Main :: {activeCity}</title>
       </Helmet>
       <Header />
       <main className="page__main page__main--index">
