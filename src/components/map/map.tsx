@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef, useState } from 'react';
-import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT, MAP_LAYER } from '../../const';
+import { MAP_LAYER, PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
 import { Offers } from '../../types/offer';
 
 type MapProps = {
