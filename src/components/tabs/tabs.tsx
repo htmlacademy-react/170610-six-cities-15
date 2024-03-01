@@ -20,7 +20,6 @@ function Tabs({ cities }: TabsProps): JSX.Element {
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
             <li key={city} className="locations__item">
-              {/* Добавляет класс активности, если текущий город совпадает с city */}
               <a
                 href="#"
                 className={`locations__item-link tabs__item ${
@@ -32,16 +31,6 @@ function Tabs({ cities }: TabsProps): JSX.Element {
               </a>
             </li>
           ))}
-          <li className="locations__item">
-            <Link className="locations__item-link tabs__item" to="/favorites">
-              <span>Favorites</span>
-            </Link>
-          </li>
-          <li className="locations__item">
-            <Link className="locations__item-link tabs__item" to="/login">
-              <span>Login</span>
-            </Link>
-          </li>
         </ul>
       </section>
     </div>
