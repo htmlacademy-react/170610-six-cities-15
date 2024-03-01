@@ -40,6 +40,39 @@ export const cities = {
   DUSSELDORF: 'Dusseldorf',
 } as const;
 
+export const cityCoordinates = [
+  {
+    name: 'PARIS',
+    latitude: 48.85661,
+    longitude: 2.351499,
+  },
+  {
+    name: 'COLOGNE',
+    latitude: 50.938361,
+    longitude: 6.959974,
+  },
+  {
+    name: 'BRUSSELS',
+    latitude: 50.846557,
+    longitude: 4.351697,
+  },
+  {
+    name: 'AMSTERDAM',
+    latitude: 52.37454,
+    longitude: 4.889689,
+  },
+  {
+    name: 'HAMBURG',
+    latitude: 53.551086,
+    longitude: 10.000654,
+  },
+  {
+    name: 'DUSSELDORF',
+    latitude: 51.225402,
+    longitude: 6.776314,
+  },
+];
+
 export const sortingOptions = {
   POPULAR: 'Popular',
   PRICE_LOW_TO_HIGH: 'Price: low to high',
