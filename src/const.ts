@@ -1,5 +1,7 @@
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+export const PIN_MARKER_DEFAULT = 'img/pin.svg';
+export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
 
 export enum AppRoute {
   Main = '/',

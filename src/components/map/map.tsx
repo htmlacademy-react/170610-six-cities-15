@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import React, { useEffect, useRef, useState } from 'react';
+import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
 import { Offers } from '../../types/offer';
 
 type MapProps = {
@@ -47,7 +48,7 @@ const Map: React.FC<MapProps> = ({
 
         // Устанавливаем иконку в зависимости от активного оффера
         const iconUrl =
-          offer.id === activeOfferId ? '/img/pin-active.svg' : '/img/pin.svg';
+          offer.id === activeOfferId ? PIN_MARKER_CURRENT : PIN_MARKER_DEFAULT;
 
         const customIcon = L.icon({
           iconUrl,
