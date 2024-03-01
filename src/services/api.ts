@@ -3,11 +3,16 @@ import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosRequestHeaders,
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import { getToken } from './token';
+
+interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
+  headers: AxiosRequestHeaders;
+}
 
 type DetailMessageType = {
   type: string;
@@ -29,7 +34,7 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use((config: AxiosRequestConfig) => {
+  api.interceptors.request.use((config): AdaptAxiosRequestConfig => {
     const token = getToken();
 
     if (token && config.headers) {
