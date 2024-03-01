@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
-import { Offers } from '../types/offer.js';
+import { Offer, Offers } from '../types/offer.js';
 import { AppDispatch, State } from '../types/state.js';
 import { UserData } from '../types/user-data';
 import {
@@ -13,6 +13,8 @@ import {
   requireAuthorization,
   setFavoriteOffersDataLoadingStatus,
   setOffersDataLoadingStatus,
+  loadOffer,
+  setOfferDataLoadingStatus,
 } from './action';
 
 export const fetchOffersAction = createAsyncThunk<
@@ -28,6 +30,21 @@ export const fetchOffersAction = createAsyncThunk<
   const { data } = await api.get<Offers>(APIRoute.Offers);
   dispatch(setOffersDataLoadingStatus(false));
   dispatch(loadOffers(data));
+});
+
+export const fetchOfferAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchOffer', async (id, { dispatch, extra: api }) => {
+  dispatch(setOfferDataLoadingStatus(true));
+  const { data } = await api.get<Offer>(`/offers/${id}`);
+  dispatch(setOfferDataLoadingStatus(false));
+  dispatch(loadOffer(data));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<

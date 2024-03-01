@@ -1,5 +1,7 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { store } from '../../store';
+import { fetchOfferAction } from '../../store/api-actions';
 
 type CardProps = {
   offer: Offer;
@@ -24,6 +26,10 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
   const isFavoriteClass = isFavorite
     ? 'place-card__bookmark-button--active'
     : '';
+
+  const handleOfferClick = (offerId: string) => {
+    store.dispatch(fetchOfferAction(offerId));
+  };
 
   return (
     <article
@@ -68,7 +74,9 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
           </div>
         </div>
         <Link to={`/offer/${id}`}>
-          <h2 className="place-card__name">{title}</h2>
+          <h2 className="place-card__name" onClick={() => handleOfferClick(id)}>
+            {title}
+          </h2>
         </Link>
         <p className="place-card__type">{type}</p>
       </div>

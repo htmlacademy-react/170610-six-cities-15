@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offers } from '../types/offer';
+import { Offer, Offers } from '../types/offer';
 import { AppRoute, AuthorizationStatus } from '../const';
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
@@ -12,6 +12,11 @@ export const loadFavoriteOffers = createAction<Offers>(
 );
 export const setFavoriteOffersDataLoadingStatus = createAction<boolean>(
   'data/setFavoriteOffersDataLoadingStatus'
+);
+
+export const loadOffer = createAction<Offer>('data/loadOffer');
+export const setOfferDataLoadingStatus = createAction<boolean>(
+  'data/setOfferDataLoadingStatus'
 );
 
 export const setActiveCity = createAction<string>('app/setActiveCity');
