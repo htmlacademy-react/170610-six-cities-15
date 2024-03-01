@@ -6,15 +6,10 @@ import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
 import { cities, sortingOptions } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { filterOffersByCityName } from '../../utils/common';
-import { clearOffer } from '../../store/action';
-import { Offer } from '../../types/offer';
 
 function MainScreen(): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(clearOffer({} as Offer));
-
   const citiesNames = Object.values(cities);
 
   const offers = useAppSelector((state) => state.offers);
