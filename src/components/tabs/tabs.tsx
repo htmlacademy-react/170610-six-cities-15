@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/action';
 
@@ -31,6 +32,16 @@ function Tabs({ cities }: TabsProps): JSX.Element {
               </a>
             </li>
           ))}
+          <li className="locations__item">
+            <Link className="locations__item-link tabs__item" to="/favorites">
+              <span>Favorites</span>
+            </Link>
+          </li>
+          <li className="locations__item">
+            <Link className="locations__item-link tabs__item" to="/login">
+              <span>Login</span>
+            </Link>
+          </li>
         </ul>
       </section>
     </div>

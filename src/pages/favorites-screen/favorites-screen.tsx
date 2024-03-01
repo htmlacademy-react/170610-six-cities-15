@@ -1,11 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
 import Logo from '../../components/ui/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 
 function FavoritesScreen(): JSX.Element {
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
-
   return (
     <div className="page">
       <Helmet>
@@ -46,7 +43,7 @@ function FavoritesScreen(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList favoriteOffers={favoriteOffers} />
+            <FavoritesList />
           </section>
         </div>
       </main>

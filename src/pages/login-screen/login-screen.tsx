@@ -1,7 +1,30 @@
+import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
+import { AppRoute, cities } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
 function LoginScreen(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(
+        loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
+    }
+  };
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -21,7 +44,12 @@ function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              onSubmit={handleSubmit}
+              action="#"
+              method="post"
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -29,6 +57,7 @@ function LoginScreen(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  ref={loginRef} // связываем ref с input
                   required
                 />
               </div>
@@ -37,8 +66,11 @@ function LoginScreen(): JSX.Element {
                 <input
                   className="login__input form__input"
                   type="password"
+                  pattern="(?=.*\d)(?=.*[a-zA-Z]).{2,}"
+                  title="Contains one letter and one digit"
                   name="password"
                   placeholder="Password"
+                  ref={passwordRef} // связываем ref с input
                   required
                 />
               </div>
@@ -52,9 +84,9 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={AppRoute.Main}>
+                <span>{cities.AMSTERDAM}</span>
+              </Link>
             </div>
           </section>
         </div>

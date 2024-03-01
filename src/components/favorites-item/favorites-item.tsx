@@ -1,14 +1,13 @@
-import { Offers } from '../../types/offer';
 import { filterOffersByCityName } from '../../utils/common';
 import FavoritesCard from '../favorites-card/favorites-card';
 import LocationsItem from '../locations-item/locations-item';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesItemProps = {
-  favoriteOffers: Offers;
-};
+function FavoritesItem(): JSX.Element {
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
-function FavoritesItem({ favoriteOffers }: FavoritesItemProps): JSX.Element {
   const favoritesCitiesSet = new Set<string>();
+
   favoriteOffers.forEach((offer) => {
     favoritesCitiesSet.add(offer.city.name);
   });
