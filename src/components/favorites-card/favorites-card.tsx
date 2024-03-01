@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { store } from '../../store';
+import { fetchOfferAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 
 type FavoritesCardProps = {
@@ -7,6 +9,10 @@ type FavoritesCardProps = {
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
   const { id, type, title, price, rating, previewImage, isPremium } = offer;
+
+  const handleOfferClick = (offerId: string) => {
+    store.dispatch(fetchOfferAction(offerId));
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -49,7 +55,9 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
           </div>
         </div>
         <Link to={`/offer/${id}`}>
-          <h2 className="place-card__name">{title}</h2>
+          <h2 className="place-card__name" onClick={() => handleOfferClick(id)}>
+            {title}
+          </h2>
         </Link>
         <p className="place-card__type">{type}</p>
       </div>

@@ -1,7 +1,7 @@
-import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
+import { Offer } from '../../types/offer';
 
 type CardProps = {
   offer: Offer;
