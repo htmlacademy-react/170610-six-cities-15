@@ -26,6 +26,8 @@ function OfferScreen(): JSX.Element {
   } = selectedOffer;
 
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const mapOffers = [selectedOffer, ...nearbyOffers.slice(0, 3)];
+
   const comments = useAppSelector((state) => state.comments);
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
@@ -143,7 +145,7 @@ function OfferScreen(): JSX.Element {
               defaultLatitude={activeCityCoordinates?.latitude}
               defaultLongitude={activeCityCoordinates?.longitude}
               defaultZoom={12}
-              markersData={nearbyOffers}
+              markersData={mapOffers}
               maxWidth={1144}
             />
           </section>
