@@ -10,21 +10,32 @@ import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
-  const offer = useAppSelector((state) => state.offer);
+  const selectedOffer = useAppSelector((state) => state.offer);
+  const {
+    images,
+    isPremium,
+    title,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+  } = selectedOffer;
+
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const comments = useAppSelector((state) => state.comments);
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
-
-  console.log(authorizationStatus);
-
   const activeCity = useAppSelector((state) => state.city);
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toUpperCase() === activeCity.toUpperCase()
   );
 
-  if (!offer.id) {
+  if (!selectedOffer.id) {
     return <NotFoundScreen />;
   }
 
@@ -39,7 +50,7 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offer.images.map((image) => (
+              {images.map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Offer" />
                 </div>
@@ -48,13 +59,13 @@ function OfferScreen(): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer.isPremium && (
+              {isPremium && (
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offer.title}</h1>
+                <h1 className="offer__name">{title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -64,33 +75,32 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${offer.rating * 20}%` }}></span>
+                  <span style={{ width: `${rating * 20}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
-                  {offer.rating}
+                  {rating}
                 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offer.type}
+                  {type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offer.bedrooms}{' '}
-                  {offer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
+                  {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offer.maxAdults} adults
+                  Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer.price}</b>
+                <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offer.goods.map((good) => (
+                  {goods.map((good) => (
                     <li className="offer__inside-item" key={uuidv4()}>
                       {good}
                     </li>
@@ -103,19 +113,19 @@ function OfferScreen(): JSX.Element {
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={offer.host.avatarUrl}
+                      src={host.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">{offer.host.name}</span>
-                  {offer.host.isPro && (
+                  <span className="offer__user-name">{host.name}</span>
+                  {host.isPro && (
                     <span className="offer__user-status">Pro</span>
                   )}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">{offer.description}</p>
+                  <p className="offer__text">{description}</p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
@@ -140,13 +150,15 @@ function OfferScreen(): JSX.Element {
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighborhood
-            </h2>
-            <OffersList
-              offers={nearbyOffers}
-              className="near-places__list places__list"
-            />
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighborhood
+              </h2>
+              <OffersList
+                offers={nearbyOffers}
+                className="near-places__list places__list"
+              />
+            </section>
           </section>
         </div>
       </main>
