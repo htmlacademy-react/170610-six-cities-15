@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
   offer: Offer;
@@ -34,10 +35,6 @@ function Card({
   const handleOfferClick = (offerId: string) => {
     store.dispatch(fetchOfferAction(offerId));
   };
-
-  const isFavoriteClassName = isFavorite
-    ? 'place-card__bookmark-button--active'
-    : '';
 
   const articleClassName = `${
     isFavoriteItem ? 'favorites__card place-card' : 'cities__card place-card'
@@ -75,15 +72,12 @@ function Card({
               <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button
-              className={`place-card__bookmark-button ${isFavoriteClassName} button`}
-              type="button"
-            >
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkButton
+              isFavorite={isFavorite}
+              width={'18'}
+              height={'19'}
+              // onButtonClick={() => store.dispatch(fetchOfferAction(id))}
+            />
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">

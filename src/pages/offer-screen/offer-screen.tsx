@@ -8,6 +8,7 @@ import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 function OfferScreen(): JSX.Element {
   const selectedOffer = useAppSelector((state) => state.offer);
@@ -23,6 +24,7 @@ function OfferScreen(): JSX.Element {
     goods,
     host,
     description,
+    isFavorite,
   } = selectedOffer;
 
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
@@ -79,6 +81,12 @@ function OfferScreen(): JSX.Element {
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
+                <BookmarkButton
+                  isOfferScreen
+                  isFavorite={isFavorite}
+                  width={'31'}
+                  height={'33'}
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
