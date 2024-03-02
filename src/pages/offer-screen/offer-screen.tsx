@@ -147,6 +147,7 @@ function OfferScreen(): JSX.Element {
               defaultZoom={12}
               markersData={mapOffers}
               maxWidth={1144}
+              hoveredOfferId={selectedOffer.id}
             />
           </section>
         </section>
