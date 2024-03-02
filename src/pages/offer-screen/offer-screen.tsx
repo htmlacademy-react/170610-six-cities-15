@@ -13,6 +13,11 @@ function OfferScreen(): JSX.Element {
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  console.log(authorizationStatus);
 
   const activeCity = useAppSelector((state) => state.city);
   const activeCityCoordinates = cityCoordinates.find(
@@ -119,7 +124,7 @@ function OfferScreen(): JSX.Element {
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ReviewsList comments={comments} />
-                <ReviewsForm />
+                {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
               </section>
             </div>
           </div>
