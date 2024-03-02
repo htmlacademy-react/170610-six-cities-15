@@ -29,6 +29,11 @@ function OfferScreen(): JSX.Element {
   const mapOffers = [selectedOffer, ...nearbyOffers.slice(0, 3)];
 
   const comments = useAppSelector((state) => state.comments);
+
+  const sortedComments = comments
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
@@ -135,7 +140,7 @@ function OfferScreen(): JSX.Element {
                   Reviews &middot;{' '}
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
-                <ReviewsList comments={comments} />
+                <ReviewsList comments={sortedComments.slice(0, 10)} />
                 {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
               </section>
             </div>
