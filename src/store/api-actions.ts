@@ -45,11 +45,11 @@ export const fetchOfferAction = createAsyncThunk<
   }
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setOfferDataLoadingStatus(true));
-  const { data } = await api.get<Offer>(`/offers/${id}`);
+  const { data: offer } = await api.get<Offer>(`/offers/${id}`);
   const { data: nearby } = await api.get<Offers>(`/offers/${id}/nearby`);
   const { data: comments } = await api.get<Comments>(`/comments/${id}`);
   dispatch(setOfferDataLoadingStatus(false));
-  dispatch(loadOffer(data));
+  dispatch(loadOffer(offer));
   dispatch(loadNearbyOffers(nearby));
   dispatch(loadComments(comments));
 });

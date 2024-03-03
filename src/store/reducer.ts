@@ -16,10 +16,10 @@ import {
 } from './action';
 
 type InitialState = {
+  offer: Offer;
   offers: Offers;
   favoriteOffers: Offers;
   nearbyOffers: Offers;
-  offer: Offer;
   city: string;
   comments: Comments;
   authorizationStatus: AuthorizationStatus;
@@ -29,10 +29,10 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
+  offer: {} as Offer,
   offers: [],
   favoriteOffers: [],
   nearbyOffers: [],
-  offer: {} as Offer,
   city: cities.PARIS,
   comments: [],
   authorizationStatus: AuthorizationStatus.Unknown,

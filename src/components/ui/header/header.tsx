@@ -10,7 +10,6 @@ function Header() {
     (state) => state.authorizationStatus
   );
   const favoritesCount = useAppSelector((state) => state.favoriteOffers.length);
-  console.log(favoritesCount);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {

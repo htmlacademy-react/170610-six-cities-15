@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { v4 as uuidv4 } from 'uuid';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
@@ -7,11 +8,27 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { Offer, Offers } from '../../types/offer';
+import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 function OfferScreen(): JSX.Element {
-  const selectedOffer = useAppSelector((state) => state.offer);
+  const offer = useAppSelector<Offer>((state) => state.offer);
+  const nearbyOffers = useAppSelector<Offers>((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+  const activeCity = useAppSelector((state) => state.city);
+
+  const isOfferDataLoading = useAppSelector(
+    (state) => state.isOfferDataLoading
+  );
+
+  if (isOfferDataLoading) {
+    return <LoadingScreen />;
+  }
+
   const {
     id,
     images,
@@ -26,26 +43,19 @@ function OfferScreen(): JSX.Element {
     host,
     description,
     isFavorite,
-  } = selectedOffer;
+  } = offer;
 
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const mapOffers = [selectedOffer, ...nearbyOffers.slice(0, 3)];
-
-  const comments = useAppSelector((state) => state.comments);
+  const mapOffers = [offer, ...nearbyOffers.slice(0, 3)];
 
   const sortedComments = comments
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const activeCity = useAppSelector((state) => state.city);
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toUpperCase() === activeCity.toUpperCase()
   );
 
-  if (!selectedOffer.id) {
+  if (!offer.id) {
     return <NotFoundScreen />;
   }
 
@@ -162,7 +172,7 @@ function OfferScreen(): JSX.Element {
               defaultZoom={12}
               markersData={mapOffers}
               maxWidth={1144}
-              hoveredOfferId={selectedOffer.id}
+              hoveredOfferId={offer.id}
             />
           </section>
         </section>

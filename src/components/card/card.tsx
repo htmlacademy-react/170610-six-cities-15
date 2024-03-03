@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
