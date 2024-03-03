@@ -1,7 +1,7 @@
-import { AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/action';
 import { toggleFavoriteAction } from '../../store/api-actions';
-import { AppRoute } from '../../const';
 
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
@@ -44,7 +44,7 @@ function BookmarkButton({
 
   const toggleFavoriteHandler = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
-      console.log(authorizationStatus);
+      dispatch(redirectToRoute(AppRoute.Login));
     }
 
     dispatch(
