@@ -9,16 +9,26 @@ import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer, Offers } from '../../types/offer';
+import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
-  const offer = useAppSelector<Offer>((state) => state.offer);
+  const offers = useAppSelector<Offers>((state) => state.offers);
+  const selectedOffer = useAppSelector<Offer>((state) => state.offer);
   const nearbyOffers = useAppSelector<Offers>((state) => state.nearbyOffers);
   const comments = useAppSelector((state) => state.comments);
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
   const activeCity = useAppSelector((state) => state.city);
+
+  const isOfferDataLoading = useAppSelector(
+    (state) => state.isOfferDataLoading
+  );
+
+  if (isOfferDataLoading) {
+    return <LoadingScreen />;
+  }
 
   const {
     id,
@@ -34,9 +44,14 @@ function OfferScreen(): JSX.Element {
     host,
     description,
     isFavorite,
-  } = offer;
+  } = selectedOffer;
 
-  const mapOffers = [offer, ...nearbyOffers.slice(0, 3)];
+  const isOfferIdValid = (offerID: string): boolean =>
+    offers.some((offer) => offer.id === offerID);
+
+  if (!isOfferIdValid(id)) {
+    return <NotFoundScreen />;
+  }
 
   const sortedComments = comments
     .slice()
@@ -46,9 +61,7 @@ function OfferScreen(): JSX.Element {
     (city) => city.name.toUpperCase() === activeCity.toUpperCase()
   );
 
-  if (!offer.id) {
-    return <NotFoundScreen />;
-  }
+  const mapOffers = [selectedOffer, ...nearbyOffers.slice(0, 3)];
 
   return (
     <div className="page">
@@ -163,7 +176,7 @@ function OfferScreen(): JSX.Element {
               defaultZoom={12}
               markersData={mapOffers}
               maxWidth={1144}
-              hoveredOfferId={offer.id}
+              hoveredOfferId={selectedOffer.id}
             />
           </section>
         </section>
