@@ -1,5 +1,7 @@
-import { useAppDispatch } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { toggleFavoriteAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
@@ -17,6 +19,9 @@ function BookmarkButton({
   id,
 }: BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
 
   const buttonClassName = isOfferScreen
     ? 'offer__bookmark-button'
@@ -38,6 +43,10 @@ function BookmarkButton({
   }
 
   const toggleFavoriteHandler = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      console.log(authorizationStatus);
+    }
+
     dispatch(
       toggleFavoriteAction({
         id: id,
