@@ -19,14 +19,10 @@ function App(): JSX.Element {
   const isOffersDataLoading = useAppSelector(
     (state) => state.isOffersDataLoading
   );
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
 
   if (
     authorizationStatus === AuthorizationStatus.Unknown ||
-    isOffersDataLoading ||
-    isOfferDataLoading
+    isOffersDataLoading
   ) {
     return <LoadingScreen />;
   }
