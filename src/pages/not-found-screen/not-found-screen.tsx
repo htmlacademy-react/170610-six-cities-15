@@ -1,17 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
 
 function NotFoundScreen(): JSX.Element {
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
-
-  if (isOfferDataLoading) {
-    return <LoadingScreen />;
-  }
-
   return (
     <div className="page page--gray page--main">
       <Helmet>
