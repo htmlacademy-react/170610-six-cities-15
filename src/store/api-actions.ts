@@ -4,6 +4,7 @@ import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Comments } from '../types/comment.js';
+import { FavoriteStatus } from '../types/favorite-status.js';
 import { Offer, Offers } from '../types/offer.js';
 import { AppDispatch, State } from '../types/state.js';
 import { UserData } from '../types/user-data';
@@ -119,3 +120,22 @@ export const logoutAction = createAsyncThunk<
   dropToken();
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
 });
+
+export const toggleFavoriteAction = createAsyncThunk<
+  void,
+  FavoriteStatus,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'app/toggleFavoriteOffer',
+  async ({ id, status }, { dispatch, extra: api }) => {
+    console.log('toggleFavoriteAction');
+    console.log(id);
+    console.log(status);
+    await api.post<Offer>(`/favorite/${id}/${status}`, { id, status });
+    dispatch(toggleFavoriteOffer({ id, status }));
+  }
+);

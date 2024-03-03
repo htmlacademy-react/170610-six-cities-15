@@ -1,3 +1,6 @@
+import { useAppDispatch } from '../../hooks';
+import { toggleFavoriteAction } from '../../store/api-actions';
+
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
   isFavorite: boolean;
@@ -11,6 +14,8 @@ function BookmarkButton({
   width,
   height,
 }: BookmarkButtonProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const buttonClassName = isOfferScreen
     ? 'offer__bookmark-button'
     : 'place-card__bookmark-button';
@@ -30,10 +35,20 @@ function BookmarkButton({
     isFavoriteClassName = '';
   }
 
+  const toggleFavoriteHandler = () => {
+    dispatch(
+      toggleFavoriteAction({
+        id: 'f523f3e1-df8c-49b2-9f8a-0fd2b8d4cb6e',
+        status: Math.round(Math.random()),
+      })
+    );
+  };
+
   return (
     <button
       className={`${buttonClassName} ${isFavoriteClassName} button`}
       type="button"
+      onClick={toggleFavoriteHandler}
     >
       <svg className={svgClassName} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>

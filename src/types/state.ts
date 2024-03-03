@@ -8,11 +8,6 @@ export type AppData = {
   hasError: boolean;
 };
 
-// export type GameProcess = {
-//   mistakes: number;
-//   step: number;
-// };
-
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
 };
