@@ -1,9 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { store } from '../../store';
-import {
-  fetchOfferAction,
-  toggleFavoriteAction,
-} from '../../store/api-actions';
+import { toggleFavoriteAction } from '../../store/api-actions';
 
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
@@ -48,7 +44,6 @@ function BookmarkButton({
         status: isFavorite ? 0 : 1,
       })
     );
-    store.dispatch(fetchOfferAction(id));
   };
 
   return (
