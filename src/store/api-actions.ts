@@ -52,6 +52,7 @@ export const fetchOfferAction = createAsyncThunk<
   dispatch(loadOffer(offer));
   dispatch(loadNearbyOffers(nearby));
   dispatch(loadComments(comments));
+  // dispatch(redirectToRoute(`/offer/${id}`));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<

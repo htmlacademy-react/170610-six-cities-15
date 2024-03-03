@@ -9,7 +9,6 @@ import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer, Offers } from '../../types/offer';
-import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
@@ -21,14 +20,6 @@ function OfferScreen(): JSX.Element {
     (state) => state.authorizationStatus
   );
   const activeCity = useAppSelector((state) => state.city);
-
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
-
-  if (isOfferDataLoading) {
-    return <LoadingScreen />;
-  }
 
   const {
     id,

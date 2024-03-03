@@ -84,9 +84,11 @@ function Card({
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <Link to={`/offer/${id}`} onClick={() => handleOfferClick(id)}>
-          <h2 className="place-card__name">{title}</h2>
-        </Link>
+
+        <h2 className="place-card__name" onClick={() => handleOfferClick(id)}>
+          <Link to={`/offer/${id}`}>{title}</Link>
+        </h2>
+
         <p className="place-card__type">{type}</p>
       </div>
     </article>
