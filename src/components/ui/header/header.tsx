@@ -9,6 +9,8 @@ function Header() {
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
+  const favoritesCount = useAppSelector((state) => state.favoriteOffers.length);
+  console.log(favoritesCount);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -23,7 +25,7 @@ function Header() {
               <span className="header__user-name user__name">
                 Oliver.conner@gmail.com
               </span>
-              <span className="header__favorite-count">3</span>
+              <span className="header__favorite-count">{favoritesCount}</span>
             </Link>
           </div>
           <li className="header__nav-item">

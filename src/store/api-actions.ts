@@ -135,9 +135,8 @@ export const toggleFavoriteAction = createAsyncThunk<
       id,
       status,
     });
-    await dispatch(fetchOffersAction());
-
     await dispatch(fetchOfferAction(id));
     await dispatch(fetchFavoriteOffersAction());
+    await dispatch(fetchOffersAction());
   }
 );

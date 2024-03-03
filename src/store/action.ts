@@ -19,7 +19,6 @@ export const loadOffer = createAction<Offer>('data/loadOffer');
 export const setOfferDataLoadingStatus = createAction<boolean>(
   'data/setOfferDataLoadingStatus'
 );
-export const clearOffer = createAction<Offer>('data/clearOffer');
 export const toggleFavoriteOffer = createAction<Offer>(
   'app/toggleFavoriteOffer'
 );
