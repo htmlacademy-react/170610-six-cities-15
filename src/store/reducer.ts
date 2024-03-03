@@ -13,7 +13,6 @@ import {
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  clearOffer,
 } from './action';
 
 type InitialState = {
@@ -60,9 +59,6 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFavoriteOffersDataLoading = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
-      state.offer = action.payload;
-    })
-    .addCase(clearOffer, (state, action) => {
       state.offer = action.payload;
     })
     .addCase(loadNearbyOffers, (state, action) => {

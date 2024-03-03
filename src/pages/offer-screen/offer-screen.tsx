@@ -13,6 +13,7 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 function OfferScreen(): JSX.Element {
   const selectedOffer = useAppSelector((state) => state.offer);
   const {
+    id,
     images,
     isPremium,
     title,
@@ -82,10 +83,11 @@ function OfferScreen(): JSX.Element {
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
                 <BookmarkButton
-                  isOfferScreen
+                  id={id}
                   isFavorite={isFavorite}
                   width={'31'}
                   height={'33'}
+                  isOfferScreen
                 />
               </div>
               <div className="offer__rating rating">

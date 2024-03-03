@@ -1,18 +1,24 @@
 import { useAppDispatch } from '../../hooks';
-import { toggleFavoriteAction } from '../../store/api-actions';
+import { store } from '../../store';
+import {
+  fetchOfferAction,
+  toggleFavoriteAction,
+} from '../../store/api-actions';
 
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
   isFavorite: boolean;
   width: string;
   height: string;
+  id: string;
 };
 
 function BookmarkButton({
-  isOfferScreen = false,
-  isFavorite = false,
+  isOfferScreen,
+  isFavorite,
   width,
   height,
+  id,
 }: BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -38,10 +44,11 @@ function BookmarkButton({
   const toggleFavoriteHandler = () => {
     dispatch(
       toggleFavoriteAction({
-        id: 'f523f3e1-df8c-49b2-9f8a-0fd2b8d4cb6e',
-        status: Math.round(Math.random()),
+        id: id,
+        status: isFavorite ? 0 : 1,
       })
     );
+    store.dispatch(fetchOfferAction(id));
   };
 
   return (

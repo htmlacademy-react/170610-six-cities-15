@@ -136,6 +136,6 @@ export const toggleFavoriteAction = createAsyncThunk<
     console.log(id);
     console.log(status);
     await api.post<Offer>(`/favorite/${id}/${status}`, { id, status });
-    dispatch(toggleFavoriteOffer({ id, status }));
+    await dispatch(fetchOfferAction(id));
   }
 );
