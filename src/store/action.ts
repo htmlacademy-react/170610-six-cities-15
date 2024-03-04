@@ -19,12 +19,20 @@ export const loadOffer = createAction<Offer>('data/loadOffer');
 export const setOfferDataLoadingStatus = createAction<boolean>(
   'data/setOfferDataLoadingStatus'
 );
-export const toggleFavoriteOffer = createAction<Offer>(
-  'app/toggleFavoriteOffer'
+
+export const loadComments = createAction<Comments>('data/loadComments');
+export const setCommentsDataLoadingStatus = createAction<boolean>(
+  'data/setCommentsDataLoadingStatus'
 );
 
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
-export const loadComments = createAction<Comments>('data/loadComments');
+export const setNearbyOffersDataLoadingStatus = createAction<boolean>(
+  'data/setNearbyOffersDataLoadingStatus'
+);
+
+export const toggleFavoriteOffer = createAction<Offer>(
+  'app/toggleFavoriteOffer'
+);
 
 export const setActiveCity = createAction<string>('app/setActiveCity');
 

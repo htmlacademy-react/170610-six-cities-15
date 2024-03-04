@@ -11,8 +11,10 @@ import {
   requireAuthorization,
   setActiveCity,
   setFavoriteOffersDataLoadingStatus,
-  setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
+  setOfferDataLoadingStatus,
+  setCommentsDataLoadingStatus,
+  setNearbyOffersDataLoadingStatus,
 } from './action';
 
 type InitialState = {
@@ -25,6 +27,8 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   isOfferDataLoading: boolean;
   isOffersDataLoading: boolean;
+  isCommentsDataLoading: boolean;
+  isNearbyOffersDataLoading: boolean;
   isFavoriteOffersDataLoading: boolean;
 };
 
@@ -38,6 +42,8 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isOfferDataLoading: false,
   isOffersDataLoading: false,
+  isCommentsDataLoading: false,
+  isNearbyOffersDataLoading: false,
   isFavoriteOffersDataLoading: false,
 };
 
@@ -61,14 +67,20 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffer, (state, action) => {
       state.offer = action.payload;
     })
-    .addCase(loadNearbyOffers, (state, action) => {
-      state.nearbyOffers = action.payload;
+    .addCase(setOfferDataLoadingStatus, (state, action) => {
+      state.isOfferDataLoading = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
     })
-    .addCase(setOfferDataLoadingStatus, (state, action) => {
-      state.isOfferDataLoading = action.payload;
+    .addCase(setCommentsDataLoadingStatus, (state, action) => {
+      state.isCommentsDataLoading = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(setNearbyOffersDataLoadingStatus, (state, action) => {
+      state.isNearbyOffersDataLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

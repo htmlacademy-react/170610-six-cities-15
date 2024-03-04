@@ -32,13 +32,10 @@ function Card({
     isPremium,
   } = offer;
 
-  const handleOfferClick = (offerId: string) => {
-    store.dispatch(fetchOfferAction(offerId));
-  };
-
   const articleClassName = `${
     isFavoriteItem ? 'favorites__card place-card' : 'cities__card place-card'
   }`;
+
   const wrapperClassName = `${
     isFavoriteItem
       ? 'favorites__image-wrapper place-card__image-wrapper'
@@ -85,7 +82,7 @@ function Card({
           </div>
         </div>
 
-        <h2 className="place-card__name" onClick={() => handleOfferClick(id)}>
+        <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
 

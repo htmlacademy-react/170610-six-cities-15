@@ -8,7 +8,7 @@ type BookmarkButtonProps = {
   isFavorite: boolean;
   width: string;
   height: string;
-  id: string;
+  id: string | undefined;
 };
 
 function BookmarkButton({

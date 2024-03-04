@@ -18,6 +18,8 @@ import {
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
+  setCommentsDataLoadingStatus,
+  setNearbyOffersDataLoadingStatus,
 } from './action';
 
 export const fetchOffersAction = createAsyncThunk<
@@ -35,25 +37,55 @@ export const fetchOffersAction = createAsyncThunk<
   dispatch(loadOffers(data));
 });
 
+
+/*----------------------------------------*/
+
 export const fetchOfferAction = createAsyncThunk<
   void,
-  string,
+  string | undefined,
   {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
+  const { data } = await api.get<Offer>(`/offers/${id}`);
   dispatch(setOfferDataLoadingStatus(true));
-  const { data: offer } = await api.get<Offer>(`/offers/${id}`);
-  const { data: nearby } = await api.get<Offers>(`/offers/${id}/nearby`);
-  const { data: comments } = await api.get<Comments>(`/comments/${id}`);
+  dispatch(loadOffer(data));
   dispatch(setOfferDataLoadingStatus(false));
-  dispatch(loadOffer(offer));
-  dispatch(loadNearbyOffers(nearby));
-  dispatch(loadComments(comments));
-  // dispatch(redirectToRoute(`/offer/${id}`));
 });
+
+export const fetchCommentsAction = createAsyncThunk<
+  void,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/loadComments', async (id, { dispatch, extra: api }) => {
+  const { data } = await api.get<Comments>(`/comments/${id}`);
+  dispatch(setCommentsDataLoadingStatus(true));
+  dispatch(loadComments(data));
+  dispatch(setCommentsDataLoadingStatus(false));
+});
+
+export const fetchNearbyOffersAction = createAsyncThunk<
+  void,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/loadNearbyOffers', async (id, { dispatch, extra: api }) => {
+  const { data } = await api.get<Offers>(`/offers/${id}/nearby`);
+  dispatch(setNearbyOffersDataLoadingStatus(true));
+  dispatch(loadNearbyOffers(data));
+  dispatch(setNearbyOffersDataLoadingStatus(false));
+});
+
+/*----------------------------------------*/
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
   void,
@@ -123,7 +155,7 @@ export const logoutAction = createAsyncThunk<
 
 export const toggleFavoriteAction = createAsyncThunk<
   void,
-  { id: string; status: number },
+  { id: string | undefined; status: number },
   {
     dispatch: AppDispatch;
     state: State;

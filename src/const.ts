@@ -4,6 +4,8 @@ export const PIN_MARKER_DEFAULT = 'img/pin.svg';
 export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
 export const MAP_LAYER =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+export const MAX_OFFER_SCREEN_MARKERS_COUNT = 4;
+export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
 
 export enum AppRoute {
   Main = '/',

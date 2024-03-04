@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Map from '../../components/map/map';
@@ -7,22 +9,78 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
-import { useAppSelector } from '../../hooks';
+import {
+  MAX_OFFER_SCREEN_MARKERS_COUNT,
+  MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
+} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+  fetchOfferAction,
+} from '../../store/api-actions';
+import { Comments } from '../../types/comment';
 import { Offer, Offers } from '../../types/offer';
+import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
+  const { id } = useParams<{ id: string | undefined }>();
+  const dispatch = useAppDispatch();
   const offers = useAppSelector<Offers>((state) => state.offers);
-  const selectedOffer = useAppSelector<Offer>((state) => state.offer);
+
+  const offer = useAppSelector<Offer>((state) => state.offer);
+  const comments = useAppSelector<Comments>((state) => state.comments);
   const nearbyOffers = useAppSelector<Offers>((state) => state.nearbyOffers);
-  const comments = useAppSelector((state) => state.comments);
+
+  const sortedComments = comments
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
-  const activeCity = useAppSelector((state) => state.city);
+
+  const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
+  const isCommentsLoading = useAppSelector(
+    (state) => state.isCommentsDataLoading
+  );
+  const isNearbyOffersLoading = useAppSelector(
+    (state) => state.isNearbyOffersDataLoading
+  );
+
+  const cityName: string | undefined = offers.find(
+    (offerItem) => offerItem.id === id
+  )?.city.name;
+
+  const selectedCityCoordinates = cityCoordinates.find(
+    (city) =>
+      city.name.toUpperCase() === (cityName ? cityName.toUpperCase() : '')
+  );
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchCommentsAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+    }
+  }, [id, dispatch]);
+
+  if (!offer) {
+    if (isOfferLoading || isCommentsLoading || isNearbyOffersLoading) {
+      return (
+        <div className="page">
+          <Helmet>
+            <title>Loading offer...</title>
+          </Helmet>
+          <LoadingScreen />
+        </div>
+      );
+    }
+    return <NotFoundScreen />;
+  }
 
   const {
-    id,
     images,
     isPremium,
     title,
@@ -35,24 +93,13 @@ function OfferScreen(): JSX.Element {
     host,
     description,
     isFavorite,
-  } = selectedOffer;
+  } = offer;
 
-  const isOfferIdValid = (offerID: string): boolean =>
-    offers.some((offer) => offer.id === offerID);
-
-  if (!isOfferIdValid(id)) {
-    return <NotFoundScreen />;
-  }
-
-  const sortedComments = comments
-    .slice()
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toUpperCase() === activeCity.toUpperCase()
+  const slicedNearbyOffers = nearbyOffers.slice(
+    0,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
-
-  const mapOffers = [selectedOffer, ...nearbyOffers.slice(0, 3)];
+  const mapOffers = [offer, ...slicedNearbyOffers];
 
   return (
     <div className="page">
@@ -65,7 +112,7 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {images?.map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Offer" />
                 </div>
@@ -122,7 +169,7 @@ function OfferScreen(): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((good) => (
+                  {goods?.map((good) => (
                     <li className="offer__inside-item" key={uuidv4()}>
                       {good}
                     </li>
@@ -135,14 +182,14 @@ function OfferScreen(): JSX.Element {
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={host.avatarUrl}
+                      src={host?.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">{host.name}</span>
-                  {host.isPro && (
+                  <span className="offer__user-name">{host?.name}</span>
+                  {host?.isPro && (
                     <span className="offer__user-status">Pro</span>
                   )}
                 </div>
@@ -161,27 +208,27 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map
-              defaultLatitude={activeCityCoordinates?.latitude}
-              defaultLongitude={activeCityCoordinates?.longitude}
-              defaultZoom={12}
-              markersData={mapOffers}
-              maxWidth={1144}
-              hoveredOfferId={selectedOffer.id}
-            />
+            {mapOffers?.length === MAX_OFFER_SCREEN_MARKERS_COUNT && (
+              <Map
+                defaultLatitude={selectedCityCoordinates?.latitude}
+                defaultLongitude={selectedCityCoordinates?.longitude}
+                defaultZoom={12}
+                markersData={mapOffers.length ? mapOffers : []}
+                maxWidth={1144}
+                hoveredOfferId={id}
+              />
+            )}
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighborhood
-              </h2>
-              <OffersList
-                offers={nearbyOffers}
-                className="near-places__list places__list"
-              />
-            </section>
+            <h2 className="near-places__title">
+              Other places in the neighborhood
+            </h2>
+            <OffersList
+              offers={slicedNearbyOffers}
+              className="near-places__list places__list"
+            />
           </section>
         </div>
       </main>
