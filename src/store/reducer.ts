@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, cities } from '../const';
-import { Comments } from '../types/comment';
-import { Offer, Offers } from '../types/offer';
+import { TComments } from '../types/comment';
+import { TOffer, TOffers } from '../types/offer';
 import {
   loadComments,
   loadFavoriteOffers,
@@ -18,12 +18,12 @@ import {
 } from './action';
 
 type InitialState = {
-  offer: Offer;
-  offers: Offers;
-  favoriteOffers: Offers;
-  nearbyOffers: Offers;
+  offer: TOffer;
+  offers: TOffers;
+  favoriteOffers: TOffers;
+  nearbyOffers: TOffers;
   city: string;
-  comments: Comments;
+  comments: TComments;
   authorizationStatus: AuthorizationStatus;
   isOfferDataLoading: boolean;
   isOffersDataLoading: boolean;
@@ -33,7 +33,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  offer: {} as Offer,
+  offer: {} as TOffer,
   offers: [],
   favoriteOffers: [],
   nearbyOffers: [],

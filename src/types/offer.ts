@@ -1,37 +1,37 @@
-type City = {
+type TCity = {
   name: string;
-  location: Location;
+  location: TLocation;
 };
 
-type Location = {
+type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-type Host = {
+type THost = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-export type Offer = {
+export type TOffer = {
   id: string;
   title: string;
   type: string;
   price: number;
   previewImage: string;
-  city: City;
-  location: Location;
+  city: TCity;
+  location: TLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: THost;
   images: string[];
   maxAdults: number;
 };
 
-export type Offers = Offer[];
+export type TOffers = TOffer[];

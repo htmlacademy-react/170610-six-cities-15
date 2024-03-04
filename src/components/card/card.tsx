@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
-  offer: Offer;
+  offer: TOffer;
   isActive?: boolean;
   onOfferHover?: (offerId: string) => void;
   isFavoriteItem?: boolean;

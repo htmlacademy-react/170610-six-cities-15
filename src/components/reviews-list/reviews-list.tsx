@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Comment } from '../../types/comment';
+import { TComment } from '../../types/comment';
 import ReviewsItem from '../reviews-item/reviews-item';
 
 type ReviewsListProps = {
-  comments: Comment[];
+  comments: TComment[];
 };
 
 function ReviewsList({ comments }: ReviewsListProps): JSX.Element {

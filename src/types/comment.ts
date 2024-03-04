@@ -1,15 +1,15 @@
-type User = {
+type TUser = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-export type Comment = {
+export type TComment = {
   id: string;
   date: string;
-  user: User;
+  user: TUser;
   comment: string;
   rating: number;
 };
 
-export type Comments = Comment[];
+export type TComments = TComment[];

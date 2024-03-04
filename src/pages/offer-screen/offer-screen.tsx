@@ -19,19 +19,19 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
 } from '../../store/api-actions';
-import { Comments } from '../../types/comment';
-import { Offer, Offers } from '../../types/offer';
+import { TComments } from '../../types/comment';
+import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams<{ id: string | undefined }>();
   const dispatch = useAppDispatch();
-  const offers = useAppSelector<Offers>((state) => state.offers);
+  const offers = useAppSelector<TOffers>((state) => state.offers);
 
-  const offer = useAppSelector<Offer>((state) => state.offer);
-  const comments = useAppSelector<Comments>((state) => state.comments);
-  const nearbyOffers = useAppSelector<Offers>((state) => state.nearbyOffers);
+  const offer = useAppSelector<TOffer>((state) => state.offer);
+  const comments = useAppSelector<TComments>((state) => state.comments);
+  const nearbyOffers = useAppSelector<TOffers>((state) => state.nearbyOffers);
 
   const sortedComments = comments
     .slice()

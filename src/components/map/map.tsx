@@ -2,13 +2,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { MAP_LAYER, PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
-import { Offers } from '../../types/offer';
+import { TOffers } from '../../types/offer';
 
 type MapProps = {
   defaultLatitude: number | undefined;
   defaultLongitude: number | undefined;
   defaultZoom: number;
-  markersData: Offers;
+  markersData: TOffers;
   maxWidth?: number;
   hoveredOfferId?: string;
 };

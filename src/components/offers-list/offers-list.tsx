@@ -1,8 +1,8 @@
 import Card from '../card/card';
-import { Offers } from '../../types/offer';
+import { TOffers } from '../../types/offer';
 
 type OffersListProps = {
-  offers: Offers;
+  offers: TOffers;
   className?: string;
   isActive?: boolean;
   onOfferHover?: (offerId: string) => void;

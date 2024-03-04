@@ -1,36 +1,36 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { Comments } from '../types/comment';
-import { Offer, Offers } from '../types/offer';
+import { TComments } from '../types/comment';
+import { TOffer, TOffers } from '../types/offer';
 
-export const loadOffers = createAction<Offers>('data/loadOffers');
+export const loadOffers = createAction<TOffers>('data/loadOffers');
 export const setOffersDataLoadingStatus = createAction<boolean>(
   'data/setOffersDataLoadingStatus'
 );
 
-export const loadFavoriteOffers = createAction<Offers>(
+export const loadFavoriteOffers = createAction<TOffers>(
   'data/loadFavoriteOffers'
 );
 export const setFavoriteOffersDataLoadingStatus = createAction<boolean>(
   'data/setFavoriteOffersDataLoadingStatus'
 );
 
-export const loadOffer = createAction<Offer>('data/loadOffer');
+export const loadOffer = createAction<TOffer>('data/loadOffer');
 export const setOfferDataLoadingStatus = createAction<boolean>(
   'data/setOfferDataLoadingStatus'
 );
 
-export const loadComments = createAction<Comments>('data/loadComments');
+export const loadComments = createAction<TComments>('data/loadComments');
 export const setCommentsDataLoadingStatus = createAction<boolean>(
   'data/setCommentsDataLoadingStatus'
 );
 
-export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
+export const loadNearbyOffers = createAction<TOffers>('data/loadNearbyOffers');
 export const setNearbyOffersDataLoadingStatus = createAction<boolean>(
   'data/setNearbyOffersDataLoadingStatus'
 );
 
-export const toggleFavoriteOffer = createAction<Offer>(
+export const toggleFavoriteOffer = createAction<TOffer>(
   'app/toggleFavoriteOffer'
 );
 
