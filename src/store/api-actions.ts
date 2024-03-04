@@ -38,8 +38,6 @@ export const fetchOffersAction = createAsyncThunk<
   dispatch(loadOffers(data));
 });
 
-/*----------------------------------------*/
-
 export const fetchOfferAction = createAsyncThunk<
   void,
   string | undefined,
@@ -85,8 +83,6 @@ export const fetchNearbyOffersAction = createAsyncThunk<
   dispatch(setNearbyOffersDataLoadingStatus(false));
 });
 
-/*----------------------------------------*/
-
 export const fetchFavoriteOffersAction = createAsyncThunk<
   void,
   undefined,
@@ -101,8 +97,6 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(setFavoriteOffersDataLoadingStatus(false));
   dispatch(loadFavoriteOffers(data));
 });
-
-/*----------------------------------------*/
 
 export const checkAuthAction = createAsyncThunk<
   void,
@@ -120,8 +114,6 @@ export const checkAuthAction = createAsyncThunk<
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 });
-
-/*----------------------------------------*/
 
 export const loginAction = createAsyncThunk<
   void,
@@ -178,8 +170,6 @@ export const toggleFavoriteAction = createAsyncThunk<
   }
 );
 
-/*----------------------------------------*/
-
 export const postCommentAction = createAsyncThunk<
   void,
   TCommentData,
@@ -188,20 +178,15 @@ export const postCommentAction = createAsyncThunk<
     state: TState;
     extra: AxiosInstance;
   }
->(
-  'data/postComment',
-  async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    const { data } = await api.post<TCommentData>(`/comments/${id}`, {
-      comment,
-      rating,
-    });
-    return data;
-  }
-);
+>('data/postComment', async ({ id, comment, rating }, { extra: api }) => {
+  await api.post<TCommentData>(`/comments/${id}`, {
+    comment,
+    rating,
+  });
+});
 
 export const postCommentAndUpdateOffersAction =
   (commentData: TCommentData) => async (dispatch: TAppDispatch) => {
     await dispatch(postCommentAction(commentData));
     await dispatch(fetchCommentsAction(commentData.id));
   };
-/*----------------------------------------*/
