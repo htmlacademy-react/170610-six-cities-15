@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
-import { postCommentAction } from '../../store/api-actions';
+import { postCommentAndUpdateOffersAction } from '../../store/api-actions';
 import RatingInput from '../rating-input/rating-Input';
 import { TCommentData } from '../../types/comment';
 
@@ -23,20 +23,22 @@ function ReviewsForm(): JSX.Element {
     setReview(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
 
     if (
-      typeof id === 'string' &&
-      typeof rating === 'string' &&
+      id &&
+      rating &&
       !isNaN(Number(rating)) &&
-      typeof review === 'string' &&
+      review &&
       review.trim().length >= 50 &&
       review.trim().length <= 300
     ) {
-      dispatch(
-        postCommentAction({
-          id,
+      await dispatch(
+        postCommentAndUpdateOffersAction({
+          id: id,
           rating: Number(rating),
           comment: review.trim(),
         })

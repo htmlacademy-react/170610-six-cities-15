@@ -191,4 +191,9 @@ export const postCommentAction = createAsyncThunk<
   return data;
 });
 
+export const postCommentAndUpdateOffersAction =
+  (commentData: TCommentData) => async (dispatch: TAppDispatch) => {
+    await dispatch(postCommentAction(commentData));
+    await dispatch(fetchCommentsAction(commentData.id));
+  };
 /*----------------------------------------*/
