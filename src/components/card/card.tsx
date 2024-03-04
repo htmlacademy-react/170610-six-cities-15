@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { store } from '../../store';
-import { fetchOfferAction } from '../../store/api-actions';
 import { TOffer } from '../../types/offer';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
