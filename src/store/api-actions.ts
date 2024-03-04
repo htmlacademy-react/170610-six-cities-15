@@ -3,10 +3,11 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
-import { TComment, TCommentData, TComments } from '../types/comment.js';
+import { TCommentData, TComments } from '../types/comment.js';
 import { TOffer, TOffers } from '../types/offer.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
+
 import {
   loadComments,
   loadFavoriteOffers,
@@ -180,16 +181,23 @@ export const toggleFavoriteAction = createAsyncThunk<
 /*----------------------------------------*/
 
 export const postCommentAction = createAsyncThunk<
-  TComment,
+  void,
   TCommentData,
-  { extra: AxiosInstance }
->('data/postComment', async ({ id, comment, rating }, { extra: api }) => {
-  const { data } = await api.post<TComment>(`/comments/${id}`, {
-    comment,
-    rating,
-  });
-  return data;
-});
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>(
+  'data/postComment',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    const { data } = await api.post<TCommentData>(`/comments/${id}`, {
+      comment,
+      rating,
+    });
+    return data;
+  }
+);
 
 export const postCommentAndUpdateOffersAction =
   (commentData: TCommentData) => async (dispatch: TAppDispatch) => {

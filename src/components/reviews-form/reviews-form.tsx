@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
 import { postCommentAndUpdateOffersAction } from '../../store/api-actions';
 import RatingInput from '../rating-input/rating-Input';
-import { TCommentData } from '../../types/comment';
 
 function ReviewsForm(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
 
   const [rating, setRating] = useState<string>('');
@@ -23,10 +22,8 @@ function ReviewsForm(): JSX.Element {
     setReview(event.target.value);
   };
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    event.preventDefault();
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
 
     if (
       id &&
@@ -36,7 +33,7 @@ function ReviewsForm(): JSX.Element {
       review.trim().length >= 50 &&
       review.trim().length <= 300
     ) {
-      await dispatch(
+      dispatch(
         postCommentAndUpdateOffersAction({
           id: id,
           rating: Number(rating),
@@ -47,7 +44,12 @@ function ReviewsForm(): JSX.Element {
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form
+      className="reviews__form form"
+      onSubmit={handleSubmit}
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
