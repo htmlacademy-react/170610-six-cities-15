@@ -12,4 +12,10 @@ export type TComment = {
   rating: number;
 };
 
+export type TCommentData = {
+  id: string;
+  comment: string;
+  rating: number;
+};
+
 export type TComments = TComment[];

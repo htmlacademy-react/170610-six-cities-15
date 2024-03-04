@@ -208,7 +208,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            {mapOffers?.length === MAX_OFFER_SCREEN_MARKERS_COUNT && (
+            {mapOffers.length === MAX_OFFER_SCREEN_MARKERS_COUNT && (
               <Map
                 defaultLatitude={selectedCityCoordinates?.latitude}
                 defaultLongitude={selectedCityCoordinates?.longitude}

@@ -41,3 +41,5 @@ export const requireAuthorization = createAction<AuthorizationStatus>(
 );
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
+
+export const postComment = createAction<AppRoute>('data/postComment');

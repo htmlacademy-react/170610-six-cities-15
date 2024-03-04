@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import RatingInput from '../rating-input/rating-Input';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
+import { postCommentAction } from '../../store/api-actions';
+import RatingInput from '../rating-input/rating-Input';
+import { TCommentData } from '../../types/comment';
 
 function ReviewsForm(): JSX.Element {
-  const [rating, setRating] = useState('');
-  const [review, setReview] = useState('');
+  const dispatch = useDispatch();
+  const { id } = useParams<{ id: string }>();
+
+  const [rating, setRating] = useState<string>('');
+  const [review, setReview] = useState<string>('');
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRating(event.target.value);
@@ -16,8 +23,25 @@ function ReviewsForm(): JSX.Element {
     setReview(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    if (
+      typeof id === 'string' &&
+      typeof rating === 'string' &&
+      !isNaN(Number(rating)) &&
+      typeof review === 'string' &&
+      review.trim().length >= 50 &&
+      review.trim().length <= 300
+    ) {
+      dispatch(
+        postCommentAction({
+          id,
+          rating: Number(rating),
+          comment: review.trim(),
+        })
+      );
+    }
   };
 
   return (
@@ -53,7 +77,12 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!rating || !review || review.trim().length < 50}
+          disabled={
+            !rating ||
+            !review ||
+            review.trim().length < 50 ||
+            review.trim().length > 300
+          }
         >
           Submit
         </button>

@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
-import { TComments } from '../types/comment.js';
+import { TComment, TCommentData, TComments } from '../types/comment.js';
 import { TOffer, TOffers } from '../types/offer.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
@@ -15,11 +15,11 @@ import {
   loadOffers,
   redirectToRoute,
   requireAuthorization,
+  setCommentsDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
+  setNearbyOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  setCommentsDataLoadingStatus,
-  setNearbyOffersDataLoadingStatus,
 } from './action';
 
 export const fetchOffersAction = createAsyncThunk<
@@ -101,6 +101,8 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(loadFavoriteOffers(data));
 });
 
+/*----------------------------------------*/
+
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
@@ -117,6 +119,8 @@ export const checkAuthAction = createAsyncThunk<
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 });
+
+/*----------------------------------------*/
 
 export const loginAction = createAsyncThunk<
   void,
@@ -172,3 +176,19 @@ export const toggleFavoriteAction = createAsyncThunk<
     await dispatch(fetchOffersAction());
   }
 );
+
+/*----------------------------------------*/
+
+export const postCommentAction = createAsyncThunk<
+  TComment,
+  TCommentData,
+  { extra: AxiosInstance }
+>('data/postComment', async ({ id, comment, rating }, { extra: api }) => {
+  const { data } = await api.post<TComment>(`/comments/${id}`, {
+    comment,
+    rating,
+  });
+  return data;
+});
+
+/*----------------------------------------*/
