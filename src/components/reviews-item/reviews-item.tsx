@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
-import { Comment } from '../../types/comment';
+import { TComment } from '../../types/comment';
 
 type ReviewsItemProps = {
-  comment: Comment;
+  comment: TComment;
 };
 
 function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {

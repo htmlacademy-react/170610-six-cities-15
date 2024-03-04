@@ -1,30 +1,49 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, cities } from '../const';
-import { Offers } from '../types/offer';
+import { TComments } from '../types/comment';
+import { TOffer, TOffers } from '../types/offer';
 import {
+  loadComments,
   loadFavoriteOffers,
+  loadNearbyOffers,
+  loadOffer,
   loadOffers,
   requireAuthorization,
   setActiveCity,
   setFavoriteOffersDataLoadingStatus,
   setOffersDataLoadingStatus,
+  setOfferDataLoadingStatus,
+  setCommentsDataLoadingStatus,
+  setNearbyOffersDataLoadingStatus,
 } from './action';
 
 type InitialState = {
-  offers: Offers;
-  favoriteOffers: Offers;
+  offer: TOffer;
+  offers: TOffers;
+  favoriteOffers: TOffers;
+  nearbyOffers: TOffers;
   city: string;
+  comments: TComments;
   authorizationStatus: AuthorizationStatus;
+  isOfferDataLoading: boolean;
   isOffersDataLoading: boolean;
+  isCommentsDataLoading: boolean;
+  isNearbyOffersDataLoading: boolean;
   isFavoriteOffersDataLoading: boolean;
 };
 
 const initialState: InitialState = {
+  offer: {} as TOffer,
   offers: [],
   favoriteOffers: [],
+  nearbyOffers: [],
   city: cities.PARIS,
+  comments: [],
   authorizationStatus: AuthorizationStatus.Unknown,
+  isOfferDataLoading: false,
   isOffersDataLoading: false,
+  isCommentsDataLoading: false,
+  isNearbyOffersDataLoading: false,
   isFavoriteOffersDataLoading: false,
 };
 
@@ -44,6 +63,24 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFavoriteOffersDataLoadingStatus, (state, action) => {
       state.isFavoriteOffersDataLoading = action.payload;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(setOfferDataLoadingStatus, (state, action) => {
+      state.isOfferDataLoading = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(setCommentsDataLoadingStatus, (state, action) => {
+      state.isCommentsDataLoading = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(setNearbyOffersDataLoadingStatus, (state, action) => {
+      state.isNearbyOffersDataLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

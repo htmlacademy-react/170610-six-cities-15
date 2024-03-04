@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import RatingInput from '../rating-input/rating-Input';
+import React, { FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
+import { postCommentAndUpdateOffersAction } from '../../store/api-actions';
+import RatingInput from '../rating-input/rating-Input';
 
 function ReviewsForm(): JSX.Element {
-  const [rating, setRating] = useState('');
-  const [review, setReview] = useState('');
+  const dispatch = useAppDispatch();
+  const { id } = useParams<{ id: string }>();
+
+  const [rating, setRating] = useState<string>('');
+  const [review, setReview] = useState<string>('');
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRating(event.target.value);
@@ -16,12 +22,34 @@ function ReviewsForm(): JSX.Element {
     setReview(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (
+      id &&
+      rating &&
+      !isNaN(Number(rating)) &&
+      review &&
+      review.trim().length >= 50 &&
+      review.trim().length <= 300
+    ) {
+      dispatch(
+        postCommentAndUpdateOffersAction({
+          id: id,
+          rating: Number(rating),
+          comment: review.trim(),
+        })
+      );
+    }
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form
+      className="reviews__form form"
+      onSubmit={handleSubmit}
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -53,7 +81,12 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!rating || !review || review.trim().length < 50}
+          disabled={
+            !rating ||
+            !review ||
+            review.trim().length < 50 ||
+            review.trim().length > 300
+          }
         >
           Submit
         </button>

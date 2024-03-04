@@ -1,15 +1,15 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
+import browserHistory from '../../browser-history';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
+import HistoryRouter from '../history-route/history-route';
 import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {

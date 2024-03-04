@@ -1,22 +1,17 @@
 import { AuthorizationStatus } from '../const.js';
 import { store } from '../store/index.js';
-import { Offers } from './offer';
+import { TOffers } from './offer';
 
-export type AppData = {
-  offers: Offers;
+export type TAppData = {
+  offers: TOffers;
   isOffersDataLoading: boolean;
   hasError: boolean;
 };
 
-// export type GameProcess = {
-//   mistakes: number;
-//   step: number;
-// };
-
-export type UserProcess = {
+export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;
 };
 
-export type State = ReturnType<typeof store.getState>;
+export type TState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch;
+export type TAppDispatch = typeof store.dispatch;

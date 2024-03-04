@@ -1,16 +1,18 @@
 import Card from '../card/card';
-import { Offers } from '../../types/offer';
+import { TOffers } from '../../types/offer';
 
 type OffersListProps = {
-  offers: Offers;
+  offers: TOffers;
   className?: string;
-  onOfferHover?: (offerId: string) => void; // Сделаем onOfferHover опциональным добавив знак вопроса
+  isActive?: boolean;
+  onOfferHover?: (offerId: string) => void;
 };
 
 function OffersList({
   offers,
   className,
-  onOfferHover = () => {}, // Устанавливаем значение по умолчанию как пустая функция
+  isActive = false,
+  onOfferHover = () => {},
 }: OffersListProps): JSX.Element {
   return (
     <div className={`${className}`}>
@@ -18,8 +20,10 @@ function OffersList({
         <Card
           key={offer.id}
           offer={offer}
-          isActive={false} // Устанавливаем isActive по умолчанию как false
-          onOfferHover={onOfferHover} // Передаем колбэк onOfferHover для обработки наведения мыши на карточку
+          isActive={isActive}
+          onOfferHover={onOfferHover}
+          width="260"
+          height="200"
         />
       ))}
     </div>

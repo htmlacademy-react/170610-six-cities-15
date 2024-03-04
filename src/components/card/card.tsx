@@ -1,15 +1,24 @@
-import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { TOffer } from '../../types/offer';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
-  offer: Offer;
-  isActive: boolean;
-  onOfferHover: (offerId: string) => void; // Добавляем проп для обработки наведения мыши на карточку
+  offer: TOffer;
+  isActive?: boolean;
+  onOfferHover?: (offerId: string) => void;
+  isFavoriteItem?: boolean;
+  width: string;
+  height: string;
 };
 
-function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
-  // console.log(offer);
-
+function Card({
+  offer,
+  isActive,
+  onOfferHover,
+  isFavoriteItem,
+  width,
+  height,
+}: CardProps): JSX.Element {
   const {
     id,
     title,
@@ -21,27 +30,33 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
     isPremium,
   } = offer;
 
-  const isFavoriteClass = isFavorite
-    ? 'place-card__bookmark-button--active'
-    : '';
+  const articleClassName = `${
+    isFavoriteItem ? 'favorites__card place-card' : 'cities__card place-card'
+  }`;
+
+  const wrapperClassName = `${
+    isFavoriteItem
+      ? 'favorites__image-wrapper place-card__image-wrapper'
+      : 'cities__image-wrapper place-card__image-wrapper'
+  }`;
 
   return (
     <article
-      className={`cities__card place-card ${isActive ? 'active' : ''}`}
-      onMouseEnter={() => onOfferHover(id)} // Добавляем обработчик наведения мыши на карточку
-      onMouseLeave={() => onOfferHover('')} // Добавляем обработчик ухода мыши с карточки
+      className={` ${articleClassName} ${isActive ? 'active' : ''}`}
+      onMouseEnter={() => onOfferHover && onOfferHover(id)}
+      onMouseLeave={() => onOfferHover && onOfferHover('')}
     >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${wrapperClassName}`}>
         <img
           className="place-card__image"
           src={previewImage}
-          width="260"
-          height="200"
+          width={width}
+          height={height}
           alt="Place image"
         />
       </div>
@@ -51,15 +66,12 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button ${isFavoriteClass} button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton
+            id={id}
+            isFavorite={isFavorite}
+            width={'18'}
+            height={'19'}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -67,9 +79,11 @@ function Card({ offer, isActive, onOfferHover }: CardProps): JSX.Element {
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <Link to={`/offer/${id}`}>
-          <h2 className="place-card__name">{title}</h2>
-        </Link>
+
+        <h2 className="place-card__name">
+          <Link to={`/offer/${id}`}>{title}</Link>
+        </h2>
+
         <p className="place-card__type">{type}</p>
       </div>
     </article>

@@ -5,7 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { cities, sortingOptions } from '../../const';
+import { cities, cityCoordinates, sortingOptions } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { filterOffersByCityName } from '../../utils/common';
 
@@ -32,6 +32,10 @@ function MainScreen(): JSX.Element {
     setHoveredOfferId(offerId);
   };
 
+  const activeCityCoordinates = cityCoordinates.find(
+    (city) => city.name.toUpperCase() === activeCity.toUpperCase()
+  );
+
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   switch (sortOption) {
@@ -53,7 +57,7 @@ function MainScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>6 cities :: Main</title>
+        <title>6 cities :: Main :: {activeCity}</title>
       </Helmet>
       <Header />
       <main className="page__main page__main--index">
@@ -94,8 +98,8 @@ function MainScreen(): JSX.Element {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  defaultLatitude={52.379189}
-                  defaultLongitude={4.899431}
+                  defaultLatitude={activeCityCoordinates?.latitude}
+                  defaultLongitude={activeCityCoordinates?.longitude}
                   defaultZoom={12}
                   markersData={filteredOffers}
                   maxWidth={682}

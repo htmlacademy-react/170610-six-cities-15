@@ -1,5 +1,11 @@
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+export const PIN_MARKER_DEFAULT = 'img/pin.svg';
+export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
+export const MAP_LAYER =
+  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+export const MAX_OFFER_SCREEN_MARKERS_COUNT = 4;
+export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
 
 export enum AppRoute {
   Main = '/',
@@ -37,6 +43,39 @@ export const cities = {
   HAMBURG: 'Hamburg',
   DUSSELDORF: 'Dusseldorf',
 } as const;
+
+export const cityCoordinates = [
+  {
+    name: 'PARIS',
+    latitude: 48.85661,
+    longitude: 2.351499,
+  },
+  {
+    name: 'COLOGNE',
+    latitude: 50.938361,
+    longitude: 6.959974,
+  },
+  {
+    name: 'BRUSSELS',
+    latitude: 50.846557,
+    longitude: 4.351697,
+  },
+  {
+    name: 'AMSTERDAM',
+    latitude: 52.37454,
+    longitude: 4.889689,
+  },
+  {
+    name: 'HAMBURG',
+    latitude: 53.551086,
+    longitude: 10.000654,
+  },
+  {
+    name: 'DUSSELDORF',
+    latitude: 51.225402,
+    longitude: 6.776314,
+  },
+];
 
 export const sortingOptions = {
   POPULAR: 'Popular',

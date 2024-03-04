@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Offers } from '../../types/offer';
+import React, { useEffect, useRef, useState } from 'react';
+import { MAP_LAYER, PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
+import { TOffers } from '../../types/offer';
 
 type MapProps = {
-  defaultLatitude: number;
-  defaultLongitude: number;
+  defaultLatitude: number | undefined;
+  defaultLongitude: number | undefined;
   defaultZoom: number;
-  markersData: Offers;
+  markersData: TOffers;
   maxWidth?: number;
   hoveredOfferId?: string;
 };
@@ -37,9 +38,7 @@ const Map: React.FC<MapProps> = ({
         [defaultLatitude, defaultLongitude],
         defaultZoom
       );
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
-        mapInstance.current
-      );
+      L.tileLayer(MAP_LAYER).addTo(mapInstance.current);
 
       markersData.forEach((offer) => {
         const { latitude, longitude } = offer.location;
@@ -47,7 +46,7 @@ const Map: React.FC<MapProps> = ({
 
         // Устанавливаем иконку в зависимости от активного оффера
         const iconUrl =
-          offer.id === activeOfferId ? '/img/pin-active.svg' : '/img/pin.svg';
+          offer.id === activeOfferId ? PIN_MARKER_CURRENT : PIN_MARKER_DEFAULT;
 
         const customIcon = L.icon({
           iconUrl,
