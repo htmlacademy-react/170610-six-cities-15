@@ -8,8 +8,10 @@ import OffersList from '../../components/offers-list/offers-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
-import { cityCoordinates } from '../../const';
-import { MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT } from '../../const';
+import {
+  MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
+  cityCoordinates,
+} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchCommentsAction,
@@ -20,6 +22,7 @@ import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { cities } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -43,14 +46,12 @@ function OfferScreen(): JSX.Element {
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const cityName: string = offers.find((offerItem) => offerItem.id === id).city
-    .name;
+  const cityName: string =
+    offers.find((offerItem) => offerItem.id === id)?.city?.name ?? cities.PARIS;
 
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === cityName.toLowerCase()
   );
-
-  // console.log(activeCityCoordinates);
 
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
@@ -220,7 +221,7 @@ function OfferScreen(): JSX.Element {
             {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
-                activePoint={id}
+                activePoint={id || ''}
                 offers={combinedOffersToMap}
                 page={'offer'}
                 maxWidth={1144}

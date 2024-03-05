@@ -6,7 +6,12 @@ export type TCity = {
 export type TLocation = {
   latitude: number;
   longitude: number;
-  zoom: number;
+  name: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 };
 
 type THost = {
