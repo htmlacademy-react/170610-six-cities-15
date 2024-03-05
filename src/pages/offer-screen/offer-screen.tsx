@@ -36,19 +36,6 @@ function OfferScreen(): JSX.Element {
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-
-  const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
-
-  const isCommentsLoading = useAppSelector(
-    (state) => state.isCommentsDataLoading
-  );
-  const isNearbyOffersLoading = useAppSelector(
-    (state) => state.isNearbyOffersDataLoading
-  );
-
   const cityName: string | undefined = offers.find(
     (offerItem) => offerItem.id === id
   )?.city.name;
@@ -56,6 +43,14 @@ function OfferScreen(): JSX.Element {
   const selectedCityCoordinates = cityCoordinates.find(
     (city) =>
       city.name.toUpperCase() === (cityName ? cityName.toUpperCase() : '')
+  );
+
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  const isOfferDataLoading = useAppSelector(
+    (state) => state.isOfferDataLoading
   );
 
   useEffect(() => {
@@ -70,18 +65,15 @@ function OfferScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  if (!offer) {
-    if (isOfferLoading || isCommentsLoading || isNearbyOffersLoading) {
-      return (
-        <div className="page">
-          <Helmet>
-            <title>Loading offer...</title>
-          </Helmet>
-          <LoadingScreen />
-        </div>
-      );
-    }
-    return <NotFoundScreen />;
+  if (isOfferDataLoading) {
+    return (
+      <div className="page">
+        <Helmet>
+          <title>Loading offer...</title>
+        </Helmet>
+        <LoadingScreen />
+      </div>
+    );
   }
 
   const {
