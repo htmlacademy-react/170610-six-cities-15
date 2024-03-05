@@ -102,3 +102,20 @@ export const sortingOptions = {
   PRICE_HIGH_TO_LOW: 'Price: high to low',
   TOP_RATED_FIRST: 'Top rated first',
 } as const;
+
+export const transformOffersToMap = (offers) => {
+  const uniqueIds = new Set();
+  const transformedOffers = [];
+
+  offers.forEach((offer) => {
+    if (!uniqueIds.has(offer.id)) {
+      transformedOffers.push({
+        id: offer.id,
+        location: offer.location,
+      });
+      uniqueIds.add(offer.id);
+    }
+  });
+
+  return transformedOffers;
+};

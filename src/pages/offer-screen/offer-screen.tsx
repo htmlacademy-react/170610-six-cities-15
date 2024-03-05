@@ -37,6 +37,8 @@ function OfferScreen(): JSX.Element {
     MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
 
+  const combinedOffersToMap = [offer, ...slicedNearbyOffers];
+
   const sortedComments = comments
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -218,8 +220,8 @@ function OfferScreen(): JSX.Element {
             {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
-                activePoint={offer}
-                offers={slicedNearbyOffers}
+                activePoint={id}
+                offers={combinedOffersToMap}
                 page={'offer'}
                 maxWidth={1144}
               />

@@ -1,7 +1,11 @@
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
+import {
+  PIN_MARKER_CURRENT,
+  PIN_MARKER_DEFAULT,
+  transformOffersToMap,
+} from '../../const.ts';
 import useMap from '../../hooks/use-map.tsx';
 
 interface TMapProps {
@@ -36,30 +40,9 @@ const currentCustomIcon = new Icon({
 export default function Map(props: TMapProps): JSX.Element {
   const { city, offers, activePoint, page, maxWidth } = props;
 
-  const transformOffersToMap = (offers) => {
-    const uniqueIds = new Set();
-    const transformedOffers = [];
-
-    offers.forEach((offer) => {
-      if (!uniqueIds.has(offer.id)) {
-        transformedOffers.push({
-          id: offer.id,
-          location: offer.location,
-        });
-        uniqueIds.add(offer.id);
-      }
-    });
-
-    return transformedOffers;
-  };
-
   const offersMap = transformOffersToMap(offers);
-  console.log('offersMap', offersMap);
-
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  // console.log(offers);
 
   useEffect(() => {
     if (map) {
@@ -71,10 +54,6 @@ export default function Map(props: TMapProps): JSX.Element {
   }, [map, city]);
 
   useEffect(() => {
-    if (page === 'offer' && activePoint !== null) {
-      offers.push(activePoint);
-    }
-
     if (map) {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((point) => {
