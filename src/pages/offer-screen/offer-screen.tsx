@@ -41,6 +41,7 @@ function OfferScreen(): JSX.Element {
   );
 
   const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
+
   const isCommentsLoading = useAppSelector(
     (state) => state.isCommentsDataLoading
   );

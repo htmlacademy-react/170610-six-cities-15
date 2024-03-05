@@ -47,10 +47,10 @@ export const fetchOfferAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<TOffer>(`/offers/${id}`);
   dispatch(setOfferDataLoadingStatus(true));
-  dispatch(loadOffer(data));
+  const { data } = await api.get<TOffer>(`/offers/${id}`);
   dispatch(setOfferDataLoadingStatus(false));
+  dispatch(loadOffer(data));
 });
 
 export const fetchCommentsAction = createAsyncThunk<
@@ -62,10 +62,10 @@ export const fetchCommentsAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/loadComments', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<TComments>(`/comments/${id}`);
   dispatch(setCommentsDataLoadingStatus(true));
-  dispatch(loadComments(data));
+  const { data } = await api.get<TComments>(`/comments/${id}`);
   dispatch(setCommentsDataLoadingStatus(false));
+  dispatch(loadComments(data));
 });
 
 export const fetchNearbyOffersAction = createAsyncThunk<
@@ -77,10 +77,10 @@ export const fetchNearbyOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/loadNearbyOffers', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
   dispatch(setNearbyOffersDataLoadingStatus(true));
-  dispatch(loadNearbyOffers(data));
+  const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
   dispatch(setNearbyOffersDataLoadingStatus(false));
+  dispatch(loadNearbyOffers(data));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
