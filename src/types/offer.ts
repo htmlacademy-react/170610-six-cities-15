@@ -1,9 +1,9 @@
-type TCity = {
+export type TCity = {
   name: string;
   location: TLocation;
 };
 
-type TLocation = {
+export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;

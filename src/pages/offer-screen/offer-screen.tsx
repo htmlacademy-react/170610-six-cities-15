@@ -29,21 +29,30 @@ function OfferScreen(): JSX.Element {
   const idExists = offers.some((offerItem) => offerItem.id === id);
 
   const offer = useAppSelector<TOffer>((state) => state.offer);
+  // console.log('offer', offer);
+
   const comments = useAppSelector<TComments>((state) => state.comments);
   const nearbyOffers = useAppSelector<TOffers>((state) => state.nearbyOffers);
+
+  const slicedNearbyOffers = nearbyOffers.slice(
+    0,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+  );
+
+  // console.log('slicedNearbyOffers', slicedNearbyOffers);
 
   const sortedComments = comments
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const cityName: string | undefined = offers.find(
-    (offerItem) => offerItem.id === id
-  )?.city.name;
+  const cityName: string = offers.find((offerItem) => offerItem.id === id).city
+    .name;
 
-  const selectedCityCoordinates = cityCoordinates.find(
-    (city) =>
-      city.name.toUpperCase() === (cityName ? cityName.toUpperCase() : '')
+  const activeCityCoordinates = cityCoordinates.find(
+    (city) => city.name.toLowerCase() === cityName.toLowerCase()
   );
+
+  // console.log(activeCityCoordinates);
 
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
@@ -90,12 +99,6 @@ function OfferScreen(): JSX.Element {
     description,
     isFavorite,
   } = offer;
-
-  const slicedNearbyOffers = nearbyOffers.slice(
-    0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  );
-  const mapOffers = [offer, ...slicedNearbyOffers];
 
   return (
     <div className="page">
@@ -204,14 +207,13 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            {offer.city?.location && (
+            {offer.city.location && (
               <Map
-                defaultLatitude={selectedCityCoordinates?.latitude}
-                defaultLongitude={selectedCityCoordinates?.longitude}
-                defaultZoom={12}
-                markersData={mapOffers.length ? mapOffers : []}
+                city={activeCityCoordinates}
+                activePoint={id}
+                offers={nearbyOffers}
+                page={'offer'}
                 maxWidth={1144}
-                hoveredOfferId={id}
               />
             )}
           </section>

@@ -33,7 +33,7 @@ function MainScreen(): JSX.Element {
   };
 
   const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toUpperCase() === activeCity.toUpperCase()
+    (city) => city.name.toLowerCase() === activeCity.toLowerCase()
   );
 
   const filteredOffers = filterOffersByCityName(offers, activeCity);
@@ -98,12 +98,11 @@ function MainScreen(): JSX.Element {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  defaultLatitude={activeCityCoordinates?.latitude}
-                  defaultLongitude={activeCityCoordinates?.longitude}
-                  defaultZoom={12}
-                  markersData={filteredOffers}
+                  city={activeCityCoordinates}
+                  activePoint={hoveredOfferId}
+                  offers={filteredOffers}
+                  page={'cities'}
                   maxWidth={682}
-                  hoveredOfferId={hoveredOfferId ?? undefined}
                 />
               </section>
             </div>

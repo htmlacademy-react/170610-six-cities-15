@@ -1,87 +1,91 @@
-import L from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import React, { useEffect, useRef, useState } from 'react';
-import { MAP_LAYER, PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
-import { TOffers } from '../../types/offer';
+import { useEffect, useRef } from 'react';
+import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
+import useMap from '../../hooks/use-map.tsx';
 
-type MapProps = {
-  defaultLatitude: number | undefined;
-  defaultLongitude: number | undefined;
-  defaultZoom: number;
-  markersData: TOffers;
-  maxWidth?: number;
-  hoveredOfferId?: string;
-};
+interface TMapProps {
+  city: {
+    latitude: number;
+    longitude: number;
+  };
+  offers: Array<{
+    id: string;
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+  }>;
+  activePoint: string | null;
+  page: string;
+  maxWidth: number;
+}
 
-const Map: React.FC<MapProps> = ({
-  defaultLatitude,
-  defaultLongitude,
-  defaultZoom,
-  markersData,
-  maxWidth = 500,
-  hoveredOfferId,
-}) => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<L.Map | null>(null);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+const defaultCustomIcon = new Icon({
+  iconUrl: PIN_MARKER_DEFAULT,
+  iconSize: [27, 39],
+  iconAnchor: [15, 30],
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: PIN_MARKER_CURRENT,
+  iconSize: [27, 39],
+  iconAnchor: [15, 30],
+});
+
+export default function Map(props: TMapProps): JSX.Element {
+  const { city, offers, activePoint, page, maxWidth } = props;
+
+  const transformOffersToMap = (offers) =>
+    offers.map((offer) => ({
+      id: offer.id,
+      location: offer.location,
+    }));
+
+  const offersMap = transformOffersToMap(offers);
+  console.log('offersMap', offersMap);
+
+  const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
+
+  // console.log(offers);
 
   useEffect(() => {
-    if (
-      mapRef.current &&
-      defaultLatitude !== undefined &&
-      defaultLongitude !== undefined
-    ) {
-      if (mapInstance.current) {
-        mapInstance.current.remove();
-      }
-      mapInstance.current = L.map(mapRef.current).setView(
-        [defaultLatitude, defaultLongitude],
-        defaultZoom
+    if (map) {
+      map.setView(
+        [city.location.latitude, city.location.longitude],
+        city.location.zoom
       );
-      L.tileLayer(MAP_LAYER).addTo(mapInstance.current);
+    }
+  }, [map, city]);
 
-      markersData.forEach((offer) => {
-        const { latitude, longitude } = offer.location;
-        const marker = L.marker([latitude, longitude]);
+  useEffect(() => {
+    if (page === 'offer' && activePoint !== null) {
+      offers.push(activePoint);
+    }
 
-        // Устанавливаем иконку в зависимости от активного оффера
-        const iconUrl =
-          offer.id === activeOfferId ? PIN_MARKER_CURRENT : PIN_MARKER_DEFAULT;
-
-        const customIcon = L.icon({
-          iconUrl,
-          iconSize: [27, 39],
-          iconAnchor: [15, 30],
+    if (map) {
+      const markerLayer = layerGroup().addTo(map);
+      offers.forEach((point) => {
+        const marker = new Marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
         });
 
-        marker.setIcon(customIcon);
-
-        if (mapInstance.current) {
-          marker.addTo(mapInstance.current);
-        }
+        marker
+          .setIcon(
+            activePoint !== undefined && point.id === activePoint
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
+          .addTo(markerLayer);
       });
-    }
-  }, [
-    defaultLatitude,
-    defaultLongitude,
-    defaultZoom,
-    markersData,
-    activeOfferId,
-  ]);
 
-  // Обновляем состояние активного оффера при изменении hoveredOfferId
-  useEffect(() => {
-    if (hoveredOfferId !== undefined) {
-      setActiveOfferId(hoveredOfferId);
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
-  }, [hoveredOfferId]);
-
-  // Обрабатываем сброс активного оффера при наведении на карточку
-  useEffect(() => {
-    if (!hoveredOfferId) {
-      setActiveOfferId(null);
-    }
-  }, [hoveredOfferId]);
+  }, [map, offers, activePoint, page]);
 
   return (
     <div
@@ -94,6 +98,4 @@ const Map: React.FC<MapProps> = ({
       }}
     />
   );
-};
-
-export default Map;
+}

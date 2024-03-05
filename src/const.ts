@@ -4,6 +4,8 @@ export const PIN_MARKER_DEFAULT = 'img/pin.svg';
 export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
 export const MAP_LAYER =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+export const MAP_LAYER_ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
 
 export enum AppRoute {
@@ -46,33 +48,51 @@ export const cities = {
 export const cityCoordinates = [
   {
     name: 'PARIS',
-    latitude: 48.85661,
-    longitude: 2.351499,
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 12,
+    },
   },
   {
     name: 'COLOGNE',
-    latitude: 50.938361,
-    longitude: 6.959974,
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 12,
+    },
   },
   {
     name: 'BRUSSELS',
-    latitude: 50.846557,
-    longitude: 4.351697,
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 12,
+    },
   },
   {
     name: 'AMSTERDAM',
-    latitude: 52.37454,
-    longitude: 4.889689,
+    location: {
+      latitude: 52.37454,
+      longitude: 4.889689,
+      zoom: 12,
+    },
   },
   {
     name: 'HAMBURG',
-    latitude: 53.551086,
-    longitude: 10.000654,
+    location: {
+      latitude: 53.551086,
+      longitude: 10.000654,
+      zoom: 12,
+    },
   },
   {
     name: 'DUSSELDORF',
-    latitude: 51.225402,
-    longitude: 6.776314,
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 12,
+    },
   },
 ];
 
