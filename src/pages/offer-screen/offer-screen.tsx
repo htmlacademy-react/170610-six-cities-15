@@ -29,8 +29,6 @@ function OfferScreen(): JSX.Element {
   const idExists = offers.some((offerItem) => offerItem.id === id);
 
   const offer = useAppSelector<TOffer>((state) => state.offer);
-  // console.log('offer', offer);
-
   const comments = useAppSelector<TComments>((state) => state.comments);
   const nearbyOffers = useAppSelector<TOffers>((state) => state.nearbyOffers);
 
@@ -38,8 +36,6 @@ function OfferScreen(): JSX.Element {
     0,
     MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
-
-  // console.log('slicedNearbyOffers', slicedNearbyOffers);
 
   const sortedComments = comments
     .slice()
@@ -62,6 +58,14 @@ function OfferScreen(): JSX.Element {
     (state) => state.isOfferDataLoading
   );
 
+  const isNearbyOffersDataLoading = useAppSelector(
+    (state) => state.isNearbyOffersDataLoading
+  );
+
+  const isCommentsDataLoading = useAppSelector(
+    (state) => state.isCommentsDataLoading
+  );
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
@@ -74,7 +78,11 @@ function OfferScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  if (isOfferDataLoading) {
+  if (
+    isOfferDataLoading ||
+    isNearbyOffersDataLoading ||
+    isCommentsDataLoading
+  ) {
     return (
       <div className="page">
         <Helmet>
@@ -207,11 +215,11 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            {offer.city.location && (
+            {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
-                activePoint={id}
-                offers={nearbyOffers}
+                activePoint={offer}
+                offers={slicedNearbyOffers}
                 page={'offer'}
                 maxWidth={1144}
               />

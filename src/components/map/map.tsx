@@ -36,11 +36,22 @@ const currentCustomIcon = new Icon({
 export default function Map(props: TMapProps): JSX.Element {
   const { city, offers, activePoint, page, maxWidth } = props;
 
-  const transformOffersToMap = (offers) =>
-    offers.map((offer) => ({
-      id: offer.id,
-      location: offer.location,
-    }));
+  const transformOffersToMap = (offers) => {
+    const uniqueIds = new Set();
+    const transformedOffers = [];
+
+    offers.forEach((offer) => {
+      if (!uniqueIds.has(offer.id)) {
+        transformedOffers.push({
+          id: offer.id,
+          location: offer.location,
+        });
+        uniqueIds.add(offer.id);
+      }
+    });
+
+    return transformedOffers;
+  };
 
   const offersMap = transformOffersToMap(offers);
   console.log('offersMap', offersMap);
