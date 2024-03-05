@@ -9,10 +9,7 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import { cityCoordinates } from '../../const';
-import {
-  MAX_OFFER_SCREEN_MARKERS_COUNT,
-  MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
-} from '../../const';
+import { MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchCommentsAction,
@@ -214,7 +211,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            {mapOffers.length === MAX_OFFER_SCREEN_MARKERS_COUNT && (
+            {offer.city?.location && (
               <Map
                 defaultLatitude={selectedCityCoordinates?.latitude}
                 defaultLongitude={selectedCityCoordinates?.longitude}
