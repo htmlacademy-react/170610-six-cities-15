@@ -7,18 +7,7 @@ import { TCommentData, TComments } from '../types/comment.js';
 import { TOffer, TOffers } from '../types/offer.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
-
-import {
-  loadComments,
-  loadFavoriteOffers,
-  loadNearbyOffers,
-  loadOffer,
-  redirectToRoute,
-  setCommentsDataLoadingStatus,
-  setFavoriteOffersDataLoadingStatus,
-  setNearbyOffersDataLoadingStatus,
-  setOfferDataLoadingStatus,
-} from './action';
+import { redirectToRoute } from './action';
 
 /* User - Process */
 
