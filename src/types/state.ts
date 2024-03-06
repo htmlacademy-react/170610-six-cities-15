@@ -14,6 +14,8 @@ export type TAppData = {
 
 export type TAppProcess = {
   city: string;
+  isToggleFavoriteLoading: boolean;
+  hasError: boolean;
 };
 
 export type TState = ReturnType<typeof store.getState>;

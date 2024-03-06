@@ -132,6 +132,21 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
 
 /* App - Process */
 
+export const toggleFavoriteAction = createAsyncThunk<
+  void,
+  { id: string | undefined; status: number },
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('app/toggleFavoriteOffer', async ({ id, status }, { extra: api }) => {
+  await api.post<TOffer>(`/favorite/${id}/${status}`, {
+    id,
+    status,
+  });
+});
+
 // export const toggleFavoriteAction = createAsyncThunk<
 //   void,
 //   { id: string | undefined; status: number },
