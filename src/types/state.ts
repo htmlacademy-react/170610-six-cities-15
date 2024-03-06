@@ -1,12 +1,5 @@
-import { AuthorizationStatus } from '../const.js';
-import { store } from '../store/index.js';
-import { TOffers } from './offer';
-
-export type TAppData = {
-  offers: TOffers;
-  isOffersDataLoading: boolean;
-  hasError: boolean;
-};
+import { store } from '../store/index';
+import { AuthorizationStatus } from '../const';
 
 export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, cities } from '../const';
+import { cities } from '../const';
 import { TComments } from '../types/comment';
 import { TOffer, TOffers } from '../types/offer';
 import {
@@ -8,7 +8,6 @@ import {
   loadNearbyOffers,
   loadOffer,
   loadOffers,
-  requireAuthorization,
   setActiveCity,
   setFavoriteOffersDataLoadingStatus,
   setOffersDataLoadingStatus,
@@ -24,7 +23,6 @@ type InitialState = {
   nearbyOffers: TOffers;
   city: string;
   comments: TComments;
-  authorizationStatus: AuthorizationStatus;
   isOfferDataLoading: boolean;
   isOffersDataLoading: boolean;
   isCommentsDataLoading: boolean;
@@ -39,7 +37,6 @@ const initialState: InitialState = {
   nearbyOffers: [],
   city: cities.PARIS,
   comments: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
   isOfferDataLoading: false,
   isOffersDataLoading: false,
   isCommentsDataLoading: false,
@@ -81,9 +78,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearbyOffersDataLoadingStatus, (state, action) => {
       state.isNearbyOffersDataLoading = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     });
 });
 
