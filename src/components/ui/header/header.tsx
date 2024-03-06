@@ -34,7 +34,7 @@ function Header() {
               to={AppRoute.Main}
               onClick={(evt) => {
                 evt.preventDefault();
-                // dispatch(logoutAction());
+                dispatch(logoutAction());
               }}
             >
               <span className="header__signout">Sign out</span>

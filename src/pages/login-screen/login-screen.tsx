@@ -2,7 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
-import { AppRoute, CITIES } from '../../const';
+import { AppRoute, Cities } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 
@@ -85,7 +85,7 @@ function LoginScreen(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>{cities.AMSTERDAM}</span>
+                <span>{Cities.Amsterdam}</span>
               </Link>
             </div>
           </section>
