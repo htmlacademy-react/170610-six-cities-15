@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sortingOptions } from '../../const';
+import { Sorting } from '../../const';
 
 interface SortingOptionsProps {
   handleSort: (sortOption: string) => void;
@@ -11,10 +11,10 @@ function SortingOptions({
   setSortingOptionsVisible,
 }: SortingOptionsProps): JSX.Element {
   const [selectedSortOption, setSelectedSortOption] = useState<string>(
-    sortingOptions.POPULAR
+    Sorting.Popular
   );
 
-  const sortingOptionList = Array.from(Object.values(sortingOptions));
+  const sortingOptionList = Array.from(Object.values(Sorting));
 
   const handleOptionClick = (option: string) => {
     setSelectedSortOption(option);

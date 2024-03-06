@@ -5,9 +5,10 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { cities, cityCoordinates, sortingOptions } from '../../const';
+import { cities, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { filterOffersByCityName } from '../../utils/common';
+import { Sorting } from '../../const';
 
 function MainScreen(): JSX.Element {
   const citiesNames = Object.values(cities);
@@ -15,7 +16,7 @@ function MainScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const activeCity = useAppSelector((state) => state.city);
 
-  const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
+  const [sortOption, setSortOption] = useState<string>(Sorting.Popular);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
     useState<boolean>(false);
   const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
@@ -39,15 +40,15 @@ function MainScreen(): JSX.Element {
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   switch (sortOption) {
-    case sortingOptions.POPULAR:
+    case Sorting.Popular:
       break;
-    case sortingOptions.PRICE_LOW_TO_HIGH:
+    case Sorting.LowToHighPrice:
       filteredOffers.sort((a, b) => a.price - b.price);
       break;
-    case sortingOptions.PRICE_HIGH_TO_LOW:
+    case Sorting.HighToLowPrice:
       filteredOffers.sort((a, b) => b.price - a.price);
       break;
-    case sortingOptions.TOP_RATED_FIRST:
+    case Sorting.TopRatedFirst:
       filteredOffers.sort((a, b) => b.rating - a.rating);
       break;
     default:
