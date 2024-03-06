@@ -10,12 +10,11 @@ export type TAppData = {
   offers: TOffers;
   isOffersDataLoading: boolean;
   hasError: boolean;
+  isToggleFavoriteLoading: boolean;
 };
 
 export type TAppProcess = {
   city: string;
-  isToggleFavoriteLoading: boolean;
-  hasError: boolean;
 };
 
 export type TState = ReturnType<typeof store.getState>;
