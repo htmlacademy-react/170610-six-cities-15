@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { changeCity } from '../../store/app-process/app-process.slice';
+import { TActiveCity } from '../../types/offer';
 
 type TabsProps = {
   cities: string[];
@@ -11,7 +12,7 @@ function Tabs({ cities }: TabsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getCity);
 
-  const handleCityClick = (city: string) => {
+  const handleCityClick = (city: TActiveCity) => {
     dispatch(changeCity({ city }));
   };
 
