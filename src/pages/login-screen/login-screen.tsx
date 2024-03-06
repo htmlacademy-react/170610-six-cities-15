@@ -2,7 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
-import { AppRoute, cities } from '../../const';
+import { AppRoute, CITIES } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 

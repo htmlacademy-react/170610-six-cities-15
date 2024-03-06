@@ -22,7 +22,7 @@ import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { cities } from '../../const';
+import { CITIES } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();

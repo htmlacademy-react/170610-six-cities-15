@@ -11,10 +11,9 @@ export type TAppData = {
   isOffersDataLoading: boolean;
 };
 
-// export type GameProcess = {
-//   mistakes: number;
-//   step: number;
-// };
+export type TAppProcess = {
+  city: string;
+};
 
 export type TState = ReturnType<typeof store.getState>;
 

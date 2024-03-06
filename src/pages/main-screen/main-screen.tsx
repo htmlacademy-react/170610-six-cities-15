@@ -5,16 +5,18 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { cities, cityCoordinates } from '../../const';
+import { citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { filterOffersByCityName } from '../../utils/common';
 import { Sorting } from '../../const';
+import { getOffers } from '../../store/app-data/app-data.selectors';
+import { getCity } from '../../store/app-process/app-process.selectors';
 
 function MainScreen(): JSX.Element {
-  const citiesNames = Object.values(cities);
+  const offers = useAppSelector(getOffers);
+  const activeCity = useAppSelector(getCity);
 
-  const offers = useAppSelector((state) => state.offers);
-  const activeCity = useAppSelector((state) => state.city);
+  // console.log(citiesNames);
 
   const [sortOption, setSortOption] = useState<string>(Sorting.Popular);
   const [sortingOptionsVisible, setSortingOptionsVisible] =

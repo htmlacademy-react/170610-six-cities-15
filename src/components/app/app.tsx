@@ -1,7 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import browserHistory from '../../browser-history';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
@@ -11,19 +11,18 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import HistoryRouter from '../history-route/history-route';
 import PrivateRoute from '../private-route/private-route';
+import {
+  getAuthorizationStatus,
+  getAuthCheckedStatus,
+} from '../../store/user-process/user-process.selectors';
+import { getOffersDataLoadingStatus } from '../../store/app-data/app-data.selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const isOffersDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
-  if (
-    authorizationStatus === AuthorizationStatus.Unknown ||
-    isOffersDataLoading
-  ) {
+  if (!isAuthChecked || isOffersDataLoading) {
     return <LoadingScreen />;
   }
 

@@ -36,15 +36,6 @@ export const ratingsData = [
   { value: '1', title: 'terribly' },
 ];
 
-export const cities = {
-  PARIS: 'Paris',
-  COLOGNE: 'Cologne',
-  BRUSSELS: 'Brussels',
-  AMSTERDAM: 'Amsterdam',
-  HAMBURG: 'Hamburg',
-  DUSSELDORF: 'Dusseldorf',
-} as const;
-
 export const cityCoordinates = [
   {
     name: 'PARIS',
@@ -108,3 +99,14 @@ export enum NameSpace {
   App = 'APP',
   User = 'USER',
 }
+
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export const citiesNames = Array.from(Object.values(Cities));
