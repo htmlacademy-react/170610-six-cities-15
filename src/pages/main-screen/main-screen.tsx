@@ -74,7 +74,7 @@ function MainScreen(): JSX.Element {
                 {filteredOffers.length} places to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span
                   className="places__sorting-type"
                   tabIndex={0}
@@ -85,12 +85,11 @@ function MainScreen(): JSX.Element {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                {sortingOptionsVisible && (
-                  <SortingOptions
-                    handleSort={handleSort}
-                    setSortingOptionsVisible={setSortingOptionsVisible}
-                  />
-                )}
+                <SortingOptions
+                  handleSort={handleSort}
+                  sortingOptionsVisible={sortingOptionsVisible}
+                  setSortingOptionsVisible={setSortingOptionsVisible}
+                />
               </form>
               <OffersList
                 offers={filteredOffers}

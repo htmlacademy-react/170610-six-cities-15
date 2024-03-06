@@ -3,11 +3,13 @@ import { Sorting } from '../../const';
 
 interface SortingOptionsProps {
   handleSort: (sortOption: string) => void;
+  sortingOptionsVisible: boolean;
   setSortingOptionsVisible: (visible: boolean) => void;
 }
 
 function SortingOptions({
   handleSort,
+  sortingOptionsVisible,
   setSortingOptionsVisible,
 }: SortingOptionsProps): JSX.Element {
   const [selectedSortOption, setSelectedSortOption] = useState<string>(
@@ -19,11 +21,15 @@ function SortingOptions({
   const handleOptionClick = (option: string) => {
     setSelectedSortOption(option);
     handleSort(option);
-    setSortingOptionsVisible(false);
+    setSortingOptionsVisible(!sortingOptionsVisible);
   };
 
+  const isVisible = sortingOptionsVisible ? '--opened' : '--closed';
+
   return (
-    <ul className="places__options places__options--custom places__options--opened">
+    <ul
+      className={`places__options places__options--custom places__options${isVisible}`}
+    >
       {sortingOptionList.map((option) => (
         <li
           key={option}
