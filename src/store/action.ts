@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute } from '../const';
 import { TComments } from '../types/comment';
 import { TOffer, TOffers } from '../types/offer';
 
@@ -36,9 +36,9 @@ export const toggleFavoriteOffer = createAction<TOffer>(
 
 export const setActiveCity = createAction<string>('app/setActiveCity');
 
-export const requireAuthorization = createAction<AuthorizationStatus>(
-  'user/requireAuthorization'
-);
+// export const requireAuthorization = createAction<AuthorizationStatus>(
+//   'user/requireAuthorization'
+// );
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 

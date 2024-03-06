@@ -13,13 +13,11 @@ import {
   loadFavoriteOffers,
   loadNearbyOffers,
   loadOffer,
-  loadOffers,
   redirectToRoute,
   setCommentsDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setNearbyOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
-  setOffersDataLoadingStatus,
 } from './action';
 
 /* User - Process */
@@ -68,21 +66,19 @@ export const logoutAction = createAsyncThunk<
   dropToken();
 });
 
-/* Offers */
+/* App Data  */
 
 export const fetchOffersAction = createAsyncThunk<
-  void,
+  TOffers,
   undefined,
   {
     dispatch: TAppDispatch;
     state: TState;
     extra: AxiosInstance;
   }
->('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setOffersDataLoadingStatus(true));
+>('data/fetchOffers', async (_arg, { extra: api }) => {
   const { data } = await api.get<TOffers>(APIRoute.Offers);
-  dispatch(setOffersDataLoadingStatus(false));
-  dispatch(loadOffers(data));
+  return data;
 });
 
 export const fetchOfferAction = createAsyncThunk<
@@ -144,6 +140,8 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(setFavoriteOffersDataLoadingStatus(false));
   dispatch(loadFavoriteOffers(data));
 });
+
+/* App - Process */
 
 export const toggleFavoriteAction = createAsyncThunk<
   void,
