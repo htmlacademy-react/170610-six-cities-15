@@ -6,3 +6,5 @@ export const getOffers = (state: TState): TOffers =>
   state[NameSpace.Data].offers;
 export const getOffersDataLoadingStatus = (state: TState): boolean =>
   state[NameSpace.Data].isOffersDataLoading;
+export const getErrorStatus = (state: TState): boolean =>
+  state[NameSpace.Data].hasError;

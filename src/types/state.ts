@@ -9,6 +9,7 @@ export type TUserProcess = {
 export type TAppData = {
   offers: TOffers;
   isOffersDataLoading: boolean;
+  hasError: boolean;
 };
 
 export type TAppProcess = {
