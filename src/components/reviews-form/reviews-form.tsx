@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
-import { postCommentAndUpdateOffersAction } from '../../store/api-actions';
+// import { postCommentAndUpdateOffersAction } from '../../store/api-actions';
 import RatingInput from '../rating-input/rating-Input';
 
 function ReviewsForm(): JSX.Element {

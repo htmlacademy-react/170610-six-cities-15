@@ -143,26 +143,26 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
 
 /* App - Process */
 
-export const toggleFavoriteAction = createAsyncThunk<
-  void,
-  { id: string | undefined; status: number },
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->(
-  'app/toggleFavoriteOffer',
-  async ({ id, status }, { dispatch, extra: api }) => {
-    await api.post<TOffer>(`/favorite/${id}/${status}`, {
-      id,
-      status,
-    });
-    await dispatch(fetchOfferAction(id));
-    await dispatch(fetchFavoriteOffersAction());
-    await dispatch(fetchOffersAction());
-  }
-);
+// export const toggleFavoriteAction = createAsyncThunk<
+//   void,
+//   { id: string | undefined; status: number },
+//   {
+//     dispatch: TAppDispatch;
+//     state: TState;
+//     extra: AxiosInstance;
+//   }
+// >(
+//   'app/toggleFavoriteOffer',
+//   async ({ id, status }, { dispatch, extra: api }) => {
+//     await api.post<TOffer>(`/favorite/${id}/${status}`, {
+//       id,
+//       status,
+//     });
+//     await dispatch(fetchOfferAction(id));
+//     await dispatch(fetchFavoriteOffersAction());
+//     await dispatch(fetchOffersAction());
+//   }
+// );
 
 export const postCommentAction = createAsyncThunk<
   void,
@@ -179,8 +179,8 @@ export const postCommentAction = createAsyncThunk<
   });
 });
 
-export const postCommentAndUpdateOffersAction =
-  (commentData: TCommentData) => async (dispatch: TAppDispatch) => {
-    await dispatch(postCommentAction(commentData));
-    await dispatch(fetchCommentsAction(commentData.id));
-  };
+// export const postCommentAndUpdateOffersAction =
+//   (commentData: TCommentData) => async (dispatch: TAppDispatch) => {
+//     await dispatch(postCommentAction(commentData));
+//     await dispatch(fetchCommentsAction(commentData.id));
+//   };

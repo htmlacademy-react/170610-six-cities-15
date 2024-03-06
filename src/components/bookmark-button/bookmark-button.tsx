@@ -1,7 +1,7 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { redirectToRoute } from '../../store/action';
-import { toggleFavoriteAction } from '../../store/api-actions';
+// import { toggleFavoriteAction } from '../../store/api-actions';
 
 type BookmarkButtonProps = {
   isOfferScreen?: boolean;
