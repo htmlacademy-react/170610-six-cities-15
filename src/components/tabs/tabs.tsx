@@ -6,6 +6,7 @@ import { TActiveCity } from '../../types/offer';
 
 type TabsProps = {
   cities: string[];
+  city: TActiveCity;
 };
 
 function Tabs({ cities }: TabsProps): JSX.Element {

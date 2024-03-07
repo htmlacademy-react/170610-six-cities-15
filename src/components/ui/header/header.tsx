@@ -3,13 +3,14 @@ import { AppRoute, AuthorizationStatus } from '../../../const';
 import { logoutAction } from '../../../store/api-actions';
 import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getOffers } from '../../../store/app-data/app-data.selectors';
 import Logo from '../logo/logo';
 
 function Header() {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-
-  // const favoritesCount = useAppSelector((state) => state.favoriteOffers.length);
+  const offers = useAppSelector(getOffers);
+  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -24,8 +25,9 @@ function Header() {
               <span className="header__user-name user__name">
                 Oliver.conner@gmail.com
               </span>
-              {/* <span className="header__favorite-count">{favoritesCount}</span> */}
-              <span className="header__favorite-count">111</span>
+              <span className="header__favorite-count">
+                {favoritesOffers.length}
+              </span>
             </Link>
           </div>
           <li className="header__nav-item">
