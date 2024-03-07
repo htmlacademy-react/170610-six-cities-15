@@ -7,6 +7,7 @@ import {
   fetchOfferAction,
   fetchCommentsAction,
   fetchNearbyOffersAction,
+  postCommentAction,
 } from '../api-actions';
 
 const initialState: TAppData = {
@@ -96,6 +97,16 @@ export const appData = createSlice({
         state.nearbyOffers = action.payload;
       })
       .addCase(fetchNearbyOffersAction.rejected, (state) => {
+        state.hasError = true;
+      })
+
+      .addCase(postCommentAction.pending, (state) => {
+        state.hasError = false;
+      })
+      .addCase(postCommentAction.fulfilled, (state, action) => {
+        state.comments.push(action.payload);
+      })
+      .addCase(postCommentAction.rejected, (state) => {
         state.hasError = true;
       });
   },

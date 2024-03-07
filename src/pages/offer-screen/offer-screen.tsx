@@ -36,6 +36,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string | undefined }>();
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
   const idExists = offers.some((offerItem) => offerItem.id === id);
@@ -52,10 +53,11 @@ function OfferScreen(): JSX.Element {
     MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
   const combinedOffersToMap = [offer, ...slicedNearbyOffers];
-  const cityName = offer?.city.name ?? Cities.Paris;
+  const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
+  // console.log(selectedCity);
 
   const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toLowerCase() === cityName.toLowerCase()
+    (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
 
   // console.log(authorizationStatus);

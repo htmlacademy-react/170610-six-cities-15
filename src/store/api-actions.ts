@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
-import { TCommentData, TComments } from '../types/comment.js';
+import { TComment, TCommentData, TComments } from '../types/comment.js';
 import { TOffer, TOffers } from '../types/offer.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
@@ -110,22 +110,19 @@ export const fetchNearbyOffersAction = createAsyncThunk<
   return data;
 });
 
-/* !!! Не разобрано */
+export const postCommentAction = createAsyncThunk<
+  TComment,
+  TCommentData,
+  { extra: AxiosInstance }
+>('offers/postComment', async ({ id, comment, rating }, { extra: api }) => {
+  const { data } = await api.post<TComment>(`/comments/${id}`, {
+    comment,
+    rating,
+  });
+  return data;
+});
 
-// export const fetchNearbyOffersAction = createAsyncThunk<
-//   void,
-//   string | undefined,
-//   {
-//     dispatch: TAppDispatch;
-//     state: TState;
-//     extra: AxiosInstance;
-//   }
-// >('data/loadNearbyOffers', async (id, { dispatch, extra: api }) => {
-//   dispatch(setNearbyOffersDataLoadingStatus(true));
-//   const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
-//   dispatch(setNearbyOffersDataLoadingStatus(false));
-//   dispatch(loadNearbyOffers(data));
-// });
+/* !!! Не разобрано */
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
   void,
@@ -142,20 +139,20 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(loadFavoriteOffers(data));
 });
 
-export const postCommentAction = createAsyncThunk<
-  void,
-  TCommentData,
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->('data/postComment', async ({ id, comment, rating }, { extra: api }) => {
-  await api.post<TCommentData>(`/comments/${id}`, {
-    comment,
-    rating,
-  });
-});
+// export const postCommentAction = createAsyncThunk<
+//   void,
+//   TCommentData,
+//   {
+//     dispatch: TAppDispatch;
+//     state: TState;
+//     extra: AxiosInstance;
+//   }
+// >('data/postComment', async ({ id, comment, rating }, { extra: api }) => {
+//   await api.post<TCommentData>(`/comments/${id}`, {
+//     comment,
+//     rating,
+//   });
+// });
 
 // export const postCommentAndUpdateOffersAction =
 //   (commentData: TCommentData) => async (dispatch: TAppDispatch) => {
