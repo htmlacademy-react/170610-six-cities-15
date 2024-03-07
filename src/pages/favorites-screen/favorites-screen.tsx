@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import FavoritesList from '../../components/favorites-list/favorites-list';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoritesNotEmpty from '../../components/favorites-not-empty/favorites-not-empty';
+import Footer from '../../components/ui/footer/footer';
 import Header from '../../components/ui/header/header';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/app-data/app-data.selectors';
 
 function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,6 +15,8 @@ function FavoritesScreen(): JSX.Element {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+
   return (
     <div className="page">
       <Helmet>
@@ -19,25 +24,9 @@ function FavoritesScreen(): JSX.Element {
       </Helmet>
       <Header />
 
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList />
-          </section>
-        </div>
-      </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          />
-        </a>
-      </footer>
+      {favoriteOffers.length === 0 ? <FavoritesEmpty /> : <FavoritesNotEmpty />}
+
+      <Footer />
     </div>
   );
 }
