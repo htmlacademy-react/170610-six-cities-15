@@ -1,6 +1,7 @@
 import { store } from '../store/index';
 import { AuthorizationStatus } from '../const';
 import { TOffer, TOffers } from './offer';
+import { TComments } from './comment';
 
 export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;
@@ -13,6 +14,7 @@ export type TAppData = {
   isToggleFavoriteLoading: boolean;
   offer: TOffer;
   isOfferDataLoading: boolean;
+  comments: TComments;
 };
 
 export type TAppProcess = {

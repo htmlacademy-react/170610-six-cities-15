@@ -92,22 +92,16 @@ export const fetchOfferAction = createAsyncThunk<
   return data;
 });
 
-/* !!! Не разобрано */
-
 export const fetchCommentsAction = createAsyncThunk<
-  void,
-  string | undefined,
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->('data/loadComments', async (id, { dispatch, extra: api }) => {
-  dispatch(setCommentsDataLoadingStatus(true));
+  TComments,
+  string,
+  { extra: AxiosInstance }
+>('data/fetchComments', async (id, { extra: api }) => {
   const { data } = await api.get<TComments>(`/comments/${id}`);
-  dispatch(setCommentsDataLoadingStatus(false));
-  dispatch(loadComments(data));
+  return data;
 });
+
+/* !!! Не разобрано */
 
 export const fetchNearbyOffersAction = createAsyncThunk<
   void,

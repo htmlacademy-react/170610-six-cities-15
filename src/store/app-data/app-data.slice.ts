@@ -5,6 +5,7 @@ import {
   fetchOffersAction,
   toggleFavoriteAction,
   fetchOfferAction,
+  fetchCommentsAction,
 } from '../api-actions';
 
 const initialState: TAppData = {
@@ -14,12 +15,20 @@ const initialState: TAppData = {
   isToggleFavoriteLoading: false,
   offer: {} as TAppData['offer'],
   isOfferDataLoading: false,
+  comments: [],
 };
 
 export const appData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    // clearOffer: (state) => {
+    //   state.offer = {} as TAppData['offer'];
+    // },
+    // clearСomments: (state) => {
+    //   state.offer = {} as TAppData['offer'];
+    // },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -67,7 +76,18 @@ export const appData = createSlice({
       })
       .addCase(fetchOfferAction.rejected, (state) => {
         state.isOfferDataLoading = false;
-        // state.hasError = true;
+        state.hasError = true;
+      })
+      .addCase(fetchCommentsAction.pending, (state) => {
+        state.hasError = false;
+      })
+      .addCase(fetchCommentsAction.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
+      .addCase(fetchCommentsAction.rejected, (state) => {
+        state.hasError = true;
       });
   },
 });
+
+// export const { clearOffer, clearСomments } = appData.actions;

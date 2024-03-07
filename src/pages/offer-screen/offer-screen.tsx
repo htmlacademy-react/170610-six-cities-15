@@ -23,11 +23,13 @@ import {
   getOffer,
   getOffers,
   getOfferDataLoadingStatus,
+  getComments,
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { clearOffer } from '../../store/app-data/app-data.slice';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,20 +39,26 @@ function OfferScreen(): JSX.Element {
   const idExists = offers.some((offerItem) => offerItem.id === id);
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
+  const comments = useAppSelector<TComments>(getComments);
+  const sortedComments = comments
+    .slice(0, 10)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  console.log(sortedComments);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
-      // dispatch(fetchCommentsAction(id));
+      dispatch(fetchCommentsAction(id));
       // dispatch(fetchNearbyOffersAction(id));
     }
+
+    // return () => {
+    //   dispatch(clearOffer());
+    //   dispatch(clearСomments());
+    //   dispatch(clearReviews());
+    // };
   }, [dispatch, id]);
-
-  //   // dispatch(fetchCommentsAction(id));
-  //   // dispatch(fetchNearbyOffersAction(id));
-  // }, [dispatch]);
-
-  console.log(offer);
 
   if (!idExists) {
     return <NotFoundScreen />;
@@ -216,14 +224,14 @@ function OfferScreen(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              {/* <section className="offer__reviews reviews">
+              <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
-                <ReviewsList comments={sortedComments.slice(0, 10)} />
-                {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
-              </section> */}
+                {sortedComments && <ReviewsList comments={sortedComments} />}
+                {/* {String(authorizationStatus) === 'AUTH' && <ReviewsForm />} */}
+              </section>
             </div>
           </div>
           {/* <section className="offer__map map">
