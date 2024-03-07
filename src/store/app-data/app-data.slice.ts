@@ -22,6 +22,7 @@ const initialState: TAppData = {
   nearbyOffers: [],
   favoriteOffers: [],
   isCommentDataSending: false,
+  hasSubmitError: false,
 };
 
 export const appData = createSlice({
@@ -111,15 +112,16 @@ export const appData = createSlice({
       })
       .addCase(postCommentAction.pending, (state) => {
         state.isCommentDataSending = true;
-        state.hasError = false;
+        state.hasSubmitError = false;
       })
       .addCase(postCommentAction.fulfilled, (state, action) => {
         state.isCommentDataSending = false;
+        state.hasSubmitError = false;
         state.comments.push(action.payload);
       })
       .addCase(postCommentAction.rejected, (state) => {
         state.isCommentDataSending = false;
-        state.hasError = true;
+        state.hasSubmitError = true;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
         state.hasError = false;

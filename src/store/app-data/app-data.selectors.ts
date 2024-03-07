@@ -20,3 +20,5 @@ export const getFavoriteOffers = (state: TState): TOffers =>
   state[NameSpace.Data].favoriteOffers;
 export const getCommentDataSendingStatus = (state: TState): boolean =>
   state[NameSpace.Data].isCommentDataSending;
+export const getSubmitErrorStatus = (state: TState): boolean =>
+  state[NameSpace.Data].hasSubmitError;

@@ -3,13 +3,17 @@ import { useParams } from 'react-router-dom';
 import { ratingsData } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
-import { getCommentDataSendingStatus } from '../../store/app-data/app-data.selectors';
+import {
+  getCommentDataSendingStatus,
+  getSubmitErrorStatus,
+} from '../../store/app-data/app-data.selectors';
 import RatingInput from '../rating-input/rating-input';
 
 function ReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const commentDataSendingStatus = useAppSelector(getCommentDataSendingStatus);
+  const hasSubmitError = useAppSelector(getSubmitErrorStatus);
   const [rating, setRating] = useState<string>('');
   const [review, setReview] = useState<string>('');
   const [isFormDisabled, setIsFormDisabled] = useState<boolean>(false);
@@ -17,11 +21,11 @@ function ReviewsForm(): JSX.Element {
   useEffect(() => {
     setIsFormDisabled(commentDataSendingStatus);
 
-    if (!commentDataSendingStatus) {
+    if (!commentDataSendingStatus && !hasSubmitError) {
       setRating('');
       setReview('');
     }
-  }, [commentDataSendingStatus]);
+  }, [commentDataSendingStatus, hasSubmitError]);
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRating(event.target.value);
@@ -51,7 +55,6 @@ function ReviewsForm(): JSX.Element {
           comment: review.trim(),
         })
       );
-      // Устанавливаем isFormDisabled в true после отправки формы
       setIsFormDisabled(true);
     }
   };

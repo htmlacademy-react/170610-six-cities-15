@@ -18,6 +18,7 @@ export type TAppData = {
   nearbyOffers: TOffers;
   favoriteOffers: TOffers;
   isCommentDataSending: boolean;
+  hasSubmitError: boolean;
 };
 
 export type TAppProcess = {
