@@ -16,9 +16,12 @@ function FavoritesScreen(): JSX.Element {
   }, [dispatch]);
 
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoritesEmptyClass = 'page--favorites-empty';
+  const favoritesEmptyClassToggler =
+    favoriteOffers.length === 0 ? favoritesEmptyClass : '';
 
   return (
-    <div className="page">
+    <div className={`page ${favoritesEmptyClassToggler}`}>
       <Helmet>
         <title>6 cities :: Favorites</title>
       </Helmet>
