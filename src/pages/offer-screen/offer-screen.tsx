@@ -43,7 +43,10 @@ function OfferScreen(): JSX.Element {
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
   const comments = useAppSelector<TComments>(getComments);
-  const sortedComments = comments
+
+  let sortedComments = [...comments];
+
+  sortedComments = sortedComments
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT);
 
