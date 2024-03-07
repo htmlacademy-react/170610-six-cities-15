@@ -6,6 +6,7 @@ import {
   toggleFavoriteAction,
   fetchOfferAction,
   fetchCommentsAction,
+  fetchNearbyOffersAction,
 } from '../api-actions';
 
 const initialState: TAppData = {
@@ -16,6 +17,7 @@ const initialState: TAppData = {
   offer: {} as TAppData['offer'],
   isOfferDataLoading: false,
   comments: [],
+  nearbyOffers: [],
 };
 
 export const appData = createSlice({
@@ -85,6 +87,15 @@ export const appData = createSlice({
         state.comments = action.payload;
       })
       .addCase(fetchCommentsAction.rejected, (state) => {
+        state.hasError = true;
+      })
+      .addCase(fetchNearbyOffersAction.pending, (state) => {
+        state.hasError = false;
+      })
+      .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
+        state.nearbyOffers = action.payload;
+      })
+      .addCase(fetchNearbyOffersAction.rejected, (state) => {
         state.hasError = true;
       });
   },

@@ -101,22 +101,31 @@ export const fetchCommentsAction = createAsyncThunk<
   return data;
 });
 
+export const fetchNearbyOffersAction = createAsyncThunk<
+  TOffers,
+  string,
+  { extra: AxiosInstance }
+>('data/loadNearbyOffers', async (id, { extra: api }) => {
+  const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
+  return data;
+});
+
 /* !!! Не разобрано */
 
-export const fetchNearbyOffersAction = createAsyncThunk<
-  void,
-  string | undefined,
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->('data/loadNearbyOffers', async (id, { dispatch, extra: api }) => {
-  dispatch(setNearbyOffersDataLoadingStatus(true));
-  const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
-  dispatch(setNearbyOffersDataLoadingStatus(false));
-  dispatch(loadNearbyOffers(data));
-});
+// export const fetchNearbyOffersAction = createAsyncThunk<
+//   void,
+//   string | undefined,
+//   {
+//     dispatch: TAppDispatch;
+//     state: TState;
+//     extra: AxiosInstance;
+//   }
+// >('data/loadNearbyOffers', async (id, { dispatch, extra: api }) => {
+//   dispatch(setNearbyOffersDataLoadingStatus(true));
+//   const { data } = await api.get<TOffers>(`/offers/${id}/nearby`);
+//   dispatch(setNearbyOffersDataLoadingStatus(false));
+//   dispatch(loadNearbyOffers(data));
+// });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
   void,

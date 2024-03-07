@@ -6,6 +6,7 @@ export const MAP_LAYER =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const MAP_LAYER_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+export const MAX_OFFER_SCREEN_COMMENTS_COUNT = 10;
 export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
 
 export enum AppRoute {

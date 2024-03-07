@@ -10,6 +10,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
   CITIES,
+  MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
 } from '../../const';
@@ -20,82 +21,58 @@ import {
   fetchOfferAction,
 } from '../../store/api-actions';
 import {
-  getOffer,
-  getOffers,
-  getOfferDataLoadingStatus,
   getComments,
+  getNearbyOffers,
+  getOffer,
+  getOfferDataLoadingStatus,
+  getOffers,
 } from '../../store/app-data/app-data.selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { clearOffer } from '../../store/app-data/app-data.slice';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-
   const { id } = useParams<{ id: string | undefined }>();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
   const idExists = offers.some((offerItem) => offerItem.id === id);
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
   const comments = useAppSelector<TComments>(getComments);
   const sortedComments = comments
-    .slice(0, 10)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT);
 
-  console.log(sortedComments);
+  const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
+  const slicedNearbyOffers = nearbyOffers.slice(
+    0,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+  );
+
+  console.log(authorizationStatus);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
       dispatch(fetchCommentsAction(id));
-      // dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchNearbyOffersAction(id));
     }
-
-    // return () => {
-    //   dispatch(clearOffer());
-    //   dispatch(clearСomments());
-    //   dispatch(clearReviews());
-    // };
   }, [dispatch, id]);
 
   if (!idExists) {
     return <NotFoundScreen />;
   }
 
-  // dispatch(fetchOfferAction(id));
-  // dispatch(fetchCommentsAction(id));
-  // dispatch(fetchNearbyOffersAction(id));
-
-  // const slicedNearbyOffers = nearbyOffers.slice(
-  //   0,
-  //   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  // );
-
   // const combinedOffersToMap = [offer, ...slicedNearbyOffers];
-
-  // const sortedComments = comments
-  //   .slice()
-  //   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // const cityName: string =
   //   offers.find((offerItem) => offerItem.id === id)?.city?.name ?? cities.PARIS;
 
   // const activeCityCoordinates = cityCoordinates.find(
   //   (city) => city.name.toLowerCase() === cityName.toLowerCase()
-  // );
-
-  // const authorizationStatus = useAppSelector(
-  //   (state) => state.authorizationStatus
-  // );
-
-  // const isNearbyOffersDataLoading = useAppSelector(
-  //   (state) => state.isNearbyOffersDataLoading
-  // );
-
-  // const isCommentsDataLoading = useAppSelector(
-  //   (state) => state.isCommentsDataLoading
   // );
 
   if (
@@ -230,7 +207,7 @@ function OfferScreen(): JSX.Element {
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 {sortedComments && <ReviewsList comments={sortedComments} />}
-                {/* {String(authorizationStatus) === 'AUTH' && <ReviewsForm />} */}
+                {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
               </section>
             </div>
           </div>
@@ -247,7 +224,7 @@ function OfferScreen(): JSX.Element {
           </section> */}
         </section>
         <div className="container">
-          {/* <section className="near-places places">
+          <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighborhood
             </h2>
@@ -255,7 +232,7 @@ function OfferScreen(): JSX.Element {
               offers={slicedNearbyOffers}
               className="near-places__list places__list"
             />
-          </section> */}
+          </section>
         </div>
       </main>
     </div>

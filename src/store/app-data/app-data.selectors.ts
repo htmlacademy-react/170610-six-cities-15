@@ -14,3 +14,5 @@ export const getOfferDataLoadingStatus = (state: TState): boolean =>
   state[NameSpace.Data].isOfferDataLoading;
 export const getComments = (state: TState): TComments =>
   state[NameSpace.Data].comments;
+export const getNearbyOffers = (state: TState): TOffers =>
+  state[NameSpace.Data].nearbyOffers;
