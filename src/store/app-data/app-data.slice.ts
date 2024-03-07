@@ -1,13 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TAppData } from '../../types/state';
-import { fetchOffersAction, toggleFavoriteAction } from '../api-actions';
+import {
+  fetchOffersAction,
+  toggleFavoriteAction,
+  fetchOfferAction,
+} from '../api-actions';
 
 const initialState: TAppData = {
   offers: [],
   isOffersDataLoading: false,
   hasError: false,
   isToggleFavoriteLoading: false,
+  offer: {} as TAppData['offer'],
+  isOfferDataLoading: false,
 };
 
 export const appData = createSlice({
@@ -50,6 +56,18 @@ export const appData = createSlice({
       .addCase(toggleFavoriteAction.rejected, (state) => {
         state.isToggleFavoriteLoading = false;
         state.hasError = true;
+      })
+      .addCase(fetchOfferAction.pending, (state) => {
+        state.isOfferDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+        state.offer = action.payload;
+        state.isOfferDataLoading = false;
+      })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        state.isOfferDataLoading = false;
+        // state.hasError = true;
       });
   },
 });

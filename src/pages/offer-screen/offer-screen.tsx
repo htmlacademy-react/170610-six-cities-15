@@ -9,6 +9,7 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
+  CITIES,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
 } from '../../const';
@@ -18,73 +19,81 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
 } from '../../store/api-actions';
+import {
+  getOffer,
+  getOffers,
+  getOfferDataLoadingStatus,
+} from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { CITIES } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<{ id: string | undefined }>();
-  const offers = useAppSelector<TOffers>((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const idExists = offers.some((offerItem) => offerItem.id === id);
-
-  const offer = useAppSelector<TOffer>((state) => state.offer);
-  const comments = useAppSelector<TComments>((state) => state.comments);
-  const nearbyOffers = useAppSelector<TOffers>((state) => state.nearbyOffers);
-
-  const slicedNearbyOffers = nearbyOffers.slice(
-    0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  );
-
-  const combinedOffersToMap = [offer, ...slicedNearbyOffers];
-
-  const sortedComments = comments
-    .slice()
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  const cityName: string =
-    offers.find((offerItem) => offerItem.id === id)?.city?.name ?? cities.PARIS;
-
-  const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toLowerCase() === cityName.toLowerCase()
-  );
-
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
-
-  const isNearbyOffersDataLoading = useAppSelector(
-    (state) => state.isNearbyOffersDataLoading
-  );
-
-  const isCommentsDataLoading = useAppSelector(
-    (state) => state.isCommentsDataLoading
-  );
+  const offer = useAppSelector<TOffer>(getOffer);
+  const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
-      dispatch(fetchCommentsAction(id));
-      dispatch(fetchNearbyOffersAction(id));
+      // dispatch(fetchCommentsAction(id));
+      // dispatch(fetchNearbyOffersAction(id));
     }
-  }, [id, dispatch]);
+  }, [dispatch, id]);
+
+  //   // dispatch(fetchCommentsAction(id));
+  //   // dispatch(fetchNearbyOffersAction(id));
+  // }, [dispatch]);
+
+  console.log(offer);
 
   if (!idExists) {
     return <NotFoundScreen />;
   }
 
+  // dispatch(fetchOfferAction(id));
+  // dispatch(fetchCommentsAction(id));
+  // dispatch(fetchNearbyOffersAction(id));
+
+  // const slicedNearbyOffers = nearbyOffers.slice(
+  //   0,
+  //   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+  // );
+
+  // const combinedOffersToMap = [offer, ...slicedNearbyOffers];
+
+  // const sortedComments = comments
+  //   .slice()
+  //   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // const cityName: string =
+  //   offers.find((offerItem) => offerItem.id === id)?.city?.name ?? cities.PARIS;
+
+  // const activeCityCoordinates = cityCoordinates.find(
+  //   (city) => city.name.toLowerCase() === cityName.toLowerCase()
+  // );
+
+  // const authorizationStatus = useAppSelector(
+  //   (state) => state.authorizationStatus
+  // );
+
+  // const isNearbyOffersDataLoading = useAppSelector(
+  //   (state) => state.isNearbyOffersDataLoading
+  // );
+
+  // const isCommentsDataLoading = useAppSelector(
+  //   (state) => state.isCommentsDataLoading
+  // );
+
   if (
-    isOfferDataLoading ||
-    isNearbyOffersDataLoading ||
-    isCommentsDataLoading
+    isOfferDataLoading
+    // isNearbyOffersDataLoading ||
+    // isCommentsDataLoading
   ) {
     return (
       <div className="page">
@@ -207,17 +216,17 @@ function OfferScreen(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <section className="offer__reviews reviews">
+              {/* <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ReviewsList comments={sortedComments.slice(0, 10)} />
                 {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
-              </section>
+              </section> */}
             </div>
           </div>
-          <section className="offer__map map">
+          {/* <section className="offer__map map">
             {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
@@ -227,10 +236,10 @@ function OfferScreen(): JSX.Element {
                 maxWidth={1144}
               />
             )}
-          </section>
+          </section> */}
         </section>
         <div className="container">
-          <section className="near-places places">
+          {/* <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighborhood
             </h2>
@@ -238,7 +247,7 @@ function OfferScreen(): JSX.Element {
               offers={slicedNearbyOffers}
               className="near-places__list places__list"
             />
-          </section>
+          </section> */}
         </div>
       </main>
     </div>

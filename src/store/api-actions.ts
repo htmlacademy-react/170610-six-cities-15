@@ -78,27 +78,21 @@ export const toggleFavoriteAction = createAsyncThunk<
     state: TState;
     extra: AxiosInstance;
   }
->('app/toggleFavoriteOffer', async ({ id, status }, { extra: api }) => {
+>('data/toggleFavoriteOffer', async ({ id, status }, { extra: api }) => {
   const { data } = await api.post<TOffer>(`/favorite/${id}/${status}`);
   return data;
 });
 
-/* !!! Не разобрано */
-
 export const fetchOfferAction = createAsyncThunk<
-  void,
-  string | undefined,
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->('data/fetchOffer', async (id, { dispatch, extra: api }) => {
-  dispatch(setOfferDataLoadingStatus(true));
+  TOffer,
+  string,
+  { extra: AxiosInstance }
+>('data/fetchOffer', async (id, { extra: api }) => {
   const { data } = await api.get<TOffer>(`/offers/${id}`);
-  dispatch(setOfferDataLoadingStatus(false));
-  dispatch(loadOffer(data));
+  return data;
 });
+
+/* !!! Не разобрано */
 
 export const fetchCommentsAction = createAsyncThunk<
   void,
