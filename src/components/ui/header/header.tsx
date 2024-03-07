@@ -1,16 +1,26 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const';
-import { logoutAction } from '../../../store/api-actions';
+import {
+  fetchFavoriteOffersAction,
+  logoutAction,
+} from '../../../store/api-actions';
+import { getFavoriteOffers } from '../../../store/app-data/app-data.selectors';
 import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getOffers } from '../../../store/app-data/app-data.selectors';
 import Logo from '../logo/logo';
 
 function Header() {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const offers = useAppSelector(getOffers);
-  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersCount = favoriteOffers.length;
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -26,7 +36,7 @@ function Header() {
                 Oliver.conner@gmail.com
               </span>
               <span className="header__favorite-count">
-                {favoritesOffers.length}
+                {favoriteOffersCount}
               </span>
             </Link>
           </div>
