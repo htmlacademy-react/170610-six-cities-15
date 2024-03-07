@@ -9,7 +9,7 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
-  CITIES,
+  Cities,
   MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
@@ -51,8 +51,14 @@ function OfferScreen(): JSX.Element {
     0,
     MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
+  const combinedOffersToMap = [offer, ...slicedNearbyOffers];
+  const cityName = offer?.city.name ?? Cities.Paris;
 
-  console.log(authorizationStatus);
+  const activeCityCoordinates = cityCoordinates.find(
+    (city) => city.name.toLowerCase() === cityName.toLowerCase()
+  );
+
+  // console.log(authorizationStatus);
 
   useEffect(() => {
     if (id) {
@@ -65,15 +71,6 @@ function OfferScreen(): JSX.Element {
   if (!idExists) {
     return <NotFoundScreen />;
   }
-
-  // const combinedOffersToMap = [offer, ...slicedNearbyOffers];
-
-  // const cityName: string =
-  //   offers.find((offerItem) => offerItem.id === id)?.city?.name ?? cities.PARIS;
-
-  // const activeCityCoordinates = cityCoordinates.find(
-  //   (city) => city.name.toLowerCase() === cityName.toLowerCase()
-  // );
 
   if (
     isOfferDataLoading
@@ -211,7 +208,7 @@ function OfferScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          {/* <section className="offer__map map">
+          <section className="offer__map map">
             {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
@@ -221,7 +218,7 @@ function OfferScreen(): JSX.Element {
                 maxWidth={1144}
               />
             )}
-          </section> */}
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
