@@ -16,6 +16,11 @@ function ReviewsForm(): JSX.Element {
 
   useEffect(() => {
     setIsFormDisabled(commentDataSendingStatus);
+
+    if (!commentDataSendingStatus) {
+      setRating('');
+      setReview('');
+    }
   }, [commentDataSendingStatus]);
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +51,8 @@ function ReviewsForm(): JSX.Element {
           comment: review.trim(),
         })
       );
+      // Устанавливаем isFormDisabled в true после отправки формы
+      setIsFormDisabled(true);
     }
   };
 
