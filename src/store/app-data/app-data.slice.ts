@@ -24,14 +24,7 @@ const initialState: TAppData = {
 export const appData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    // clearOffer: (state) => {
-    //   state.offer = {} as TAppData['offer'];
-    // },
-    // clearСomments: (state) => {
-    //   state.offer = {} as TAppData['offer'];
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -99,7 +92,6 @@ export const appData = createSlice({
       .addCase(fetchNearbyOffersAction.rejected, (state) => {
         state.hasError = true;
       })
-
       .addCase(postCommentAction.pending, (state) => {
         state.hasError = false;
       })
@@ -111,5 +103,3 @@ export const appData = createSlice({
       });
   },
 });
-
-// export const { clearOffer, clearСomments } = appData.actions;
