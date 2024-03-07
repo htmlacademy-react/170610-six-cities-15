@@ -18,3 +18,5 @@ export const getNearbyOffers = (state: TState): TOffers =>
   state[NameSpace.Data].nearbyOffers;
 export const getFavoriteOffers = (state: TState): TOffers =>
   state[NameSpace.Data].favoriteOffers;
+export const getCommentDataSendingStatus = (state: TState): boolean =>
+  state[NameSpace.Data].isCommentDataSending;
