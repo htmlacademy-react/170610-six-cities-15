@@ -104,12 +104,12 @@ function OfferScreen(): JSX.Element {
     // isCommentsDataLoading
   ) {
     return (
-      <div className="page">
+      <>
         <Helmet>
           <title>Loading offer...</title>
         </Helmet>
         <LoadingScreen />
-      </div>
+      </>
     );
   }
 
