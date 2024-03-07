@@ -16,3 +16,5 @@ export const getComments = (state: TState): TComments =>
   state[NameSpace.Data].comments;
 export const getNearbyOffers = (state: TState): TOffers =>
   state[NameSpace.Data].nearbyOffers;
+export const getFavoriteOffers = (state: TState): TOffers =>
+  state[NameSpace.Data].favoriteOffers;

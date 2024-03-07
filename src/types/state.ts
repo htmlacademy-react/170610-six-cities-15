@@ -16,6 +16,7 @@ export type TAppData = {
   isOfferDataLoading: boolean;
   comments: TComments;
   nearbyOffers: TOffers;
+  favoriteOffers: TOffers;
 };
 
 export type TAppProcess = {

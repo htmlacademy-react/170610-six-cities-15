@@ -121,3 +121,16 @@ export const postCommentAction = createAsyncThunk<
   });
   return data;
 });
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  TOffers,
+  undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('data/fetchFavoriteOffers', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TOffers>(APIRoute.Favorite);
+  return data;
+});

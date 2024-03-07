@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/ui/header/header';
+import { useAppDispatch } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 function FavoritesScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
+
   return (
     <div className="page">
       <Helmet>

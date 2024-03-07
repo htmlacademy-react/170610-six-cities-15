@@ -8,6 +8,7 @@ import {
   fetchCommentsAction,
   fetchNearbyOffersAction,
   postCommentAction,
+  fetchFavoriteOffersAction,
 } from '../api-actions';
 
 const initialState: TAppData = {
@@ -19,6 +20,7 @@ const initialState: TAppData = {
   isOfferDataLoading: false,
   comments: [],
   nearbyOffers: [],
+  favoriteOffers: [],
 };
 
 export const appData = createSlice({
@@ -59,6 +61,10 @@ export const appData = createSlice({
         if (state.offer && state.offer.id === id) {
           state.offer.isFavorite = isFavorite;
         }
+
+        state.favoriteOffers = state.favoriteOffers.filter(
+          (offer) => offer.id !== id
+        );
 
         state.isToggleFavoriteLoading = false;
       })
@@ -103,6 +109,15 @@ export const appData = createSlice({
         state.comments.push(action.payload);
       })
       .addCase(postCommentAction.rejected, (state) => {
+        state.hasError = true;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.hasError = false;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.hasError = true;
       });
   },
