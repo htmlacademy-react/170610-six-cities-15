@@ -9,7 +9,6 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
-  Cities,
   MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
@@ -57,13 +56,10 @@ function OfferScreen(): JSX.Element {
   );
   const combinedOffersToMap = [offer, ...slicedNearbyOffers];
   const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
-  // console.log(selectedCity);
 
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
-
-  // console.log(authorizationStatus);
 
   useEffect(() => {
     if (id) {
