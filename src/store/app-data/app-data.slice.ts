@@ -56,6 +56,10 @@ export const appData = createSlice({
           return offer;
         });
 
+        if (state.offer && state.offer.id === id) {
+          state.offer.isFavorite = isFavorite;
+        }
+
         state.isToggleFavoriteLoading = false;
       })
       .addCase(toggleFavoriteAction.rejected, (state) => {
