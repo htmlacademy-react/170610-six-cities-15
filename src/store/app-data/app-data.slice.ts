@@ -62,12 +62,18 @@ export const appData = createSlice({
           state.offer.isFavorite = isFavorite;
         }
 
-        state.favoriteOffers = state.favoriteOffers.filter(
-          (offer) => offer.id !== id
+        const existingIndex = state.favoriteOffers.findIndex(
+          (offer) => offer.id === id
         );
+        if (existingIndex !== -1) {
+          state.favoriteOffers.splice(existingIndex, 1);
+        } else {
+          state.favoriteOffers.push(action.payload);
+        }
 
         state.isToggleFavoriteLoading = false;
       })
+
       .addCase(toggleFavoriteAction.rejected, (state) => {
         state.isToggleFavoriteLoading = false;
         state.hasError = true;
