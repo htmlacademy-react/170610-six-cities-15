@@ -65,7 +65,7 @@ export const Map: React.FC<TMapProps> = ({
                   : defaultMarkerIcon,
             }
           )
-          .addTo(map);
+          .addTo(markerLayer.current);
       });
     }
   }, [activeOfferId, map, offers]);
