@@ -26,6 +26,7 @@ import {
   getOffer,
   getOfferDataLoadingStatus,
   getOffers,
+  getErrorOfferLoadingStatus,
 } from '../../store/app-data/app-data.selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { TComments } from '../../types/comment';
@@ -41,6 +42,7 @@ function OfferScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
   const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
+  const hasError = useAppSelector(getErrorOfferLoadingStatus);
   const slicedNearbyOffers = nearbyOffers.slice(
     0,
     MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
@@ -61,7 +63,7 @@ function OfferScreen(): JSX.Element {
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
-  // console.log(activeCityCoordinates);
+  console.log(hasError);
 
   useEffect(() => {
     if (id) {
@@ -70,6 +72,10 @@ function OfferScreen(): JSX.Element {
       dispatch(fetchNearbyOffersAction(id));
     }
   }, [dispatch, id]);
+
+  if (hasError) {
+    return <NotFoundScreen />;
+  }
 
   if (isOfferDataLoading) {
     return (
@@ -80,10 +86,6 @@ function OfferScreen(): JSX.Element {
         <LoadingScreen />
       </>
     );
-  }
-
-  if (!id || !offers.length) {
-    return <NotFoundScreen />;
   }
 
   const offersToMap = [offer, ...slicedNearbyOffers];

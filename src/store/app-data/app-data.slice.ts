@@ -23,6 +23,7 @@ const initialState: TAppData = {
   favoriteOffers: [],
   isCommentDataSending: false,
   hasSubmitError: false,
+  hasOfferDataLoadingError: false,
 };
 
 export const appData = createSlice({
@@ -82,15 +83,16 @@ export const appData = createSlice({
       })
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOfferDataLoading = true;
-        state.hasError = false;
+        state.hasOfferDataLoadingError = false;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.offer = action.payload;
         state.isOfferDataLoading = false;
+        state.isOfferDataLoading = false;
       })
       .addCase(fetchOfferAction.rejected, (state) => {
         state.isOfferDataLoading = false;
-        state.hasError = true;
+        state.isOfferDataLoading = true;
       })
       .addCase(fetchCommentsAction.pending, (state) => {
         state.hasError = false;

@@ -10,10 +10,16 @@ import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { filterOffersByCityName, pluralize } from '../../utils/common';
+import { getErrorStatus } from '../../store/app-data/app-data.selectors';
 
 function MainScreen(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const activeCity = useAppSelector(getCity);
+  const hasError = useAppSelector(getErrorStatus);
+
+  if (hasError) {
+    return <ErrorScreen />;
+  }
 
   const [sortOption, setSortOption] = useState<string>(Sorting.Popular);
   const [sortingOptionsVisible, setSortingOptionsVisible] =

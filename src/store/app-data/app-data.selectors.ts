@@ -22,3 +22,5 @@ export const getCommentDataSendingStatus = (state: TState): boolean =>
   state[NameSpace.Data].isCommentDataSending;
 export const getSubmitErrorStatus = (state: TState): boolean =>
   state[NameSpace.Data].hasSubmitError;
+export const getErrorOfferLoadingStatus = (state: TState): boolean =>
+  state[NameSpace.Data].isOfferDataLoading;
