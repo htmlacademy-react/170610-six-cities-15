@@ -184,7 +184,7 @@ function OfferScreen(): JSX.Element {
                 <div className="offer__host-user user">
                   <div
                     className={`offer__avatar-wrapper ${
-                      isAvatarPro ? 'isAvatarPro' : ''
+                      isAvatarPro ? 'offer__avatar-wrapper--pro' : ''
                     } user__avatar-wrapper`}
                   >
                     <img
