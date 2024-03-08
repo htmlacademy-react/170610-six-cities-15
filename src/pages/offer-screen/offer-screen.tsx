@@ -38,7 +38,7 @@ function OfferScreen(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
-  const idExists = offers.some((offerItem) => offerItem.id === id);
+
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
   const comments = useAppSelector<TComments>(getComments);
@@ -69,23 +69,18 @@ function OfferScreen(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (!idExists) {
+  if (!offer) {
+    if (isOfferDataLoading) {
+      return (
+        <>
+          <Helmet>
+            <title>Loading offer...</title>
+          </Helmet>
+          <LoadingScreen />
+        </>
+      );
+    }
     return <NotFoundScreen />;
-  }
-
-  if (
-    isOfferDataLoading
-    // isNearbyOffersDataLoading ||
-    // isCommentsDataLoading
-  ) {
-    return (
-      <>
-        <Helmet>
-          <title>Loading offer...</title>
-        </Helmet>
-        <LoadingScreen />
-      </>
-    );
   }
 
   const {
