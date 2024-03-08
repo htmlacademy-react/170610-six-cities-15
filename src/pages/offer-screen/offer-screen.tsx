@@ -71,17 +71,18 @@ function OfferScreen(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (!offer) {
-    if (isOfferDataLoading) {
-      return (
-        <>
-          <Helmet>
-            <title>Loading offer...</title>
-          </Helmet>
-          <LoadingScreen />
-        </>
-      );
-    }
+  if (isOfferDataLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Loading offer...</title>
+        </Helmet>
+        <LoadingScreen />
+      </>
+    );
+  }
+
+  if (!id || !offers.length) {
     return <NotFoundScreen />;
   }
 
