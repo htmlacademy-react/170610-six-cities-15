@@ -9,8 +9,8 @@ type TMapProps = {
   city: TLocation;
   offers: TOffers;
   activeOfferId?: string | null;
-  page: string;
   maxWidth: number;
+  page: string;
 };
 
 const activeMarkerIcon = leaflet.icon({
@@ -30,6 +30,7 @@ export const Map: React.FC<TMapProps> = ({
   offers,
   activeOfferId,
   maxWidth,
+  page,
 }): Element => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const map = useMap({
@@ -70,17 +71,13 @@ export const Map: React.FC<TMapProps> = ({
     }
   }, [activeOfferId, map, offers]);
 
-  // return <section className="page__map map" ref={mapContainerRef} />;
-
   return (
-    <div
+    <section
+      className={`${page}__map map`}
       ref={mapContainerRef}
-      style={{
-        height: '100%',
-        width: '100%',
-        maxWidth: `${maxWidth}px`,
-        margin: '0 auto',
-      }}
+      // style={{
+      //   maxWidth: `${maxWidth}px`,
+      // }}
     />
   );
 };

@@ -108,16 +108,14 @@ function MainScreen(): JSX.Element {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                {activeCityCoordinates && filteredOffers.length > 0 && (
-                  <Map
-                    city={activeCityCoordinates}
-                    activeOfferId={hoveredOfferId}
-                    offers={filteredOffers}
-                    maxWidth={682}
-                  />
-                )}
-              </section>
+              {activeCityCoordinates && filteredOffers.length > 0 && (
+                <Map
+                  city={activeCityCoordinates}
+                  activeOfferId={hoveredOfferId}
+                  offers={filteredOffers}
+                  page={'cities'}
+                />
+              )}
             </div>
           </div>
         </div>
