@@ -12,6 +12,7 @@ import {
   MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
+  MAX_IMAGES,
 } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -114,9 +115,9 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images?.map((image) => (
-                <div className="offer__image-wrapper" key={uuidv4()}>
-                  <img className="offer__image" src={image} alt="Offer" />
+              {images?.slice(0, MAX_IMAGES).map((pic) => (
+                <div className="offer__image-wrapper" key={pic}>
+                  <img className="offer__image" src={pic} alt="Photo studio" />
                 </div>
               ))}
             </div>
