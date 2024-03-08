@@ -25,13 +25,13 @@ function App(): JSX.Element {
   const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   // const hasError = useAppSelector(getErrorStatus);
 
-  if (!isAuthChecked || isOffersDataLoading) {
-    return <LoadingScreen />;
-  }
-
   // if (hasError) {
   //   return <ErrorScreen />;
   // }
+
+  if (!isAuthChecked || isOffersDataLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <HelmetProvider>
