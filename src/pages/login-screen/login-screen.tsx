@@ -10,7 +10,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [randomCity, setRandomCity] = useState(''); // использовать useState для хранения случайного города
+  const [randomCity, setRandomCity] = useState(null);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function LoginScreen(): JSX.Element {
       Object.keys(Cities)[
         Math.floor(Math.random() * Object.keys(Cities).length)
       ];
-    setRandomCity(Cities[randomCityKey]); // сохранить случайный город в локальный стейт
+    setRandomCity(Cities[randomCityKey]);
   }, []);
 
   useEffect(() => {
