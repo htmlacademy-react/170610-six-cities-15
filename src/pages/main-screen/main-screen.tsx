@@ -98,7 +98,7 @@ function MainScreen(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {filteredOffers.length > 0 && (
+                {activeCityCoordinates && filteredOffers.length > 0 && (
                   <Map
                     city={activeCityCoordinates}
                     activeOfferId={hoveredOfferId}

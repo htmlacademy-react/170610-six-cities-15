@@ -207,7 +207,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            {nearbyOffers.length > 0 && (
+            {activeCityCoordinates && nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
                 activeOfferId={id}
