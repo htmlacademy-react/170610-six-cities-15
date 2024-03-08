@@ -212,7 +212,6 @@ function OfferScreen(): JSX.Element {
                 city={activeCityCoordinates}
                 activeOfferId={id}
                 offers={offersToMap}
-                page={'offer'}
                 maxWidth={1144}
               />
             )}

@@ -1,11 +1,9 @@
-// import { Icon, Marker, layerGroup } from 'leaflet';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
 import { useMap } from '../../hooks/use-map.tsx';
-import { TLocation } from '../../types/offer.ts';
-import { TOffers } from '../../types/offer.ts';
+import { TLocation, TOffers } from '../../types/offer.ts';
 
 type TMapProps = {
   city: TLocation;
@@ -31,7 +29,6 @@ export const Map: React.FC<TMapProps> = ({
   city,
   offers,
   activeOfferId,
-  page,
   maxWidth,
 }): Element => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -39,6 +36,18 @@ export const Map: React.FC<TMapProps> = ({
     location: city.location,
     containerRef: mapContainerRef,
   });
+  const markerLayer = useRef(leaflet.layerGroup());
+
+  useEffect((): void => {
+    if (map) {
+      map.setView(
+        [city.location.latitude, city.location.longitude],
+        city.location.zoom
+      );
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
+    }
+  }, [city, map]);
 
   useEffect((): void => {
     if (map) {

@@ -103,7 +103,6 @@ function MainScreen(): JSX.Element {
                     city={activeCityCoordinates}
                     activeOfferId={hoveredOfferId}
                     offers={filteredOffers}
-                    page={'cities'}
                     maxWidth={682}
                   />
                 )}
