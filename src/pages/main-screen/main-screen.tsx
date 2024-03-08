@@ -5,12 +5,9 @@ import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { Sorting, citiesNames, cityCoordinates } from '../../const';
+import { Cities, Sorting, citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
-import {
-  // getErrorStatus,
-  getOffers,
-} from '../../store/app-data/app-data.selectors';
+import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { filterOffersByCityName, pluralize } from '../../utils/common';
 import ErrorScreen from '../error-screen/error-screen';
@@ -20,12 +17,17 @@ function MainScreen(): JSX.Element {
   const [sortingOptionsVisible, setSortingOptionsVisible] =
     useState<boolean>(false);
   const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
+
   const offers = useAppSelector(getOffers);
   const activeCity = useAppSelector(getCity);
-  // const hasError = useAppSelector(getErrorStatus);
+  const cityMap = activeCity in Cities ? activeCity : undefined;
 
   if (offers.length === 0) {
     return <ErrorScreen />;
+  }
+
+  if (cityMap === undefined) {
+    return <p>Map not found</p>;
   }
 
   const handleSortOptionClick = () => {
