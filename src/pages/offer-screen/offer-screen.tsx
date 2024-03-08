@@ -31,6 +31,7 @@ import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { renderStars } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -143,7 +144,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${rating * 20}%` }} />
+                  <span style={{ width: renderStars(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">

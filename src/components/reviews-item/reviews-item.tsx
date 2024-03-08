@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { renderStars } from '../../const';
 import { TComment } from '../../types/comment';
 
 type ReviewsItemProps = {
@@ -28,7 +29,7 @@ function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }}></span>
+            <span style={{ width: renderStars(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

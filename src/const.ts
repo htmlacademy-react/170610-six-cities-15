@@ -44,7 +44,7 @@ export const cityCoordinates = [
       latitude: 48.85661,
       longitude: 2.351499,
       zoom: 12,
-    }  
+    },
   },
   {
     name: 'COLOGNE',
@@ -52,7 +52,7 @@ export const cityCoordinates = [
       latitude: 50.938361,
       longitude: 6.959974,
       zoom: 12,
-    }   
+    },
   },
   {
     name: 'BRUSSELS',
@@ -111,3 +111,6 @@ export enum Cities {
 }
 
 export const citiesNames = Array.from(Object.values(Cities));
+export function renderStars(rating: number): string {
+  return `${(Math.round(rating) * 20).toString()}%`;
+}
