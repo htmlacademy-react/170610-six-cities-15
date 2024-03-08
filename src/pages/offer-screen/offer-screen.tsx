@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
-import Map from '../../components/map/map';
+import { Map } from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -38,28 +38,28 @@ function OfferScreen(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
+  const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
+  const slicedNearbyOffers = nearbyOffers.slice(
+    0,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+  );
 
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
-  const comments = useAppSelector<TComments>(getComments);
 
+  const comments = useAppSelector<TComments>(getComments);
   let sortedComments = [...comments];
 
   sortedComments = sortedComments
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT);
 
-  const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
-  const slicedNearbyOffers = nearbyOffers.slice(
-    0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  );
-  const combinedOffersToMap = [offer, ...slicedNearbyOffers];
   const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
 
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
+  // console.log(activeCityCoordinates);
 
   useEffect(() => {
     if (id) {
@@ -82,6 +82,8 @@ function OfferScreen(): JSX.Element {
     }
     return <NotFoundScreen />;
   }
+
+  const offersToMap = [offer, ...slicedNearbyOffers];
 
   const {
     images,
@@ -208,8 +210,8 @@ function OfferScreen(): JSX.Element {
             {nearbyOffers.length > 0 && (
               <Map
                 city={activeCityCoordinates}
-                activePoint={id || ''}
-                offers={combinedOffersToMap}
+                activeOfferId={id}
+                offers={offersToMap}
                 page={'offer'}
                 maxWidth={1144}
               />

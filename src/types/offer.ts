@@ -10,12 +10,7 @@ export type TActiveCity = {
 export type TLocation = {
   latitude: number;
   longitude: number;
-  name: string;
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  zoom: number;
 };
 
 type THost = {

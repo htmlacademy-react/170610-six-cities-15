@@ -1,35 +1,38 @@
-import { Map, TileLayer } from 'leaflet';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { MAP_LAYER, MAP_LAYER_ATTRIBUTION } from '../const';
+import leaflet, { Map } from 'leaflet';
+import { useEffect, useRef, useState } from 'react';
+import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
 import { TLocation } from '../types/offer';
 
-export default function useMap(
-  mapRef: MutableRefObject<HTMLElement | null>,
-  city: TLocation
-): Map | null {
+type UseMapProps = {
+  location: TLocation;
+  containerRef: React.RefObject<HTMLElement | null>;
+};
+
+export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {
   const [map, setMap] = useState<Map | null>(null);
+  // const [map, setMap] = useState<LeafletMap | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
-  useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = new Map(mapRef.current, {
+  useEffect((): void => {
+    if (containerRef.current !== null && !isRenderedRef.current) {
+      const instance = leaflet.map(containerRef.current, {
         center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude,
+          lat: location.latitude,
+          lng: location.longitude,
         },
-        zoom: city.location.zoom,
+        zoom: location.zoom,
       });
 
-      const layer = new TileLayer(MAP_LAYER, {
-        attribution: MAP_LAYER_ATTRIBUTION,
-      });
-
-      instance.addLayer(layer);
+      leaflet
+        .tileLayer(TILE_LAYER_URL_PATTERN, {
+          attribution: TILE_LAYER_ATTRIBUTION,
+        })
+        .addTo(instance);
 
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [containerRef, location]);
 
   return map;
-}
+};

@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Map from '../../components/map/map';
+import { Map } from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { citiesNames, cityCoordinates } from '../../const';
+import { Sorting, citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { filterOffersByCityName } from '../../utils/common';
-import { Sorting } from '../../const';
 import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
+import { filterOffersByCityName } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const activeCity = useAppSelector(getCity);
-
-  // console.log(citiesNames);
 
   const [sortOption, setSortOption] = useState<string>(Sorting.Popular);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
@@ -38,6 +35,8 @@ function MainScreen(): JSX.Element {
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === activeCity.toLowerCase()
   );
+
+  // console.log(activeCityCoordinates);
 
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 
@@ -99,13 +98,15 @@ function MainScreen(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map
-                  city={activeCityCoordinates}
-                  activePoint={hoveredOfferId}
-                  offers={filteredOffers}
-                  page={'cities'}
-                  maxWidth={682}
-                />
+                {filteredOffers.length > 0 && (
+                  <Map
+                    city={activeCityCoordinates}
+                    activeOfferId={hoveredOfferId}
+                    offers={filteredOffers}
+                    page={'cities'}
+                    maxWidth={682}
+                  />
+                )}
               </section>
             </div>
           </div>

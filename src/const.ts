@@ -2,9 +2,9 @@ export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const PIN_MARKER_DEFAULT = 'img/pin.svg';
 export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
-export const MAP_LAYER =
+export const TILE_LAYER_URL_PATTERN =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-export const MAP_LAYER_ATTRIBUTION =
+export const TILE_LAYER_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 export const MAX_OFFER_SCREEN_COMMENTS_COUNT = 10;
 export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
@@ -44,7 +44,7 @@ export const cityCoordinates = [
       latitude: 48.85661,
       longitude: 2.351499,
       zoom: 12,
-    },
+    }  
   },
   {
     name: 'COLOGNE',
@@ -52,7 +52,7 @@ export const cityCoordinates = [
       latitude: 50.938361,
       longitude: 6.959974,
       zoom: 12,
-    },
+    }   
   },
   {
     name: 'BRUSSELS',

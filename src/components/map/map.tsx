@@ -1,73 +1,71 @@
-import { Icon, Marker, layerGroup } from 'leaflet';
+// import { Icon, Marker, layerGroup } from 'leaflet';
+import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
-import useMap from '../../hooks/use-map.tsx';
+import { useMap } from '../../hooks/use-map.tsx';
 import { TLocation } from '../../types/offer.ts';
 import { TOffers } from '../../types/offer.ts';
 
 type TMapProps = {
   city: TLocation;
   offers: TOffers;
-  activePoint: string | null;
+  activeOfferId?: string | null;
   page: string;
   maxWidth: number;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: PIN_MARKER_DEFAULT,
-  iconSize: [27, 39],
-  iconAnchor: [15, 30],
-});
-
-const currentCustomIcon = new Icon({
+const activeMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_CURRENT,
-  iconSize: [27, 39],
-  iconAnchor: [15, 30],
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
 });
 
-export default function Map(props: TMapProps): JSX.Element {
-  const { city, offers, activePoint, page, maxWidth } = props;
+const defaultMarkerIcon = leaflet.icon({
+  iconUrl: PIN_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 
-  const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+export const Map: React.FC<TMapProps> = ({
+  city,
+  offers,
+  activeOfferId,
+  page,
+  maxWidth,
+}): Element => {
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const map = useMap({
+    location: city.location,
+    containerRef: mapContainerRef,
+  });
 
-  useEffect(() => {
+  useEffect((): void => {
     if (map) {
-      map.setView(
-        [city.location.latitude, city.location.longitude],
-        city.location.zoom
-      );
-    }
-  }, [map, city]);
-
-  useEffect(() => {
-    if (map) {
-      const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
-
-        marker
-          .setIcon(
-            activePoint !== undefined && offer.id === activePoint
-              ? currentCustomIcon
-              : defaultCustomIcon
+      offers.forEach((offer): void => {
+        leaflet
+          .marker(
+            {
+              lat: offer.location.latitude,
+              lng: offer.location.longitude,
+            },
+            {
+              icon:
+                offer.id === activeOfferId
+                  ? activeMarkerIcon
+                  : defaultMarkerIcon,
+            }
           )
-          .addTo(markerLayer);
+          .addTo(map);
       });
-
-      return () => {
-        map.removeLayer(markerLayer);
-      };
     }
-  }, [map, offers, activePoint, page]);
+  }, [activeOfferId, map, offers]);
+
+  // return <section className="page__map map" ref={mapContainerRef} />;
 
   return (
     <div
-      ref={mapRef}
+      ref={mapContainerRef}
       style={{
         height: '100%',
         width: '100%',
@@ -76,4 +74,4 @@ export default function Map(props: TMapProps): JSX.Element {
       }}
     />
   );
-}
+};
