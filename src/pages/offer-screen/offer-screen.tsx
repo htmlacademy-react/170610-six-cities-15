@@ -73,10 +73,6 @@ function OfferScreen(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (hasError) {
-    return <NotFoundScreen />;
-  }
-
   if (isOfferDataLoading) {
     return (
       <>
@@ -84,6 +80,17 @@ function OfferScreen(): JSX.Element {
           <title>Loading offer...</title>
         </Helmet>
         <LoadingScreen />
+      </>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <>
+        <Helmet>
+          <title>NotFound...</title>
+        </Helmet>
+        <NotFoundScreen />
       </>
     );
   }

@@ -2,7 +2,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import ErrorScreen from '../../pages/error-screen/error-screen';
+// import ErrorScreen from '../../pages/error-screen/error-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -10,7 +10,7 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import {
-  getErrorStatus,
+  // getErrorStatus,
   getOffersDataLoadingStatus,
 } from '../../store/app-data/app-data.selectors';
 import {

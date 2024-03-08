@@ -86,13 +86,13 @@ export const appData = createSlice({
         state.hasOfferDataLoadingError = false;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
+        state.isOfferDataLoading = false;
+        state.hasOfferDataLoadingError = false;
         state.offer = action.payload;
-        state.isOfferDataLoading = false;
-        state.isOfferDataLoading = false;
       })
       .addCase(fetchOfferAction.rejected, (state) => {
+        state.hasOfferDataLoadingError = true;
         state.isOfferDataLoading = false;
-        state.isOfferDataLoading = true;
       })
       .addCase(fetchCommentsAction.pending, (state) => {
         state.hasError = false;

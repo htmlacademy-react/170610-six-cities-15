@@ -23,4 +23,4 @@ export const getCommentDataSendingStatus = (state: TState): boolean =>
 export const getSubmitErrorStatus = (state: TState): boolean =>
   state[NameSpace.Data].hasSubmitError;
 export const getErrorOfferLoadingStatus = (state: TState): boolean =>
-  state[NameSpace.Data].isOfferDataLoading;
+  state[NameSpace.Data].hasOfferDataLoadingError;
