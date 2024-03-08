@@ -8,9 +8,6 @@ import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
@@ -20,6 +17,9 @@ function LoginScreen(): JSX.Element {
       navigate(AppRoute.Main, { replace: true });
     }
   }, [authorizationStatus, navigate]);
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
