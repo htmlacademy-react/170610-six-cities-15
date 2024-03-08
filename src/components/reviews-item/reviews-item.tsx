@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { renderStars } from '../../const';
+import { renderStars } from '../../utils/common';
 import { TComment } from '../../types/comment';
 
 type ReviewsItemProps = {

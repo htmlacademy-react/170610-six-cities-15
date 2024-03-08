@@ -111,6 +111,3 @@ export enum Cities {
 }
 
 export const citiesNames = Array.from(Object.values(Cities));
-export function renderStars(rating: number): string {
-  return `${(Math.round(rating) * 20).toString()}%`;
-}

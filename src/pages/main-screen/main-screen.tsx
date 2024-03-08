@@ -9,7 +9,7 @@ import { Sorting, citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
-import { filterOffersByCityName } from '../../utils/common';
+import { filterOffersByCityName, pluralize } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
   const offers = useAppSelector(getOffers);
@@ -70,7 +70,8 @@ function MainScreen(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {activeCity}
+                {filteredOffers.length} place{pluralize(filteredOffers.length)}{' '}
+                to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>

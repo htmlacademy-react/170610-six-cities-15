@@ -29,9 +29,9 @@ import {
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
+import { renderStars } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { renderStars } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
