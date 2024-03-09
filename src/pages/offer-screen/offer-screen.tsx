@@ -167,16 +167,6 @@ function OfferScreen(): JSX.Element {
                 <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              {/*<div className="offer__inside">*/}
-              {/*  <h2 className="offer__inside-title">What&apos;s inside</h2>*/}
-              {/*  <ul className="offer__inside-list">*/}
-              {/*    {goods?.map((good) => (*/}
-              {/*      <li className="offer__inside-item" key={uuidv4()}>*/}
-              {/*        {good}*/}
-              {/*      </li>*/}
-              {/*    ))}*/}
-              {/*  </ul>*/}
-              {/*</div>*/}
               <OfferInside goods={goods} />
               <OfferHost
                 isAvatarPro={isAvatarPro}
