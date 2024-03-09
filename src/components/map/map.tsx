@@ -3,13 +3,12 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
 import { useMap } from '../../hooks/use-map.tsx';
-import { TLocation, TOffers } from '../../types/offer.ts';
+import { TCity, TOffers } from '../../types/offer.ts';
 
 type TMapProps = {
-  city: TLocation;
+  city: TCity;
   offers: TOffers;
   activeOfferId?: string | null;
-  maxWidth: number;
   page: string;
 };
 
@@ -51,7 +50,7 @@ export const Map: React.FC<TMapProps> = ({
 
   useEffect(() => {
     if (map) {
-      markerLayer.current.clearLayers(); // Удаление всех маркеров
+      markerLayer.current.clearLayers();
 
       offers.forEach((offer) => {
         const marker = leaflet.marker(

@@ -10,7 +10,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [randomCity, setRandomCity] = useState(null);
+  const [randomCity, setRandomCity] = useState();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
