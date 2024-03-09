@@ -5,6 +5,13 @@ import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
 import { useMap } from '../../hooks/use-map.tsx';
 import { TCity, TOffers } from '../../types/offer.ts';
 
+type TMapProps = {
+  city: TCity;
+  offers: TOffers;
+  activeOfferId?: string | null;
+  page: string;
+};
+
 const activeMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_CURRENT,
   iconSize: [40, 40],
@@ -17,55 +24,44 @@ const defaultMarkerIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: ({
+export const Map = ({
   city,
   offers,
   activeOfferId,
   page,
-}: {
-  city: string;
-  offers: TOffers;
-  activeOfferId: string;
-  page: string;
-}) => Element = ({ city, offers, activeOfferId, page }): Element => {
-  const mapContainerRef = useRef<HTMLDivElement>(null);
-  const map = useMap({
-    location: city.location,
-    containerRef: mapContainerRef,
-  });
-  const markerLayer = useRef(leaflet.layerGroup());
+}: TMapProps): JSX.Element => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const map = useMap({ location: city.location, containerRef: mapRef });
+  const markers = useRef(leaflet.layerGroup());
 
-  useEffect((): void => {
+  useEffect(() => {
     if (map) {
       map.setView(
         [city.location.latitude, city.location.longitude],
-        city.location.zoom,
+        city.location.zoom
       );
-      markerLayer.current.addTo(map);
-      markerLayer.current.clearLayers();
+      markers.current.addTo(map);
+      markers.current.clearLayers();
     }
   }, [city, map]);
 
   useEffect(() => {
     if (map) {
-      markerLayer.current.clearLayers();
+      markers.current.clearLayers();
 
       offers.forEach((offer) => {
         const marker = leaflet.marker(
-          {
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
-          },
+          [offer.location.latitude, offer.location.longitude],
           {
             icon:
-              offer.id === activeOfferId ? activeMarkerIcon : defaultMarkerIcon,
-          },
+              activeOfferId === offer.id ? activeMarkerIcon : defaultMarkerIcon,
+          }
         );
 
-        marker.addTo(markerLayer.current);
+        marker.addTo(markers.current);
       });
     }
   }, [activeOfferId, map, offers]);
 
-  return <section className={`${page}__map map`} ref={mapContainerRef} />;
+  return <section className={`${page}__map map`} ref={mapRef} />;
 };
