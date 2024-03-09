@@ -141,17 +141,11 @@ function OfferScreen(): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
                 <BookmarkButton
                   id={id}
                   isFavorite={isFavorite}
                   width={'31'}
-                  height={'33'}
+                  height={'31'}
                   isOfferScreen
                 />
               </div>
