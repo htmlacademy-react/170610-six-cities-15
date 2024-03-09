@@ -33,6 +33,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
 import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
 import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
+import OfferFeatures from '../../components/offer-components/offer-features/offer-features.tsx';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -152,17 +153,11 @@ function OfferScreen(): JSX.Element {
                   {rating}
                 </span>
               </div>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {type}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}
-                </li>
-              </ul>
+              <OfferFeatures
+                type={type}
+                bedrooms={bedrooms}
+                maxAdults={maxAdults}
+              />
               <OfferPrice price={price} />
               <OfferInside goods={goods} />
               <OfferHost
