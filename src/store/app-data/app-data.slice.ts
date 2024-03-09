@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TAppData } from '../../types/state';
 import {
-  fetchOffersAction,
-  toggleFavoriteAction,
-  fetchOfferAction,
   fetchCommentsAction,
-  fetchNearbyOffersAction,
-  postCommentAction,
   fetchFavoriteOffersAction,
+  fetchNearbyOffersAction,
+  fetchOfferAction,
+  fetchOffersAction,
+  postCommentAction,
+  toggleFavoriteAction,
 } from '../api-actions';
 
 const initialState: TAppData = {

@@ -1,8 +1,7 @@
-import { TOffer } from '../../../types/offer.ts';
 type OfferFeaturesProps = {
-  type: TOffer;
-  bedrooms: TOffer;
-  maxAdults: TOffer;
+  type: string;
+  bedrooms: number;
+  maxAdults: number;
 };
 
 function OfferFeatures({

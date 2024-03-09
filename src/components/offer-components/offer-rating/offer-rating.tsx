@@ -1,8 +1,7 @@
 import { renderStars } from '../../../utils/common.ts';
-import { TOffer } from '../../../types/offer.ts';
 
 type OfferRatingProps = {
-  rating: TOffer;
+  rating: number;
 };
 
 function OfferRating({ rating }: OfferRatingProps): JSX.Element {

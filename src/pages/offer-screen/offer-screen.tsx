@@ -4,6 +4,11 @@ import { useParams } from 'react-router-dom';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
 import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
+import OfferFeatures from '../../components/offer-components/offer-features/offer-features.tsx';
+import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
+import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
+import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
+import OfferRating from '../../components/offer-components/offer-rating/offer-rating.tsx';
 import OfferReviews from '../../components/offer-components/offer-reviews/offer-reviews';
 import Header from '../../components/ui/header/header';
 import {
@@ -29,11 +34,6 @@ import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
-import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
-import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
-import OfferFeatures from '../../components/offer-components/offer-features/offer-features.tsx';
-import OfferRating from '../../components/offer-components/offer-rating/offer-rating.tsx';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -51,9 +51,8 @@ function OfferScreen(): JSX.Element {
   const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
 
   const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase(),
+    (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
-  // console.log(hasError);
 
   useEffect(() => {
     if (id) {
@@ -87,7 +86,7 @@ function OfferScreen(): JSX.Element {
 
   const slicedNearbyOffers: TOffers = nearbyOffers.slice(
     0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
   );
 
   const offersToMap = [offer, ...slicedNearbyOffers];

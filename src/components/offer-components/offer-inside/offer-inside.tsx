@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TOffer } from '../../../types/offer.ts';
 
 type OfferInsideProps = {
-  goods: TOffer;
+  goods: string[];
 };
 
 function OfferInside({ goods }: OfferInsideProps): JSX.Element {

@@ -1,9 +1,9 @@
-import { TOffer, THost } from '../../../types/offer.ts';
+import { THost } from '../../../types/offer.ts';
 
 type OfferHostProps = {
-  isAvatarPro: TOffer;
+  isAvatarPro: string;
   host: THost;
-  description: TOffer;
+  description: string;
 };
 
 function OfferHost({

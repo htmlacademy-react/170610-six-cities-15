@@ -1,7 +1,7 @@
 import { TOffer } from '../../../types/offer.ts';
 
 type OfferPriceProps = {
-  price: TOffer;
+  price: TOffer['price'];
 };
 
 function OfferPrice({ price }: OfferPriceProps): JSX.Element {
