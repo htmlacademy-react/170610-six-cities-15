@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
-import OffersList from '../../components/offers-list/offers-list';
+import NearbyOffers from '../../components/nearby-offers/nearby-offers';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
@@ -229,34 +229,7 @@ function OfferScreen(): JSX.Element {
           )}
         </section>
         <div className="container">
-          {/* <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighborhood
-            </h2>
-            <OffersList
-              offers={slicedNearbyOffers}
-              className="near-places__list places__list"
-            />
-          </section> */}
-          {hasError ? (
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood not found, sorry
-              </h2>
-            </section>
-          ) : (
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                <OffersList
-                  offers={slicedNearbyOffers}
-                  className="near-places__list places__list"
-                />
-              </div>
-            </section>
-          )}
+          <NearbyOffers slicedNearbyOffers={slicedNearbyOffers} />
         </div>
       </main>
     </div>
