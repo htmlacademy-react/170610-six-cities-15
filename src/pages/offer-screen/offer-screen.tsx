@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
-import NearbyOffers from '../../components/nearby-offers/nearby-offers';
+import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
@@ -34,6 +34,7 @@ import { TOffer, TOffers } from '../../types/offer';
 import { renderStars } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import OfferReviews from '../../components/offer-components/offer-reviews/offer-reviews';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -208,14 +209,7 @@ function OfferScreen(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews &middot;{' '}
-                  <span className="reviews__amount">{comments.length}</span>
-                </h2>
-                {sortedComments && <ReviewsList comments={sortedComments} />}
-                {String(authorizationStatus) === 'AUTH' && <ReviewsForm />}
-              </section>
+              <OfferReviews sortedComments={sortedComments} />
             </div>
           </div>
 
