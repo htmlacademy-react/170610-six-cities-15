@@ -1,99 +1,67 @@
-import L from 'leaflet';
+import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import React, { useEffect, useRef, useState } from 'react';
-import { MAP_LAYER, PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const';
-import { TOffers } from '../../types/offer';
+import { useEffect, useRef } from 'react';
+import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
+import { useMap } from '../../hooks/use-map.tsx';
+import { TCity, TOffers } from '../../types/offer.ts';
 
-type MapProps = {
-  defaultLatitude: number | undefined;
-  defaultLongitude: number | undefined;
-  defaultZoom: number;
-  markersData: TOffers;
-  maxWidth?: number;
-  hoveredOfferId?: string;
+type TMapProps = {
+  city: TCity;
+  offers: TOffers;
+  activeOfferId?: string | null;
+  page: string;
 };
 
-const Map: React.FC<MapProps> = ({
-  defaultLatitude,
-  defaultLongitude,
-  defaultZoom,
-  markersData,
-  maxWidth = 500,
-  hoveredOfferId,
-}) => {
+const activeMarkerIcon = leaflet.icon({
+  iconUrl: PIN_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+const defaultMarkerIcon = leaflet.icon({
+  iconUrl: PIN_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+export const Map = ({
+  city,
+  offers,
+  activeOfferId,
+  page,
+}: TMapProps): JSX.Element => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<L.Map | null>(null);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const map = useMap({ location: city.location, containerRef: mapRef });
+  const markers = useRef(leaflet.layerGroup());
 
   useEffect(() => {
-    if (
-      mapRef.current &&
-      defaultLatitude !== undefined &&
-      defaultLongitude !== undefined
-    ) {
-      if (mapInstance.current) {
-        mapInstance.current.remove();
-      }
-      mapInstance.current = L.map(mapRef.current).setView(
-        [defaultLatitude, defaultLongitude],
-        defaultZoom
+    if (map) {
+      map.setView(
+        [city.location.latitude, city.location.longitude],
+        city.location.zoom
       );
-      L.tileLayer(MAP_LAYER).addTo(mapInstance.current);
+      markers.current.addTo(map);
+      markers.current.clearLayers();
+    }
+  }, [city, map]);
 
-      markersData.forEach((offer) => {
-        const { latitude, longitude } = offer.location;
-        const marker = L.marker([latitude, longitude]);
+  useEffect(() => {
+    if (map) {
+      markers.current.clearLayers();
 
-        // Устанавливаем иконку в зависимости от активного оффера
-        const iconUrl =
-          offer.id === activeOfferId ? PIN_MARKER_CURRENT : PIN_MARKER_DEFAULT;
+      offers.forEach((offer) => {
+        const marker = leaflet.marker(
+          [offer.location.latitude, offer.location.longitude],
+          {
+            icon:
+              activeOfferId === offer.id ? activeMarkerIcon : defaultMarkerIcon,
+          }
+        );
 
-        const customIcon = L.icon({
-          iconUrl,
-          iconSize: [27, 39],
-          iconAnchor: [15, 30],
-        });
-
-        marker.setIcon(customIcon);
-
-        if (mapInstance.current) {
-          marker.addTo(mapInstance.current);
-        }
+        marker.addTo(markers.current);
       });
     }
-  }, [
-    defaultLatitude,
-    defaultLongitude,
-    defaultZoom,
-    markersData,
-    activeOfferId,
-  ]);
+  }, [activeOfferId, map, offers]);
 
-  // Обновляем состояние активного оффера при изменении hoveredOfferId
-  useEffect(() => {
-    if (hoveredOfferId !== undefined) {
-      setActiveOfferId(hoveredOfferId);
-    }
-  }, [hoveredOfferId]);
-
-  // Обрабатываем сброс активного оффера при наведении на карточку
-  useEffect(() => {
-    if (!hoveredOfferId) {
-      setActiveOfferId(null);
-    }
-  }, [hoveredOfferId]);
-
-  return (
-    <div
-      ref={mapRef}
-      style={{
-        height: '100%',
-        width: '100%',
-        maxWidth: `${maxWidth}px`,
-        margin: '0 auto',
-      }}
-    />
-  );
+  return <section className={`${page}__map map`} ref={mapRef} />;
 };
-
-export default Map;

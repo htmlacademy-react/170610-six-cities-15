@@ -5,6 +5,7 @@ type RatingInputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   title: string;
+  disabled: boolean; // Проп для управления доступностью компонента
 };
 
 const RatingInput: React.FC<RatingInputProps> = ({
@@ -12,6 +13,7 @@ const RatingInput: React.FC<RatingInputProps> = ({
   onChange,
   checked,
   title,
+  disabled, // Передаем проп disabled
 }) => (
   <>
     <input
@@ -22,6 +24,7 @@ const RatingInput: React.FC<RatingInputProps> = ({
       type="radio"
       onChange={onChange}
       checked={checked}
+      disabled={disabled} // Используем проп disabled для управления доступностью компонента
     />
     <label
       htmlFor={`${value}-stars`}

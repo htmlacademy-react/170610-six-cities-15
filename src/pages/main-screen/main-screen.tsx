@@ -1,24 +1,34 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Map from '../../components/map/map';
+import { Map } from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
-import { cities, cityCoordinates, sortingOptions } from '../../const';
+import { Cities, Sorting, citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { filterOffersByCityName } from '../../utils/common';
+import { getOffers } from '../../store/app-data/app-data.selectors';
+import { getCity } from '../../store/app-process/app-process.selectors';
+import { filterOffersByCityName, pluralize } from '../../utils/common';
+import ErrorScreen from '../error-screen/error-screen';
 
 function MainScreen(): JSX.Element {
-  const citiesNames = Object.values(cities);
-
-  const offers = useAppSelector((state) => state.offers);
-  const activeCity = useAppSelector((state) => state.city);
-
-  const [sortOption, setSortOption] = useState<string>(sortingOptions.POPULAR);
+  const [sortOption, setSortOption] = useState<string>(Sorting.Popular);
   const [sortingOptionsVisible, setSortingOptionsVisible] =
     useState<boolean>(false);
   const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
+
+  const offers = useAppSelector(getOffers);
+  const activeCity = useAppSelector(getCity);
+  const cityMap = activeCity in Cities ? activeCity : undefined;
+
+  if (offers.length === 0) {
+    return <ErrorScreen />;
+  }
+
+  if (cityMap === undefined) {
+    return <p>Map not found</p>;
+  }
 
   const handleSortOptionClick = () => {
     setSortingOptionsVisible(true);
@@ -33,21 +43,23 @@ function MainScreen(): JSX.Element {
   };
 
   const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toUpperCase() === activeCity.toUpperCase()
+    (city) => city.name.toLowerCase() === activeCity.toLowerCase()
   );
+
+  // console.log(activeCityCoordinates);
 
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   switch (sortOption) {
-    case sortingOptions.POPULAR:
+    case Sorting.Popular:
       break;
-    case sortingOptions.PRICE_LOW_TO_HIGH:
+    case Sorting.LowToHighPrice:
       filteredOffers.sort((a, b) => a.price - b.price);
       break;
-    case sortingOptions.PRICE_HIGH_TO_LOW:
+    case Sorting.HighToLowPrice:
       filteredOffers.sort((a, b) => b.price - a.price);
       break;
-    case sortingOptions.TOP_RATED_FIRST:
+    case Sorting.TopRatedFirst:
       filteredOffers.sort((a, b) => b.rating - a.rating);
       break;
     default:
@@ -68,10 +80,11 @@ function MainScreen(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {activeCity}
+                {filteredOffers.length} place{pluralize(filteredOffers.length)}{' '}
+                to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span
                   className="places__sorting-type"
                   tabIndex={0}
@@ -82,12 +95,11 @@ function MainScreen(): JSX.Element {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                {sortingOptionsVisible && (
-                  <SortingOptions
-                    handleSort={handleSort}
-                    setSortingOptionsVisible={setSortingOptionsVisible}
-                  />
-                )}
+                <SortingOptions
+                  handleSort={handleSort}
+                  sortingOptionsVisible={sortingOptionsVisible}
+                  setSortingOptionsVisible={setSortingOptionsVisible}
+                />
               </form>
               <OffersList
                 offers={filteredOffers}
@@ -96,16 +108,14 @@ function MainScreen(): JSX.Element {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
+              {activeCityCoordinates && filteredOffers.length > 0 && (
                 <Map
-                  defaultLatitude={activeCityCoordinates?.latitude}
-                  defaultLongitude={activeCityCoordinates?.longitude}
-                  defaultZoom={12}
-                  markersData={filteredOffers}
-                  maxWidth={682}
-                  hoveredOfferId={hoveredOfferId ?? undefined}
+                  city={activeCityCoordinates}
+                  activeOfferId={hoveredOfferId}
+                  offers={filteredOffers}
+                  page={'cities'}
                 />
-              </section>
+              )}
             </div>
           </div>
         </div>

@@ -1,15 +1,19 @@
-type TCity = {
+export type TCity = {
   name: string;
   location: TLocation;
 };
 
-type TLocation = {
+export type TActiveCity = {
+  city: string;
+};
+
+export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-type THost = {
+export type THost = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -32,6 +36,7 @@ export type TOffer = {
   host: THost;
   images: string[];
   maxAdults: number;
+  map(element: (good: never) => JSX.Element): never;
 };
 
 export type TOffers = TOffer[];

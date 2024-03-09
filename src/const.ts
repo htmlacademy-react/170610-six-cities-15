@@ -2,10 +2,13 @@ export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const PIN_MARKER_DEFAULT = 'img/pin.svg';
 export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
-export const MAP_LAYER =
+export const TILE_LAYER_URL_PATTERN =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-export const MAX_OFFER_SCREEN_MARKERS_COUNT = 4;
+export const TILE_LAYER_ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+export const MAX_OFFER_SCREEN_COMMENTS_COUNT = 10;
 export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
+export const MAX_IMAGES = 6;
 
 export enum AppRoute {
   Main = '/',
@@ -35,51 +38,77 @@ export const ratingsData = [
   { value: '1', title: 'terribly' },
 ];
 
-export const cities = {
-  PARIS: 'Paris',
-  COLOGNE: 'Cologne',
-  BRUSSELS: 'Brussels',
-  AMSTERDAM: 'Amsterdam',
-  HAMBURG: 'Hamburg',
-  DUSSELDORF: 'Dusseldorf',
-} as const;
-
 export const cityCoordinates = [
   {
     name: 'PARIS',
-    latitude: 48.85661,
-    longitude: 2.351499,
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 12,
+    },
   },
   {
     name: 'COLOGNE',
-    latitude: 50.938361,
-    longitude: 6.959974,
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 12,
+    },
   },
   {
     name: 'BRUSSELS',
-    latitude: 50.846557,
-    longitude: 4.351697,
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 12,
+    },
   },
   {
     name: 'AMSTERDAM',
-    latitude: 52.37454,
-    longitude: 4.889689,
+    location: {
+      latitude: 52.37454,
+      longitude: 4.889689,
+      zoom: 12,
+    },
   },
   {
     name: 'HAMBURG',
-    latitude: 53.551086,
-    longitude: 10.000654,
+    location: {
+      latitude: 53.551086,
+      longitude: 10.000654,
+      zoom: 12,
+    },
   },
   {
     name: 'DUSSELDORF',
-    latitude: 51.225402,
-    longitude: 6.776314,
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 12,
+    },
   },
 ];
 
-export const sortingOptions = {
-  POPULAR: 'Popular',
-  PRICE_LOW_TO_HIGH: 'Price: low to high',
-  PRICE_HIGH_TO_LOW: 'Price: high to low',
-  TOP_RATED_FIRST: 'Top rated first',
-} as const;
+export enum Sorting {
+  Popular = 'Popular',
+  LowToHighPrice = 'Price: low to high',
+  HighToLowPrice = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}
+
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export const citiesNames = Array.from(Object.values(Cities));

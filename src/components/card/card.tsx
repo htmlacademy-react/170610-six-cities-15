@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offer';
+import { renderStars } from '../../utils/common';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
@@ -75,7 +76,7 @@ function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }}></span>
+            <span style={{ width: renderStars(rating) }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>

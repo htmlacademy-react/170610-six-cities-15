@@ -1,15 +1,26 @@
-import Logo from '../logo/logo';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../../const';
+import {
+  fetchFavoriteOffersAction,
+  logoutAction,
+} from '../../../store/api-actions';
+import { getFavoriteOffers } from '../../../store/app-data/app-data.selectors';
+import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import Logo from '../logo/logo';
 
 function Header() {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const favoritesCount = useAppSelector((state) => state.favoriteOffers.length);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersCount = favoriteOffers.length;
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -24,7 +35,9 @@ function Header() {
               <span className="header__user-name user__name">
                 Oliver.conner@gmail.com
               </span>
-              <span className="header__favorite-count">{favoritesCount}</span>
+              <span className="header__favorite-count">
+                {favoriteOffersCount}
+              </span>
             </Link>
           </div>
           <li className="header__nav-item">
@@ -49,7 +62,7 @@ function Header() {
             to={AppRoute.Login}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-            <span className="header__signout">Sign in</span>
+            <span className="header__login">Sign in</span>
           </Link>
         </li>
       );

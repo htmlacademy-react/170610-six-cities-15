@@ -1,16 +1,39 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
-import { AppRoute, cities } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { AppRoute, AuthorizationStatus, Cities } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { changeCity } from '../../store/app-process/app-process.slice';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const randomCityKey =
+    Object.keys(Cities)[Math.floor(Math.random() * Object.keys(Cities).length)];
+
+  const [randomCity, setRandomCity] = useState(randomCityKey);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setRandomCity(randomCityKey);
+  }, [randomCityKey]);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main, { replace: true });
+    }
+  }, [authorizationStatus, navigate]);
+
+  function handleCityClick(city: string) {
+    dispatch(changeCity({ city }));
+  }
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -57,7 +80,7 @@ function LoginScreen(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  ref={loginRef} // связываем ref с input
+                  ref={loginRef}
                   required
                 />
               </div>
@@ -70,7 +93,7 @@ function LoginScreen(): JSX.Element {
                   title="Contains one letter and one digit"
                   name="password"
                   placeholder="Password"
-                  ref={passwordRef} // связываем ref с input
+                  ref={passwordRef}
                   required
                 />
               </div>
@@ -84,8 +107,12 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>{cities.AMSTERDAM}</span>
+              <Link
+                onClick={() => handleCityClick(randomCity)}
+                className="locations__item-link"
+                to={AppRoute.Main}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

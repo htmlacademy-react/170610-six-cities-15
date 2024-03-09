@@ -1,15 +1,29 @@
-import { AuthorizationStatus } from '../const.js';
-import { store } from '../store/index.js';
-import { TOffers } from './offer';
+import { store } from '../store';
+import { AuthorizationStatus } from '../const';
+import { TOffer, TOffers } from './offer';
+import { TComments } from './comment';
+
+export type TUserProcess = {
+  authorizationStatus: AuthorizationStatus;
+};
 
 export type TAppData = {
   offers: TOffers;
   isOffersDataLoading: boolean;
   hasError: boolean;
+  isToggleFavoriteLoading: boolean;
+  offer: TOffer;
+  isOfferDataLoading: boolean;
+  comments: TComments;
+  nearbyOffers: TOffers;
+  favoriteOffers: TOffers;
+  isCommentDataSending: boolean;
+  hasSubmitError: boolean;
+  hasOfferDataLoadingError: boolean;
 };
 
-export type TUserProcess = {
-  authorizationStatus: AuthorizationStatus;
+export type TAppProcess = {
+  city: string;
 };
 
 export type TState = ReturnType<typeof store.getState>;
