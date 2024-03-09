@@ -1,12 +1,10 @@
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/ui/header/header';
 import { citiesNames } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
+import { useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';
 
 function ErrorScreen(): JSX.Element {
-  const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getCity);
 
   return (
@@ -26,17 +24,7 @@ function ErrorScreen(): JSX.Element {
                 </p>
               </div>
             </section>
-            <div className="cities__right-section">
-              {/* <button
-                onClick={() => {
-                  dispatch(fetchOffersAction());
-                }}
-                className="button button--error"
-                type="button"
-              >
-                Попробовать ещё раз
-              </button> */}
-            </div>
+            <div className="cities__right-section"></div>
           </div>
         </div>
       </main>

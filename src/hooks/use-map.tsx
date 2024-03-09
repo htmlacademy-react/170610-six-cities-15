@@ -1,11 +1,11 @@
 import leaflet, { Map } from 'leaflet';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
 import { TLocation } from '../types/offer';
 
 type UseMapProps = {
-  location: TLocation;
   containerRef: React.RefObject<HTMLElement | null>;
+  location: TLocation;
 };
 
 export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {

@@ -26,7 +26,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const shouldDisplayError = (response: AxiosResponse) =>
-  !!StatusCodeMapping[response.status];
+  StatusCodeMapping[response.status];
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -54,7 +54,7 @@ export const createAPI = (): AxiosInstance => {
       }
 
       throw error;
-    }
+    },
   );
 
   return api;

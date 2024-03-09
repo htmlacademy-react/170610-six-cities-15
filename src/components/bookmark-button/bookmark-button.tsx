@@ -24,8 +24,7 @@ function BookmarkButton({
 }: BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-
+  useAppSelector(getAuthCheckedStatus);
   const buttonClassName = isOfferScreen
     ? 'offer__bookmark-button'
     : 'place-card__bookmark-button';
@@ -54,7 +53,7 @@ function BookmarkButton({
       toggleFavoriteAction({
         id: id,
         status: isFavorite ? 0 : 1,
-      })
+      }),
     );
   };
 

@@ -20,7 +20,7 @@ function LoginScreen(): JSX.Element {
 
   useEffect(() => {
     setRandomCity(Cities[randomCityKey]);
-  }, []);
+  }, [randomCityKey]);
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -43,7 +43,7 @@ function LoginScreen(): JSX.Element {
         loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value,
-        })
+        }),
       );
     }
   };
