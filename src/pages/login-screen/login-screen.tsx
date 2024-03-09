@@ -14,7 +14,7 @@ function LoginScreen(): JSX.Element {
   const randomCityKey =
     Object.keys(Cities)[Math.floor(Math.random() * Object.keys(Cities).length)];
 
-  const [randomCity, setRandomCity] = useState(randomCityKey);
+  const [randomCity, setRandomCity] = useState(Cities[randomCityKey]);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
