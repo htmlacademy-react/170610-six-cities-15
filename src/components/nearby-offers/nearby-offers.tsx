@@ -6,6 +6,16 @@ type NearbyOffersProps = {
 };
 
 function NearbyOffers({ slicedNearbyOffers }: NearbyOffersProps): JSX.Element {
+  if (slicedNearbyOffers.length === 0) {
+    return (
+      <section className="near-places places">
+        <h2 className="near-places__title">
+          Other places in the neighborhood not found, sorry
+        </h2>
+      </section>
+    );
+  }
+
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighborhood</h2>
