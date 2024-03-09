@@ -36,6 +36,7 @@ export type TOffer = {
   host: THost;
   images: string[];
   maxAdults: number;
+  map(element: (good: never) => JSX.Element): never;
 };
 
 export type TOffers = TOffer[];
