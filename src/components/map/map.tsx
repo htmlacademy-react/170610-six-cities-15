@@ -5,13 +5,6 @@ import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../const.ts';
 import { useMap } from '../../hooks/use-map.tsx';
 import { TCity, TOffers } from '../../types/offer.ts';
 
-type TMapProps = {
-  city: TCity;
-  offers: TOffers;
-  activeOfferId?: string | null;
-  page: string;
-};
-
 const activeMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_CURRENT,
   iconSize: [40, 40],
@@ -24,12 +17,17 @@ const defaultMarkerIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<TMapProps> = ({
+export const Map: ({
   city,
   offers,
   activeOfferId,
   page,
-}): Element => {
+}: {
+  city: string;
+  offers: TOffers;
+  activeOfferId: string;
+  page: string;
+}) => Element = ({ city, offers, activeOfferId, page }): Element => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const map = useMap({
     location: city.location,
@@ -41,7 +39,7 @@ export const Map: React.FC<TMapProps> = ({
     if (map) {
       map.setView(
         [city.location.latitude, city.location.longitude],
-        city.location.zoom
+        city.location.zoom,
       );
       markerLayer.current.addTo(map);
       markerLayer.current.clearLayers();
@@ -61,7 +59,7 @@ export const Map: React.FC<TMapProps> = ({
           {
             icon:
               offer.id === activeOfferId ? activeMarkerIcon : defaultMarkerIcon,
-          }
+          },
         );
 
         marker.addTo(markerLayer.current);
