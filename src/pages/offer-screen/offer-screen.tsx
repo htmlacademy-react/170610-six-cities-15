@@ -31,6 +31,7 @@ import { TOffer, TOffers } from '../../types/offer';
 import { renderStars } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ function OfferScreen(): JSX.Element {
   const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
 
   const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
+    (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase(),
   );
   // console.log(hasError);
 
@@ -84,7 +85,7 @@ function OfferScreen(): JSX.Element {
 
   const slicedNearbyOffers: TOffers = nearbyOffers.slice(
     0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   );
 
   const offersToMap = [offer, ...slicedNearbyOffers];
@@ -200,6 +201,11 @@ function OfferScreen(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
+              <OfferHost
+                isAvatarPro={isAvatarPro}
+                host={host}
+                description={description}
+              />
               <OfferReviews comments={comments} />
             </div>
           </div>
