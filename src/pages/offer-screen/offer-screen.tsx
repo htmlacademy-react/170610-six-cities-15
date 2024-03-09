@@ -9,10 +9,10 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
+  MAX_IMAGES,
   MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
-  MAX_IMAGES,
 } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -22,11 +22,11 @@ import {
 } from '../../store/api-actions';
 import {
   getComments,
+  getErrorOfferLoadingStatus,
   getNearbyOffers,
   getOffer,
   getOfferDataLoadingStatus,
   getOffers,
-  getErrorOfferLoadingStatus,
 } from '../../store/app-data/app-data.selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { TComments } from '../../types/comment';
@@ -63,7 +63,7 @@ function OfferScreen(): JSX.Element {
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
-  console.log(hasError);
+  // console.log(hasError);
 
   useEffect(() => {
     if (id) {
@@ -219,7 +219,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
 
-          {activeCityCoordinates && nearbyOffers.length > 0 && (
+          {activeCityCoordinates && offer && (
             <Map
               city={activeCityCoordinates}
               activeOfferId={id}
@@ -229,7 +229,7 @@ function OfferScreen(): JSX.Element {
           )}
         </section>
         <div className="container">
-          <section className="near-places places">
+          {/* <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighborhood
             </h2>
@@ -237,7 +237,26 @@ function OfferScreen(): JSX.Element {
               offers={slicedNearbyOffers}
               className="near-places__list places__list"
             />
-          </section>
+          </section> */}
+          {hasError ? (
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood not found, sorry
+              </h2>
+            </section>
+          ) : (
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <div className="near-places__list places__list">
+                <OffersList
+                  offers={slicedNearbyOffers}
+                  className="near-places__list places__list"
+                />
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>
