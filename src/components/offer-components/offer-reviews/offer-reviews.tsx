@@ -5,8 +5,8 @@ import {
 import { useAppSelector } from '../../../hooks';
 import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
 import { TComments } from '../../../types/comment';
-import ReviewsForm from '../../reviews-form/reviews-form';
-import ReviewsList from '../../reviews-list/reviews-list';
+import ReviewsForm from '../reviews-form/reviews-form';
+import ReviewsList from '../reviews-list/reviews-list';
 
 type OfferReviewsProps = {
   comments: TComments;

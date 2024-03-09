@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
 import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
+import OfferReviews from '../../components/offer-components/offer-reviews/offer-reviews';
 import Header from '../../components/ui/header/header';
 import {
   MAX_IMAGES,
@@ -30,7 +31,6 @@ import { TOffer, TOffers } from '../../types/offer';
 import { renderStars } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import OfferReviews from '../../components/offer-components/offer-reviews/offer-reviews';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -39,10 +39,6 @@ function OfferScreen(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
   const hasError = useAppSelector(getErrorOfferLoadingStatus);
-  const slicedNearbyOffers = nearbyOffers.slice(
-    0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  );
 
   const offer = useAppSelector<TOffer>(getOffer);
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
@@ -85,6 +81,11 @@ function OfferScreen(): JSX.Element {
       </>
     );
   }
+
+  const slicedNearbyOffers: TOffers = nearbyOffers.slice(
+    0,
+    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
+  );
 
   const offersToMap = [offer, ...slicedNearbyOffers];
 

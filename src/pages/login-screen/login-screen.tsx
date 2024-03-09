@@ -10,15 +10,15 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [randomCity, setRandomCity] = useState();
+
+  const randomCityKey =
+    Object.keys(Cities)[Math.floor(Math.random() * Object.keys(Cities).length)];
+
+  const [randomCity, setRandomCity] = useState(randomCityKey);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const randomCityKey =
-      Object.keys(Cities)[
-        Math.floor(Math.random() * Object.keys(Cities).length)
-      ];
     setRandomCity(Cities[randomCityKey]);
   }, []);
 

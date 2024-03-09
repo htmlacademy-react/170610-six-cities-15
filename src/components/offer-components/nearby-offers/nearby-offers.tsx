@@ -1,5 +1,5 @@
-import OffersList from '../../offers-list/offers-list';
 import { TOffers } from '../../../types/offer';
+import OffersList from '../../offers-list/offers-list';
 
 type NearbyOffersProps = {
   slicedNearbyOffers: TOffers;
