@@ -27,13 +27,13 @@ import {
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
-import { renderStars } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
 import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
 import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
 import OfferFeatures from '../../components/offer-components/offer-features/offer-features.tsx';
+import OfferRating from '../../components/offer-components/offer-rating/offer-rating.tsx';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -144,15 +144,7 @@ function OfferScreen(): JSX.Element {
                   isOfferScreen
                 />
               </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={{ width: renderStars(rating) }}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">
-                  {rating}
-                </span>
-              </div>
+              <OfferRating rating={rating} />
               <OfferFeatures
                 type={type}
                 bedrooms={bedrooms}
