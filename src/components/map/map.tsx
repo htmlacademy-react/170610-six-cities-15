@@ -29,7 +29,6 @@ export const Map: React.FC<TMapProps> = ({
   city,
   offers,
   activeOfferId,
-  maxWidth,
   page,
 }): Element => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -50,34 +49,26 @@ export const Map: React.FC<TMapProps> = ({
     }
   }, [city, map]);
 
-  useEffect((): void => {
+  useEffect(() => {
     if (map) {
-      offers.forEach((offer): void => {
-        leaflet
-          .marker(
-            {
-              lat: offer.location.latitude,
-              lng: offer.location.longitude,
-            },
-            {
-              icon:
-                offer.id === activeOfferId
-                  ? activeMarkerIcon
-                  : defaultMarkerIcon,
-            }
-          )
-          .addTo(markerLayer.current);
+      markerLayer.current.clearLayers(); // Удаление всех маркеров
+
+      offers.forEach((offer) => {
+        const marker = leaflet.marker(
+          {
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          },
+          {
+            icon:
+              offer.id === activeOfferId ? activeMarkerIcon : defaultMarkerIcon,
+          }
+        );
+
+        marker.addTo(markerLayer.current);
       });
     }
   }, [activeOfferId, map, offers]);
 
-  return (
-    <section
-      className={`${page}__map map`}
-      ref={mapContainerRef}
-      // style={{
-      //   maxWidth: `${maxWidth}px`,
-      // }}
-    />
-  );
+  return <section className={`${page}__map map`} ref={mapContainerRef} />;
 };
