@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import { Sorting } from '../../const';
 
-interface SortingOptionsProps {
-  handleSort: (sortOption: string) => void;
+type SortingOptionsProps = {
+  handleSort: (sortOption: Sorting) => void;
   sortingOptionsVisible: boolean;
   setSortingOptionsVisible: (visible: boolean) => void;
-}
+};
 
 function SortingOptions({
   handleSort,
   sortingOptionsVisible,
   setSortingOptionsVisible,
 }: SortingOptionsProps): JSX.Element {
-  const [selectedSortOption, setSelectedSortOption] = useState<string>(
+  const [selectedSortOption, setSelectedSortOption] = useState<Sorting>(
     Sorting.Popular
   );
 
   const sortingOptionList = Array.from(Object.values(Sorting));
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: Sorting) => {
     setSelectedSortOption(option);
     handleSort(option);
-    setSortingOptionsVisible(!sortingOptionsVisible);
+    setSortingOptionsVisible(false);
   };
 
   const isVisible = sortingOptionsVisible ? '--opened' : '--closed';
@@ -34,7 +34,7 @@ function SortingOptions({
         <li
           key={option}
           className={`places__option ${
-            selectedSortOption === option ? 'places__option--active' : ''
+            selectedSortOption !== option ? '' : 'places__option--active'
           }`}
           onClick={() => handleOptionClick(option)}
         >
