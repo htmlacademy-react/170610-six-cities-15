@@ -7,7 +7,7 @@ import {
   getCommentDataSendingStatus,
   getSubmitErrorStatus,
 } from '../../../store/app-data/app-data.selectors';
-import RatingInput from '../../rating-input/rating-input';
+import RatingInput from '../rating-input/rating-input';
 
 function ReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
