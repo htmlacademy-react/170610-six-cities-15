@@ -14,12 +14,12 @@ function LoginScreen(): JSX.Element {
   const randomCityKey =
     Object.keys(Cities)[Math.floor(Math.random() * Object.keys(Cities).length)];
 
-  const [randomCity, setRandomCity] = useState(Cities[randomCityKey]);
+  const [randomCity, setRandomCity] = useState(randomCityKey);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setRandomCity(Cities[randomCityKey]);
+    setRandomCity(randomCityKey);
   }, [randomCityKey]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function LoginScreen(): JSX.Element {
         loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value,
-        }),
+        })
       );
     }
   };
