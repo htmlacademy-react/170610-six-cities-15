@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
 import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
@@ -33,6 +32,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
 import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
+import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -163,10 +163,7 @@ function OfferScreen(): JSX.Element {
                   Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
+              <OfferPrice price={price} />
               <OfferInside goods={goods} />
               <OfferHost
                 isAvatarPro={isAvatarPro}
