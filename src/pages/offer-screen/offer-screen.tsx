@@ -5,12 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { Map } from '../../components/map/map';
 import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
-import ReviewsList from '../../components/reviews-list/reviews-list';
+// import ReviewsForm from '../../components/reviews-form/reviews-form';
+// import ReviewsList from '../../components/reviews-list/reviews-list';
 import Header from '../../components/ui/header/header';
 import {
   MAX_IMAGES,
-  MAX_OFFER_SCREEN_COMMENTS_COUNT,
+  // MAX_OFFER_SCREEN_COMMENTS_COUNT,
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,
 } from '../../const';
@@ -28,7 +28,7 @@ import {
   getOfferDataLoadingStatus,
   getOffers,
 } from '../../store/app-data/app-data.selectors';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+// import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { TComments } from '../../types/comment';
 import { TOffer, TOffers } from '../../types/offer';
 import { renderStars } from '../../utils/common';
@@ -40,7 +40,7 @@ function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string | undefined }>();
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  // const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
   const nearbyOffers = useAppSelector<TOffers>(getNearbyOffers);
   const hasError = useAppSelector(getErrorOfferLoadingStatus);
@@ -53,11 +53,6 @@ function OfferScreen(): JSX.Element {
   const isOfferDataLoading = useAppSelector(getOfferDataLoadingStatus);
 
   const comments = useAppSelector<TComments>(getComments);
-  let sortedComments = [...comments];
-
-  sortedComments = sortedComments
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT);
 
   const selectedCity = offers.find((offerItem) => offerItem.id === id)?.city;
 
@@ -209,7 +204,7 @@ function OfferScreen(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <OfferReviews sortedComments={sortedComments} />
+              <OfferReviews comments={comments} />
             </div>
           </div>
 
