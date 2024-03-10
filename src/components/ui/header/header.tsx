@@ -29,8 +29,6 @@ function Header() {
 
   const userData = useAppSelector(getUserData);
 
-  // console.log(userData);
-
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       return (
@@ -40,7 +38,10 @@ function Header() {
               to={AppRoute.Favorites}
               className="header__nav-link header__nav-link--profile"
             >
-              <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+              <div
+                className="header__avatar-wrapper user__avatar-wrapper"
+                style={{ backgroundImage: `url(${userData?.avatarUrl})` }}
+              />
               <span className="header__user-name user__name">
                 {userData.email}
               </span>
