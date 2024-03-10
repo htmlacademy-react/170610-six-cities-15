@@ -3,10 +3,10 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../../const.ts';
 import { useMap } from '../../../hooks/use-map.tsx';
-import { TCity, TOffers } from '../../../types/offer.ts';
+import { TOffers, TLocation } from '../../../types/offer.ts';
 
 type TMapProps = {
-  city?: TCity | undefined;
+  city?: TLocation | string | undefined;
   offers: TOffers;
   activeOfferId?: string | null;
   page: string;

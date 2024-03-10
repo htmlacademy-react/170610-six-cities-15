@@ -8,7 +8,12 @@ type MapSectionProps = {
   page: string;
 };
 
-function MapSection({ city, activeOfferId, offers, page }: MapSectionProps) {
+function MapSection({
+  city,
+  activeOfferId,
+  offers,
+  page,
+}: MapSectionProps): JSX.Element {
   return (
     <Map
       city={city}
