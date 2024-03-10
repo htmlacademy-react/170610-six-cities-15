@@ -4,7 +4,7 @@ import Tabs from '../../components/common/tabs/tabs';
 import OffersSection from '../../components/main-screen/offers-section/offers-section';
 import SortOffers from '../../components/main-screen/sort-offers/sort-offers';
 import Header from '../../components/ui/header/header';
-import { Cities, Sorting, citiesNames, cityCoordinates } from '../../const';
+import { Cities, Sorting, citiesNames } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
@@ -41,10 +41,6 @@ function MainScreen(): JSX.Element {
     setHoveredOfferId(offerId);
   };
 
-  const activeCityCoordinates = cityCoordinates.find(
-    (city) => city.name.toLowerCase() === activeCity.toLowerCase()
-  );
-
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 
   const sortedOffers = SortOffers(filteredOffers, sortOption);
@@ -60,7 +56,6 @@ function MainScreen(): JSX.Element {
         <Tabs cities={citiesNames} />
         <OffersSection
           activeCity={activeCity}
-          activeCityCoordinates={activeCityCoordinates || undefined}
           filteredOffers={sortedOffers}
           hoveredOfferId={hoveredOfferId}
           handleOfferHover={handleOfferHover}

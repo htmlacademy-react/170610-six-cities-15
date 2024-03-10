@@ -1,5 +1,5 @@
-import { Sorting } from '../../../const';
-import { TLocation, TOffer } from '../../../types/offer';
+import { Sorting, cityCoordinates } from '../../../const';
+import { TOffer } from '../../../types/offer';
 import { pluralize } from '../../../utils/common';
 import { Map } from '../../common/map/map';
 import OffersList from '../offers-list/offers-list';
@@ -7,7 +7,6 @@ import SortingOptions from '../sorting-options/sorting-options';
 
 type OffersSectionProps = {
   activeCity: string;
-  activeCityCoordinates: TLocation | undefined;
   filteredOffers: TOffer[];
   hoveredOfferId: string | null | undefined;
   handleOfferHover: (offerId: string) => void;
@@ -20,7 +19,6 @@ type OffersSectionProps = {
 
 function OffersSection({
   activeCity,
-  activeCityCoordinates,
   filteredOffers,
   hoveredOfferId,
   handleOfferHover,
@@ -30,6 +28,10 @@ function OffersSection({
   sortOption,
   setSortingOptionsVisible,
 }: OffersSectionProps): JSX.Element {
+  const activeCityCoordinates = cityCoordinates.find(
+    (city) => city.name.toLowerCase() === activeCity.toLowerCase()
+  );
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
