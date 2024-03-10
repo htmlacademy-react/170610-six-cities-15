@@ -4,7 +4,7 @@ import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
 import { TOffers, TLocation } from '../types/offer';
 
 type UseMapProps = {
-  location?: TLocation;
+  location?: TLocation | undefined;
   containerRef: React.RefObject<HTMLDivElement>;
   offers?: TOffers;
 };
