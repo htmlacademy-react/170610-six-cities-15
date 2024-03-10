@@ -4,9 +4,13 @@ import { AppRoute, AuthorizationStatus } from '../../../const';
 import {
   fetchFavoriteOffersAction,
   logoutAction,
+  fetchUserDataAction,
 } from '../../../store/api-actions';
 import { getFavoriteOffers } from '../../../store/app-data/app-data.selectors';
-import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
+import {
+  getAuthorizationStatus,
+  getUserData,
+} from '../../../store/user-process/user-process.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Logo from '../logo/logo';
 
@@ -18,9 +22,14 @@ function Header() {
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchUserDataAction());
       dispatch(fetchFavoriteOffersAction());
     }
   }, [dispatch, authorizationStatus]);
+
+  const userData = useAppSelector(getUserData);
+
+  // console.log(userData);
 
   const renderAuthLinks = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -33,7 +42,7 @@ function Header() {
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__user-name user__name">
-                Oliver.conner@gmail.com
+                {userData.email}
               </span>
               <span className="header__favorite-count">
                 {favoriteOffersCount}

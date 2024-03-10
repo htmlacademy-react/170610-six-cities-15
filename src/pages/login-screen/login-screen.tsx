@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/ui/logo/logo';
 import { AppRoute, AuthorizationStatus, Cities } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchUserDataAction, loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/api-actions';
 import { changeCity } from '../../store/app-process/app-process.slice';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
@@ -24,7 +24,6 @@ function LoginScreen(): JSX.Element {
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchUserDataAction());
       navigate(AppRoute.Main, { replace: true });
     }
   }, [authorizationStatus, navigate, dispatch]);
