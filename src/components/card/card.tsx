@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { TOffer } from '../../types/offer';
 import { renderStars } from '../../utils/common';
 import BookmarkButton from '../bookmark-button/bookmark-button';
@@ -31,9 +32,22 @@ function Card({
     isPremium,
   } = offer;
 
-  const articleClassName = `${
-    isFavoriteItem ? 'favorites__card place-card' : 'cities__card place-card'
-  }`;
+  const location = useLocation();
+  let pageClassName;
+
+  switch (true) {
+    case location.pathname === AppRoute.Main:
+      pageClassName = 'cities';
+      break;
+    case /^\/offer\//.test(location.pathname):
+      pageClassName = 'near-places';
+      break;
+    case location.pathname === AppRoute.Favorites:
+      pageClassName = 'favorites';
+      break;
+    default:
+      pageClassName = 'cities';
+  }
 
   const wrapperClassName = `${
     isFavoriteItem
@@ -43,7 +57,9 @@ function Card({
 
   return (
     <article
-      className={` ${articleClassName} ${isActive ? 'active' : ''}`}
+      className={`${pageClassName}__card place-card ${
+        isActive ? 'active' : ''
+      }`}
       onMouseEnter={() => onOfferHover && onOfferHover(id)}
       onMouseLeave={() => onOfferHover && onOfferHover('')}
     >
