@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../../const.ts';
 import { useMap } from '../../../hooks/use-map.tsx';
-import { TOffers, TLocation } from '../../../types/offer.ts';
+import { TLocation, TOffers } from '../../../types/offer.ts';
 
 type TMapProps = {
   city?: TLocation | string | undefined;
@@ -24,12 +24,7 @@ const defaultMarkerIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const Map = ({
-  city,
-  offers,
-  activeOfferId,
-  page,
-}: TMapProps): JSX.Element => {
+function Map({ city, offers, activeOfferId, page }: TMapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
 
   const map = useMap({
@@ -74,4 +69,6 @@ export const Map = ({
   }, [activeOfferId, map, offers]);
 
   return <section className={`${page}__map map`} ref={mapRef} />;
-};
+}
+
+export default Map;

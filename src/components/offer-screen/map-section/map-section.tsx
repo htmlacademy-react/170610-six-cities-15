@@ -1,4 +1,4 @@
-import { Map } from '../../common/map/map';
+import Map from '../../common/map/map';
 import { TCity, TOffers } from '../../../types/offer';
 
 type MapSectionProps = {

@@ -1,7 +1,7 @@
 import { Sorting, cityCoordinates } from '../../../const';
 import { TOffer } from '../../../types/offer';
 import { pluralize } from '../../../utils/common';
-import { Map } from '../../common/map/map';
+import Map from '../../common/map/map';
 import OffersList from '../offers-list/offers-list';
 import SortingOptions from '../sorting-options/sorting-options';
 
