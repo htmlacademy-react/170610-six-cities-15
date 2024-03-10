@@ -1,4 +1,4 @@
-import Tabs from '../../components/tabs/tabs';
+import Tabs from '../../components/common/tabs/tabs';
 import Header from '../../components/ui/header/header';
 import { citiesNames } from '../../const';
 import { useAppSelector } from '../../hooks';

@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import BookmarkButton from '../../components/bookmark-button/bookmark-button';
-import { Map } from '../../components/map/map';
-import NearbyOffers from '../../components/offer-components/nearby-offers/nearby-offers';
-import OfferFeatures from '../../components/offer-components/offer-features/offer-features.tsx';
-import OfferHost from '../../components/offer-components/offer-host/offer-host.tsx';
-import OfferInside from '../../components/offer-components/offer-inside/offer-inside.tsx';
-import OfferPrice from '../../components/offer-components/offer-price/offer-price.tsx';
-import OfferRating from '../../components/offer-components/offer-rating/offer-rating.tsx';
-import OfferReviews from '../../components/offer-components/offer-reviews/offer-reviews';
+import BookmarkButton from '../../components/common/bookmark-button/bookmark-button';
+import { Map } from '../../components/common/map/map';
+import NearbyOffers from '../../components/offer-screen/nearby-offers/nearby-offers';
+import OfferFeatures from '../../components/offer-screen/offer/offer-features/offer-features.tsx';
+import OfferHost from '../../components/offer-screen/offer/offer-host/offer-host.tsx';
+import OfferInside from '../../components/offer-screen/offer/offer-inside/offer-inside.tsx';
+import OfferPrice from '../../components/offer-screen/offer/offer-price/offer-price.tsx';
+import OfferRating from '../../components/offer-screen/offer/offer-rating/offer-rating.tsx';
+import OfferReviews from '../../components/offer-screen/offer/offer-reviews/offer-reviews';
 import Header from '../../components/ui/header/header';
 import {
   MAX_IMAGES,

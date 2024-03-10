@@ -17,7 +17,7 @@ import {
   getAuthCheckedStatus,
   getAuthorizationStatus,
 } from '../../store/user-process/user-process.selectors';
-import PrivateRoute from '../private-route/private-route';
+import PrivateRoute from '../routes/private-route/private-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Map } from '../../components/map/map';
-import OffersList from '../../components/offers-list/offers-list';
-import SortingOptions from '../../components/sorting-options/sorting-options';
-import Tabs from '../../components/tabs/tabs';
+import { Map } from '../../components/common/map/map';
+import OffersList from '../../components/main-screen/offers-list/offers-list';
+import SortingOptions from '../../components/main-screen/sorting-options/sorting-options';
+import Tabs from '../../components/common/tabs/tabs';
 import Header from '../../components/ui/header/header';
 import { Cities, Sorting, citiesNames, cityCoordinates } from '../../const';
 import { useAppSelector } from '../../hooks';
