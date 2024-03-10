@@ -50,10 +50,8 @@ function Card({
   }
 
   const wrapperClassName = `${
-    isFavoriteItem
-      ? 'favorites__image-wrapper place-card__image-wrapper'
-      : 'cities__image-wrapper place-card__image-wrapper'
-  }`;
+    isFavoriteItem ? 'favorites' : 'cities'
+  }__image-wrapper place-card__image-wrapper`;
 
   return (
     <article
