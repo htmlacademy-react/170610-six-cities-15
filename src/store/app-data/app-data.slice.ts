@@ -65,6 +65,16 @@ export const appData = createSlice({
           state.offer.isFavorite = isFavorite;
         }
 
+        state.nearbyOffers = state.nearbyOffers.map((offer) => {
+          if (offer.id === id) {
+            return {
+              ...offer,
+              isFavorite: isFavorite,
+            };
+          }
+          return offer;
+        });
+
         const existingIndex = state.favoriteOffers.findIndex(
           (offer) => offer.id === id
         );
