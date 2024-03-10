@@ -53,8 +53,6 @@ function OfferScreen(): JSX.Element {
   const activeCityCoordinates = cityCoordinates.find(
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
-
-  const [currentOffer, setCurrentOffer] = useState<TOffer | null>(null);
   const [slicedNearbyOffers, setSlicedNearbyOffers] = useState<TOffers>([]);
   const [offersToMap, setOffersToMap] = useState<TOffers>([]);
 
@@ -67,18 +65,14 @@ function OfferScreen(): JSX.Element {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setCurrentOffer(offer);
-  }, [offer]);
-
-  useEffect(() => {
     setSlicedNearbyOffers(
       nearbyOffers.slice(0, MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT)
     );
   }, [nearbyOffers]);
 
   useEffect(() => {
-    setOffersToMap([currentOffer, ...slicedNearbyOffers]);
-  }, [currentOffer, slicedNearbyOffers]);
+    setOffersToMap([offer, ...slicedNearbyOffers]);
+  }, [offer, slicedNearbyOffers]);
 
   if (isOfferDataLoading) {
     return (

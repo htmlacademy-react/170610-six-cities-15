@@ -1,12 +1,12 @@
 import leaflet, { Map } from 'leaflet';
 import React, { useEffect, useRef, useState } from 'react';
 import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
-import { TLocation } from '../types/offer';
+import { TOffers, TLocation } from '../types/offer';
 
 type UseMapProps = {
-  containerRef: React.RefObject<HTMLElement | null>;
-  location: TLocation | undefined;
-  offers: TOffers;
+  location?: TLocation;
+  containerRef: React.RefObject<HTMLDivElement>;
+  offers?: TOffers;
 };
 
 export const useMap = ({
@@ -18,17 +18,13 @@ export const useMap = ({
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect((): void => {
-    const DEFAULT_LOCATION =
-      offers && offers.length > 0
-        ? offers[0].location
-        : { latitude: 0, longitude: 0, zoom: 1 };
     if (containerRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(containerRef.current, {
         center: {
-          lat: location ? location.latitude : DEFAULT_LOCATION.latitude,
-          lng: location ? location.longitude : DEFAULT_LOCATION.longitude,
+          lat: location ? location.latitude : 0,
+          lng: location ? location.longitude : 0,
         },
-        zoom: location ? location.zoom : DEFAULT_LOCATION.zoom,
+        zoom: location ? location.zoom : 0,
       });
 
       leaflet
