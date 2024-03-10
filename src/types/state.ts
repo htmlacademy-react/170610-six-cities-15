@@ -1,10 +1,13 @@
-import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-import { TOffer, TOffers } from './offer';
+import { store } from '../store';
 import { TComments } from './comment';
+import { TOffer, TOffers } from './offer';
+import { TUserData } from './user-data';
 
 export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;
+  userData: TUserData;
+  isUserDataLoading: boolean;
 };
 
 export type TAppData = {

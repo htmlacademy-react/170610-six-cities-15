@@ -134,3 +134,16 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   const { data } = await api.get<TOffers>(APIRoute.Favorite);
   return data;
 });
+
+export const fetchUserDataAction = createAsyncThunk<
+  TUserData,
+  undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('data/fetchUserData', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TUserData>(APIRoute.Login);
+  return data;
+});
