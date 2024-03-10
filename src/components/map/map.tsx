@@ -56,24 +56,21 @@ export const Map = ({
     if (map) {
       markers.current.clearLayers();
 
-      if (offers && offers.length > 0) {
-        offers.forEach((offer) => {
-          if (offer && offer.location) {
-            const marker = leaflet.marker(
-              [offer.location.latitude, offer.location.longitude],
-              {
-                icon:
-                  activeOfferId === offer.id
-                    ? activeMarkerIcon
-                    : defaultMarkerIcon,
-              }
-            );
+      offers.forEach((offer) => {
+        if (offer && offer.location) {
+          const marker = leaflet.marker(
+            [offer.location.latitude, offer.location.longitude],
+            {
+              icon:
+                activeOfferId === offer.id
+                  ? activeMarkerIcon
+                  : defaultMarkerIcon,
+            }
+          );
 
-            marker.addTo(markers.current);
-          }
-        });
-      }
-
+          marker.addTo(markers.current);
+        }
+      });
       markers.current.addTo(map);
     }
   }, [activeOfferId, map, offers]);

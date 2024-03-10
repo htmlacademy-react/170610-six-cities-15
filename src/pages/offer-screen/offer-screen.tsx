@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
@@ -54,6 +54,10 @@ function OfferScreen(): JSX.Element {
     (city) => city.name.toLowerCase() === selectedCity?.name.toLowerCase()
   );
 
+  const [currentOffer, setCurrentOffer] = useState<TOffer | null>(null);
+  const [slicedNearbyOffers, setSlicedNearbyOffers] = useState<TOffers>([]);
+  const [offersToMap, setOffersToMap] = useState<TOffers>([]);
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
@@ -61,6 +65,20 @@ function OfferScreen(): JSX.Element {
       dispatch(fetchNearbyOffersAction(id));
     }
   }, [dispatch, id]);
+
+  useEffect(() => {
+    setCurrentOffer(offer);
+  }, [offer]);
+
+  useEffect(() => {
+    setSlicedNearbyOffers(
+      nearbyOffers.slice(0, MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT)
+    );
+  }, [nearbyOffers]);
+
+  useEffect(() => {
+    setOffersToMap([currentOffer, ...slicedNearbyOffers]);
+  }, [currentOffer, slicedNearbyOffers]);
 
   if (isOfferDataLoading) {
     return (
@@ -83,13 +101,6 @@ function OfferScreen(): JSX.Element {
       </>
     );
   }
-
-  const slicedNearbyOffers: TOffers = nearbyOffers.slice(
-    0,
-    MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT
-  );
-
-  const offersToMap = [offer, ...slicedNearbyOffers];
 
   const {
     images,
