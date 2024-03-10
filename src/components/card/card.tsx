@@ -36,13 +36,13 @@ function Card({
   let pageClassName;
 
   switch (true) {
-    case location.pathname === AppRoute.Main:
+    case location.pathname === String(AppRoute.Main):
       pageClassName = 'cities';
       break;
     case /^\/offer\//.test(location.pathname):
       pageClassName = 'near-places';
       break;
-    case location.pathname === AppRoute.Favorites:
+    case location.pathname === String(AppRoute.Favorites):
       pageClassName = 'favorites';
       break;
     default:
