@@ -159,15 +159,12 @@ function OfferScreen(): JSX.Element {
               <OfferReviews comments={comments} />
             </div>
           </div>
-
-          {activeCityCoordinates && offer && (
-            <Map
-              city={activeCityCoordinates}
-              activeOfferId={id}
-              offers={offersToMap}
-              page={'offer'}
-            />
-          )}
+          <Map
+            city={activeCityCoordinates}
+            activeOfferId={id}
+            offers={offersToMap}
+            page={'offer'}
+          />
         </section>
         <div className="container">
           <NearbyOffers slicedNearbyOffers={slicedNearbyOffers} />

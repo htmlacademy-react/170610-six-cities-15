@@ -6,7 +6,7 @@ import { useMap } from '../../hooks/use-map.tsx';
 import { TCity, TOffers } from '../../types/offer.ts';
 
 type TMapProps = {
-  city: TCity;
+  city?: TCity | undefined;
   offers: TOffers;
   activeOfferId?: string | null;
   page: string;
@@ -31,11 +31,18 @@ export const Map = ({
   page,
 }: TMapProps): JSX.Element => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const map = useMap({ location: city.location, containerRef: mapRef });
+  const defaultLocation =
+    offers && offers.length > 0 ? offers[0].location : undefined;
+
+  const map = useMap({
+    location: city ? city.location : defaultLocation,
+    containerRef: mapRef,
+  });
+
   const markers = useRef(leaflet.layerGroup());
 
   useEffect(() => {
-    if (map) {
+    if (map && city && city.location) {
       map.setView(
         [city.location.latitude, city.location.longitude],
         city.location.zoom
@@ -43,23 +50,31 @@ export const Map = ({
       markers.current.addTo(map);
       markers.current.clearLayers();
     }
-  }, [city, map]);
+  }, [map, city, offers]);
 
   useEffect(() => {
     if (map) {
       markers.current.clearLayers();
 
-      offers.forEach((offer) => {
-        const marker = leaflet.marker(
-          [offer.location.latitude, offer.location.longitude],
-          {
-            icon:
-              activeOfferId === offer.id ? activeMarkerIcon : defaultMarkerIcon,
-          }
-        );
+      if (offers && offers.length > 0) {
+        offers.forEach((offer) => {
+          if (offer && offer.location) {
+            const marker = leaflet.marker(
+              [offer.location.latitude, offer.location.longitude],
+              {
+                icon:
+                  activeOfferId === offer.id
+                    ? activeMarkerIcon
+                    : defaultMarkerIcon,
+              }
+            );
 
-        marker.addTo(markers.current);
-      });
+            marker.addTo(markers.current);
+          }
+        });
+      }
+
+      markers.current.addTo(map);
     }
   }, [activeOfferId, map, offers]);
 

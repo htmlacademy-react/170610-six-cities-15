@@ -5,22 +5,30 @@ import { TLocation } from '../types/offer';
 
 type UseMapProps = {
   containerRef: React.RefObject<HTMLElement | null>;
-  location: TLocation;
+  location: TLocation | undefined;
+  offers: TOffers;
 };
 
-export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {
+export const useMap = ({
+  location = undefined,
+  containerRef,
+  offers = [],
+}: UseMapProps): Map | null => {
   const [map, setMap] = useState<Map | null>(null);
-  // const [map, setMap] = useState<LeafletMap | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect((): void => {
+    const DEFAULT_LOCATION =
+      offers && offers.length > 0
+        ? offers[0].location
+        : { latitude: 0, longitude: 0, zoom: 1 };
     if (containerRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(containerRef.current, {
         center: {
-          lat: location.latitude,
-          lng: location.longitude,
+          lat: location ? location.latitude : DEFAULT_LOCATION.latitude,
+          lng: location ? location.longitude : DEFAULT_LOCATION.longitude,
         },
-        zoom: location.zoom,
+        zoom: location ? location.zoom : DEFAULT_LOCATION.zoom,
       });
 
       leaflet
@@ -32,7 +40,7 @@ export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [containerRef, location]);
+  }, [containerRef, location, offers]);
 
   return map;
 };
