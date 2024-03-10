@@ -31,11 +31,9 @@ export const Map = ({
   page,
 }: TMapProps): JSX.Element => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const defaultLocation =
-    offers && offers.length > 0 ? offers[0].location : undefined;
 
   const map = useMap({
-    location: city ? city.location : defaultLocation,
+    location: city ? city.location : undefined,
     containerRef: mapRef,
   });
 
