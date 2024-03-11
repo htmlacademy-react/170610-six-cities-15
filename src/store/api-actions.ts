@@ -9,8 +9,6 @@ import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
 import { redirectToRoute } from './action';
 
-/* User - Process */
-
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
@@ -54,8 +52,6 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
 });
-
-/* App Data  */
 
 export const fetchOffersAction = createAsyncThunk<
   TOffers,
