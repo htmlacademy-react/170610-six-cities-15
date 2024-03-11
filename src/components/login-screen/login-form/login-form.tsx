@@ -4,6 +4,8 @@ import { AppRoute, AuthorizationStatus } from '../../../const';
 import { loginAction } from '../../../store/api-actions';
 import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import LoginInputEmail from '../login-input-email/login-input-email';
+import LoginInputPassword from '../login-input-password/login-input-password';
 
 function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -39,30 +41,8 @@ function LoginForm(): JSX.Element {
       action="#"
       method="post"
     >
-      <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">E-mail</label>
-        <input
-          className="login__input form__input"
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={loginRef}
-          required
-        />
-      </div>
-      <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">Password</label>
-        <input
-          className="login__input form__input"
-          type="password"
-          pattern="(?=.*\d)(?=.*[a-zA-Z]).{2,}"
-          title="Contains one letter and one digit"
-          name="password"
-          placeholder="Password"
-          ref={passwordRef}
-          required
-        />
-      </div>
+      <LoginInputEmail loginRef={loginRef} />
+      <LoginInputPassword passwordRef={passwordRef} />
       <button className="login__submit form__submit button" type="submit">
         Sign in
       </button>

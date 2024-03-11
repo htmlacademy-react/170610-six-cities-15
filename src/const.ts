@@ -127,4 +127,4 @@ export const defaultMarkerIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const DEFAULT_MAP_ZOOM = 3;
+export const DEFAULT_MAP_ZOOM = 10;
