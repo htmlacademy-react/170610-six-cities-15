@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { AppRoute, AuthorizationStatus } from '../../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { redirectToRoute } from '../../../store/action.ts';
@@ -53,7 +54,7 @@ function BookmarkButton({
       toggleFavoriteAction({
         id: id,
         status: isFavorite ? 0 : 1,
-      }),
+      })
     );
   };
 
@@ -71,4 +72,6 @@ function BookmarkButton({
   );
 }
 
-export default BookmarkButton;
+const MemoizedBookmarkButton = memo(BookmarkButton);
+
+export default MemoizedBookmarkButton;
