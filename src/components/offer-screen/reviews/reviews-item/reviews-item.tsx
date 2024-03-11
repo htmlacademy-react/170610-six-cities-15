@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import { renderStars } from '../../../../utils/common.ts';
 import { TComment } from '../../../../types/comment.ts';
+import ReviewsAvatar from '../reviews-avatar/reviews-avatar.tsx';
+import ReviewsRating from '../reviews-rating/reviews-rating.tsx';
 
 type ReviewsItemProps = {
   comment: TComment;
@@ -15,24 +16,11 @@ function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper ">
-          <img
-            className="reviews__avatar user__avatar"
-            src={user.avatarUrl}
-            width="54"
-            height="54"
-            alt="Reviews avatar"
-          />
-        </div>
+        <ReviewsAvatar user={user} />
         <span className="reviews__user-name">{user.name}</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: renderStars(rating) }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <ReviewsRating rating={rating} />
         <p className="reviews__text">{comment.comment}</p>
         <time className="reviews__time" dateTime={formattedDateTime}>
           {formattedDate}
