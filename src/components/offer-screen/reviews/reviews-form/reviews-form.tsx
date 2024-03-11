@@ -8,6 +8,8 @@ import {
   getSubmitErrorStatus,
 } from '../../../../store/app-data/app-data.selectors.ts';
 import RatingInput from '../../../common/rating-input/rating-input.tsx';
+import ReviewsFormTextarea from '../reviews-form-textarea/reviews-form-textarea.tsx';
+import ReviewsFormButton from '../reviews-form-button/reviews-form-button.tsx';
 
 function ReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -81,14 +83,10 @@ function ReviewsForm(): JSX.Element {
           />
         ))}
       </div>
-      <textarea
-        className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review}
-        onChange={handleReviewChange}
-        disabled={isFormDisabled}
+      <ReviewsFormTextarea
+        review={review}
+        handleReviewChange={handleReviewChange}
+        isFormDisabled={isFormDisabled}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -96,19 +94,11 @@ function ReviewsForm(): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled={
-            isFormDisabled ||
-            !rating ||
-            !review ||
-            review.trim().length < 50 ||
-            review.trim().length > 300
-          }
-        >
-          Submit
-        </button>
+        <ReviewsFormButton
+          review={review}
+          isFormDisabled={isFormDisabled}
+          rating={rating}
+        />
       </div>
     </form>
   );
