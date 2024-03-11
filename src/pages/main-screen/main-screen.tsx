@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Tabs from '../../components/common/tabs/tabs';
 import OffersSection from '../../components/main-screen/offers-section/offers-section';
@@ -21,24 +21,6 @@ function MainScreen(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const cityMap = activeCity in Cities ? activeCity : undefined;
 
-  const handleOfferHover = useCallback(
-    (offerId: string) => {
-      setHoveredOfferId(offerId);
-    },
-    [setHoveredOfferId]
-  );
-
-  const handleSort = useCallback(
-    (option: string) => {
-      setSortOption(option);
-    },
-    [setSortOption]
-  );
-
-  const handleSortOptionClick = () => {
-    setSortingOptionsVisible(true);
-  };
-
   if (offers.length === 0) {
     return <ErrorScreen />;
   }
@@ -46,6 +28,18 @@ function MainScreen(): JSX.Element {
   if (cityMap === undefined) {
     return <p>Map not found</p>;
   }
+
+  const handleSortOptionClick = () => {
+    setSortingOptionsVisible(true);
+  };
+
+  const handleSort = (option: string) => {
+    setSortOption(option);
+  };
+
+  const handleOfferHover = (offerId: string) => {
+    setHoveredOfferId(offerId);
+  };
 
   const filteredOffers = filterOffersByCityName(offers, activeCity);
 

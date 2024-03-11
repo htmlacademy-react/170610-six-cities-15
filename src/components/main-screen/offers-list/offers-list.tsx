@@ -1,4 +1,4 @@
-import MemoizedCard from '../../common/card/card.tsx';
+import Card from '../../common/card/card.tsx';
 import { TOffers } from '../../../types/offer.ts';
 
 type OffersListProps = {
@@ -17,7 +17,7 @@ function OffersList({
   return (
     <div className={`${className}`}>
       {offers.map((offer) => (
-        <MemoizedCard
+        <Card
           key={offer.id}
           offer={offer}
           isActive={isActive}

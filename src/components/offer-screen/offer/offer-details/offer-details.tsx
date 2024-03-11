@@ -1,6 +1,6 @@
 import { TComment } from '../../../../types/comment.ts';
 import { TOffer } from '../../../../types/offer.ts';
-import MemoizedBookmarkButton from '../../../common/bookmark-button/bookmark-button.tsx';
+import BookmarkButton from '../../../common/bookmark-button/bookmark-button.tsx';
 import OfferFeatures from '../offer-features/offer-features.tsx';
 import OfferHost from '../offer-host/offer-host.tsx';
 import OfferInside from '../offer-inside/offer-inside.tsx';
@@ -49,7 +49,7 @@ function OfferDetails({
         )}
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{title}</h1>
-          <MemoizedBookmarkButton
+          <BookmarkButton
             id={id}
             isFavorite={isFavorite}
             width={'31'}

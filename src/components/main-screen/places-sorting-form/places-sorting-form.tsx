@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Sorting } from '../../../const.ts';
 import SortingOptions from '../sorting-options/sorting-options.tsx';
 
@@ -39,5 +38,4 @@ function PlacesSortingForm({
   );
 }
 
-const MemoizedPlacesSortingForm = memo(PlacesSortingForm);
-export default MemoizedPlacesSortingForm;
+export default PlacesSortingForm;

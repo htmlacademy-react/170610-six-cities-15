@@ -1,9 +1,9 @@
-import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../const.ts';
 import { TOffer } from '../../../types/offer.ts';
-import { capitalizeFirstLetter, renderStars } from '../../../utils/common.ts';
-import MemoizedBookmarkButton from '../bookmark-button/bookmark-button.tsx';
+import { renderStars } from '../../../utils/common.ts';
+import BookmarkButton from '../bookmark-button/bookmark-button.tsx';
+import { capitalizeFirstLetter } from '../../../utils/common.ts';
 
 type CardProps = {
   offer: TOffer;
@@ -87,7 +87,7 @@ function Card({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <MemoizedBookmarkButton
+          <BookmarkButton
             id={id}
             isFavorite={isFavorite}
             width={'18'}
@@ -111,5 +111,4 @@ function Card({
   );
 }
 
-const MemoizedCard = memo(Card);
-export default MemoizedCard;
+export default Card;

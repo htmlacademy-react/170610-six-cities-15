@@ -3,7 +3,7 @@ import { TOffer } from '../../../types/offer';
 import { pluralize } from '../../../utils/common';
 import Map from '../../common/map/map';
 import OffersList from '../offers-list/offers-list';
-import MemoizedPlacesSortingForm from '../places-sorting-form/places-sorting-form';
+import PlacesSortingForm from '../places-sorting-form/places-sorting-form';
 
 type OffersSectionProps = {
   activeCity: string;
@@ -41,7 +41,7 @@ function OffersSection({
             {filteredOffers.length} place{pluralize(filteredOffers.length)} to
             stay in {activeCity}
           </b>
-          <MemoizedPlacesSortingForm
+          <PlacesSortingForm
             handleSortOptionClick={handleSortOptionClick}
             sortOption={sortOption}
             handleSort={handleSort}
