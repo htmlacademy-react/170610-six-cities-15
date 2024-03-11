@@ -1,9 +1,9 @@
+import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../const.ts';
 import { TOffer } from '../../../types/offer.ts';
-import { renderStars } from '../../../utils/common.ts';
+import { capitalizeFirstLetter, renderStars } from '../../../utils/common.ts';
 import MemoizedBookmarkButton from '../bookmark-button/bookmark-button.tsx';
-import { capitalizeFirstLetter } from '../../../utils/common.ts';
 
 type CardProps = {
   offer: TOffer;
@@ -111,4 +111,5 @@ function Card({
   );
 }
 
-export default Card;
+const MemoizedCard = memo(Card);
+export default MemoizedCard;

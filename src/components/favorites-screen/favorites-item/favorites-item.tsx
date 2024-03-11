@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../../hooks';
 import { getFavoriteOffers } from '../../../store/app-data/app-data.selectors.ts';
 import { filterOffersByCityName } from '../../../utils/common.ts';
-import Card from '../../common/card/card.tsx';
+import MemoizedCard from '../../common/card/card.tsx';
 import LocationsItem from '../../common/locations-item/locations-item.tsx';
 
 function FavoritesItem(): JSX.Element {
@@ -19,7 +19,7 @@ function FavoritesItem(): JSX.Element {
           <LocationsItem city={city} />
           <div className="favorites__places">
             {filterOffersByCityName(favoriteOffers, city).map((offer) => (
-              <Card
+              <MemoizedCard
                 key={offer.id}
                 offer={offer}
                 isFavoriteItem
