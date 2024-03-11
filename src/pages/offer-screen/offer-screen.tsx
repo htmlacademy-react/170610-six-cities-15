@@ -5,7 +5,7 @@ import MapSection from '../../components/offer-screen/map-section/map-section';
 import NearbyOffers from '../../components/offer-screen/nearby-offers/nearby-offers';
 import OfferDetails from '../../components/offer-screen/offer/offer-details/offer-details';
 import OfferGallery from '../../components/offer-screen/offer/offer-gallery/offer-gallery';
-import Header from '../../components/ui/header/header';
+import Header from '../../components/ui/header/header/header';
 import {
   MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT,
   cityCoordinates,

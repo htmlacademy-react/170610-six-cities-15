@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { AuthorizationStatus } from '../../../const';
+import { AuthorizationStatus } from '../../../../const';
 import {
   fetchFavoriteOffersAction,
   fetchUserDataAction,
   logoutAction,
-} from '../../../store/api-actions';
-import { getFavoriteOffers } from '../../../store/app-data/app-data.selectors';
+} from '../../../../store/api-actions';
+import { getFavoriteOffers } from '../../../../store/app-data/app-data.selectors';
 import {
   getAuthorizationStatus,
   getUserData,
-} from '../../../store/user-process/user-process.selectors';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import Logo from '../logo/logo';
-import UnauthenticatedUser from './unauthenticated-user/unauthenticated-user';
-import AuthenticatedUser from './аuthenticated-user/аuthenticated-user';
+} from '../../../../store/user-process/user-process.selectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import Logo from '../../logo/logo';
+import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';
+import AuthenticatedUser from '../аuthenticated-user/аuthenticated-user';
 
 function Header() {
   const dispatch = useAppDispatch();

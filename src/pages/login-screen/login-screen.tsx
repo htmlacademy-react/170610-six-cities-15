@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Locations from '../../components/login-screen/locations/locations';
 import LoginForm from '../../components/login-screen/login-form/login-form';
-import Header from '../../components/ui/header/header';
+import Header from '../../components/ui/header/header/header';
 import { Cities } from '../../const';
 
 function LoginScreen(): JSX.Element {

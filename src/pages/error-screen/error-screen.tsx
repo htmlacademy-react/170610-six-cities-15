@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Tabs from '../../components/common/tabs/tabs';
 import ErrorStatus from '../../components/error-screen/error-status/error-status';
-import Header from '../../components/ui/header/header';
+import Header from '../../components/ui/header/header/header';
 import { citiesNames } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';

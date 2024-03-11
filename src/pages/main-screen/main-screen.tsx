@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Tabs from '../../components/common/tabs/tabs';
 import OffersSection from '../../components/main-screen/offers-section/offers-section';
 import SortOffers from '../../components/main-screen/sort-offers/sort-offers';
-import Header from '../../components/ui/header/header';
+import Header from '../../components/ui/header/header/header';
 import { Cities, Sorting, citiesNames } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/app-data.selectors';
