@@ -48,9 +48,14 @@ function Header() {
     );
 
   const location = useLocation();
+
+  let isMainPage = false;
   let isLoginPage = false;
 
   switch (true) {
+    case location.pathname === String(AppRoute.Main):
+      isMainPage = true;
+      break;
     case location.pathname === String(AppRoute.Login):
       isLoginPage = true;
       break;
@@ -69,7 +74,12 @@ function Header() {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo classPrefix="header" width={'81'} height={'41'} />
+            <Logo
+              classPrefix="header"
+              width={'81'}
+              height={'41'}
+              isMainPage={isMainPage}
+            />
           </div>
           {isHeaderNav}
         </div>

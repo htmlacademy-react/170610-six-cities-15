@@ -5,16 +5,20 @@ type LogoProps = {
   classPrefix: string;
   width: string;
   height: string;
+  isMainPage?: boolean;
 };
 
-function Logo({ classPrefix, width, height }: LogoProps): JSX.Element {
-  // const isActive =
-  //   classPrefix === 'header' ? `${classPrefix}__logo-link--active` : '';
+function Logo({
+  classPrefix,
+  width,
+  height,
+  isMainPage = false,
+}: LogoProps): JSX.Element {
+  const isActiveClass = isMainPage ? `${classPrefix}__logo-link--active` : '';
 
   return (
     <Link
-      // className={`${classPrefix}__logo-link ${isActive}`}
-      className={`${classPrefix}__logo-link`}
+      className={`${classPrefix}__logo-link ${isActiveClass}`}
       to={AppRoute.Main}
     >
       <img
