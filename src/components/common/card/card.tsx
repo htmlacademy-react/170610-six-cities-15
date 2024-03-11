@@ -3,6 +3,7 @@ import { AppRoute } from '../../../const.ts';
 import { TOffer } from '../../../types/offer.ts';
 import { renderStars } from '../../../utils/common.ts';
 import BookmarkButton from '../bookmark-button/bookmark-button.tsx';
+import { capitalizeFirstLetter } from '../../../utils/common.ts';
 
 type CardProps = {
   offer: TOffer;
@@ -33,20 +34,20 @@ function Card({
   } = offer;
 
   const location = useLocation();
-  let pageClassName;
+  let pagePrefix;
 
   switch (true) {
     case location.pathname === String(AppRoute.Main):
-      pageClassName = 'cities';
+      pagePrefix = 'cities';
       break;
     case /^\/offer\//.test(location.pathname):
-      pageClassName = 'near-places';
+      pagePrefix = 'near-places';
       break;
     case location.pathname === String(AppRoute.Favorites):
-      pageClassName = 'favorites';
+      pagePrefix = 'favorites';
       break;
     default:
-      pageClassName = 'cities';
+      pagePrefix = 'cities';
   }
 
   const wrapperClassName = `${
@@ -55,9 +56,7 @@ function Card({
 
   return (
     <article
-      className={`${pageClassName}__card place-card ${
-        isActive ? 'active' : ''
-      }`}
+      className={`${pagePrefix}__card place-card ${isActive ? 'active' : ''}`}
       onMouseEnter={() => onOfferHover && onOfferHover(id)}
       onMouseLeave={() => onOfferHover && onOfferHover('')}
     >
@@ -67,15 +66,22 @@ function Card({
         </div>
       )}
       <div className={`${wrapperClassName}`}>
-        <img
-          className="place-card__image"
-          src={previewImage}
-          width={width}
-          height={height}
-          alt="Place image"
-        />
+        <Link to={`/offer/${id}`}>
+          {' '}
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={width}
+            height={height}
+            alt="Place image"
+          />
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div
+        className={`place-card__info ${
+          pagePrefix === 'favorites' ? 'favorites__card-info' : ''
+        }`}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -99,7 +105,7 @@ function Card({
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
 
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>
     </article>
   );
