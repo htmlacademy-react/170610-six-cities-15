@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { TComment } from '../../../../types/comment.ts';
 import ReviewsAvatar from '../reviews-avatar/reviews-avatar.tsx';
 import ReviewsRating from '../reviews-rating/reviews-rating.tsx';
+import ReviewsText from '../reviews-text/reviews-text.tsx';
 
 type ReviewsItemProps = {
   comment: TComment;
@@ -21,7 +22,7 @@ function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <ReviewsRating rating={rating} />
-        <p className="reviews__text">{comment.comment}</p>
+        <ReviewsText comment={comment} />
         <time className="reviews__time" dateTime={formattedDateTime}>
           {formattedDate}
         </time>
