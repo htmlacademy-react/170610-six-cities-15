@@ -28,9 +28,12 @@ function MainScreen(): JSX.Element {
     [setHoveredOfferId]
   );
 
-  const handleSort = (option: string) => {
-    setSortOption(option);
-  };
+  const handleSort = useCallback(
+    (option: string) => {
+      setSortOption(option);
+    },
+    [setSortOption]
+  );
 
   const handleSortOptionClick = () => {
     setSortingOptionsVisible(true);
