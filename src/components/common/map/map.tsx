@@ -1,7 +1,7 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { PIN_MARKER_CURRENT, PIN_MARKER_DEFAULT } from '../../../const.ts';
+import { activeMarkerIcon, defaultMarkerIcon } from '../../../const.ts';
 import { useMap } from '../../../hooks/use-map.tsx';
 import { TCity, TOffers } from '../../../types/offer.ts';
 
@@ -11,18 +11,6 @@ type TMapProps = {
   activeOfferId?: string | null;
   page: string;
 };
-
-const activeMarkerIcon = leaflet.icon({
-  iconUrl: PIN_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
-
-const defaultMarkerIcon = leaflet.icon({
-  iconUrl: PIN_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
 
 function Map({ city, offers, activeOfferId, page }: TMapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);

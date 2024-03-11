@@ -1,7 +1,11 @@
 import leaflet, { Map } from 'leaflet';
 import React, { useEffect, useRef, useState } from 'react';
-import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
-import { TOffers, TLocation } from '../types/offer';
+import {
+  TILE_LAYER_ATTRIBUTION,
+  TILE_LAYER_URL_PATTERN,
+  DEFAULT_MAP_ZOOM,
+} from '../const';
+import { TLocation, TOffers } from '../types/offer';
 
 type UseMapProps = {
   location?: TLocation | undefined;
@@ -24,7 +28,7 @@ export const useMap = ({
           lat: location ? location.latitude : 0,
           lng: location ? location.longitude : 0,
         },
-        zoom: location ? location.zoom : 0,
+        zoom: location ? location.zoom : DEFAULT_MAP_ZOOM,
       });
 
       leaflet
