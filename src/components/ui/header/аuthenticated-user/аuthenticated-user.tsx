@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../../const';
+import HeaderNavItemUser from '../header-nav-item-user/header-nav-item-user';
+import HeaderNavItemListItem from '../header-nav-item-list-item/header-nav-item-list-item';
 
 type AuthenticatedUserProps = {
   userData: { email: string; avatarUrl: string };
@@ -14,28 +14,11 @@ function AuthenticatedUser({
 }: AuthenticatedUserProps) {
   return (
     <>
-      <div className="header__nav-item user">
-        <Link
-          to={AppRoute.Favorites}
-          className="header__nav-link header__nav-link--profile"
-        >
-          <div
-            className="header__avatar-wrapper user__avatar-wrapper"
-            style={{ backgroundImage: `url(${userData?.avatarUrl})` }}
-          />
-          <span className="header__user-name user__name">{userData.email}</span>
-          <span className="header__favorite-count">{favoriteOffersCount}</span>
-        </Link>
-      </div>
-      <li className="header__nav-item">
-        <Link
-          className="header__nav-link"
-          to={AppRoute.Main}
-          onClick={onLogout}
-        >
-          <span className="header__signout">Sign out</span>
-        </Link>
-      </li>
+      <HeaderNavItemUser
+        userData={userData}
+        favoriteOffersCount={favoriteOffersCount}
+      />
+      <HeaderNavItemListItem onLogout={onLogout} />
     </>
   );
 }
