@@ -7,6 +7,7 @@ import OfferInside from '../offer-inside/offer-inside.tsx';
 import OfferPrice from '../offer-price/offer-price.tsx';
 import OfferRating from '../offer-rating/offer-rating.tsx';
 import OfferReviews from '../offer-reviews/offer-reviews.tsx';
+import { capitalizeFirstLetter } from '../../../../utils/common.ts';
 
 type OfferDetailsProps = {
   offer: TOffer;
@@ -36,6 +37,7 @@ function OfferDetails({
   } = offer;
 
   const isAvatarPro = host?.isPro ? 'offer__avatar-wrapper--pro' : '';
+  const capitalizedType = capitalizeFirstLetter(type);
 
   return (
     <section className="offer__container container">
@@ -56,7 +58,11 @@ function OfferDetails({
           />
         </div>
         <OfferRating rating={rating} />
-        <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
+        <OfferFeatures
+          type={capitalizedType}
+          bedrooms={bedrooms}
+          maxAdults={maxAdults}
+        />
         <OfferPrice price={price} />
         <OfferInside goods={goods} />
         <OfferHost

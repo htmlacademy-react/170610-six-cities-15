@@ -13,6 +13,8 @@ export function pluralize(count: number): string {
   return count > 1 ? 's' : '';
 }
 
-export function capitalizeFirstLetter(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+export function capitalizeFirstLetter(str?: string) {
+  if (str) {
+    return str.charAt(0)?.toUpperCase() + str.slice(1);
+  }
 }

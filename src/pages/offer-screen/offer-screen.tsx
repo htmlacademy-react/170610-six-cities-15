@@ -91,23 +91,23 @@ function OfferScreen(): JSX.Element {
       </Helmet>
       <Header />
       <main className="page__main page__main--offer">
-        <OfferGallery images={offer.images} />
-        <OfferDetails
-          offer={offer}
-          isPremium={offer.isPremium}
-          isFavorite={offer.isFavorite}
-          id={id}
-          comments={comments}
-        />
-        <MapSection
-          city={activeCityCoordinates}
-          activeOfferId={id}
-          offers={offersToMap}
-          page={'offer'}
-        />
-        <div className="container">
-          <NearbyOffers slicedNearbyOffers={slicedNearbyOffers} />
-        </div>
+        <section className="offer">
+          <OfferGallery images={offer.images} />
+          <OfferDetails
+            offer={offer}
+            isPremium={offer.isPremium}
+            isFavorite={offer.isFavorite}
+            id={id}
+            comments={comments}
+          />
+          <MapSection
+            city={activeCityCoordinates}
+            activeOfferId={id}
+            offers={offersToMap}
+            page={'offer'}
+          />
+        </section>
+        <NearbyOffers slicedNearbyOffers={slicedNearbyOffers} />
       </main>
     </div>
   );

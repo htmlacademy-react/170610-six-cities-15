@@ -1,5 +1,5 @@
 type OfferFeaturesProps = {
-  type: string;
+  type: string | undefined;
   bedrooms: number;
   maxAdults: number;
 };
