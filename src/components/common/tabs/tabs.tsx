@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -39,4 +40,5 @@ function Tabs({ cities }: TabsProps): JSX.Element {
   );
 }
 
-export default Tabs;
+const MemoizedTabs = memo(Tabs);
+export default MemoizedTabs;

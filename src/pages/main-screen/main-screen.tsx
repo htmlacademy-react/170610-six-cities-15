@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Tabs from '../../components/common/tabs/tabs';
+import MemoizedTabs from '../../components/common/tabs/tabs';
 import OffersSection from '../../components/main-screen/offers-section/offers-section';
 import SortOffers from '../../components/main-screen/sort-offers/sort-offers';
 import Header from '../../components/ui/header/header/header';
@@ -53,7 +53,7 @@ function MainScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs cities={citiesNames} />
+        <MemoizedTabs cities={citiesNames} />
         <OffersSection
           activeCity={activeCity}
           filteredOffers={sortedOffers}

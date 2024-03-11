@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Tabs from '../../components/common/tabs/tabs';
+import MemoizedTabs from '../../components/common/tabs/tabs';
 import ErrorStatus from '../../components/error-screen/error-status/error-status';
 import Header from '../../components/ui/header/header/header';
 import { citiesNames } from '../../const';
@@ -17,7 +17,7 @@ function ErrorScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs cities={citiesNames} />
+        <MemoizedTabs cities={citiesNames} />
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">
             <ErrorStatus activeCity={activeCity} />
