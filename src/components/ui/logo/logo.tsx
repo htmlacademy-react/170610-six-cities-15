@@ -1,14 +1,28 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const';
 
-function Logo(): JSX.Element {
+type LogoProps = {
+  classPrefix: string;
+  width: string;
+  height: string;
+};
+
+function Logo({ classPrefix, width, height }: LogoProps): JSX.Element {
+  // const isActive =
+  //   classPrefix === 'header' ? `${classPrefix}__logo-link--active` : '';
+
   return (
-    <Link className="header__logo-link" to="/">
+    <Link
+      // className={`${classPrefix}__logo-link ${isActive}`}
+      className={`${classPrefix}__logo-link`}
+      to={AppRoute.Main}
+    >
       <img
-        className="header__logo"
+        className={`${classPrefix}__logo`}
         src="img/logo.svg"
         alt="6 cities logo"
-        width="81"
-        height="41"
+        width={width}
+        height={height}
       />
     </Link>
   );
