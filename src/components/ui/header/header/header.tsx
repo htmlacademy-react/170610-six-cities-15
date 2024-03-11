@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { AuthorizationStatus } from '../../../../const';
+import { useLocation } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../../../const';
 import {
   fetchFavoriteOffersAction,
   fetchUserDataAction,
@@ -12,6 +13,7 @@ import {
 } from '../../../../store/user-process/user-process.selectors';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import Logo from '../../logo/logo';
+import HeaderNav from '../header-nav/header-nav';
 import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';
 import AuthenticatedUser from '../аuthenticated-user/аuthenticated-user';
 
@@ -45,6 +47,23 @@ function Header() {
       <UnauthenticatedUser />
     );
 
+  const location = useLocation();
+  let isLoginPage = false;
+
+  switch (true) {
+    case location.pathname === String(AppRoute.Login):
+      isLoginPage = true;
+      break;
+    default:
+      isLoginPage = false;
+  }
+
+  const isHeaderNav = isLoginPage ? (
+    ''
+  ) : (
+    <HeaderNav renderAuthLinks={renderAuthLinks} />
+  );
+
   return (
     <header className="header">
       <div className="container">
@@ -52,9 +71,7 @@ function Header() {
           <div className="header__left">
             <Logo classPrefix="header" width={'81'} height={'41'} />
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">{renderAuthLinks()}</ul>
-          </nav>
+          {isHeaderNav}
         </div>
       </div>
     </header>
