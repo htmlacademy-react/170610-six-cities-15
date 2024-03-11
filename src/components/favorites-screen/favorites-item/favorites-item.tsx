@@ -13,7 +13,7 @@ function FavoritesItem(): JSX.Element {
   const favoritesCities = Array.from(favoritesCitiesSet);
 
   return (
-    <ul>
+    <>
       {favoritesCities.map((city) => (
         <li className="favorites__locations-items" key={city}>
           <LocationsItem city={city} />
@@ -30,7 +30,7 @@ function FavoritesItem(): JSX.Element {
           </div>
         </li>
       ))}
-    </ul>
+    </>
   );
 }
 
