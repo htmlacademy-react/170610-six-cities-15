@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
+import { TOffer } from '../../types/offer';
 import { TAppData } from '../../types/state';
 import {
   fetchCommentsAction,
@@ -50,30 +51,19 @@ export const appData = createSlice({
       })
       .addCase(toggleFavoriteAction.fulfilled, (state, action) => {
         const { id, isFavorite } = action.payload;
+        const findOfferById = (offer: TOffer) => offer.id === id;
 
-        state.offers = state.offers.map((offer) => {
-          if (offer.id === id) {
-            return {
-              ...offer,
-              isFavorite: isFavorite,
-            };
-          }
-          return offer;
-        });
+        state.offers = state.offers.map((offer) =>
+          findOfferById(offer) ? { ...offer, isFavorite } : offer
+        );
 
-        if (state.offer && state.offer.id === id) {
+        if (state.offer && findOfferById(state.offer)) {
           state.offer.isFavorite = isFavorite;
         }
 
-        state.nearbyOffers = state.nearbyOffers.map((offer) => {
-          if (offer.id === id) {
-            return {
-              ...offer,
-              isFavorite: isFavorite,
-            };
-          }
-          return offer;
-        });
+        state.nearbyOffers = state.nearbyOffers.map((offer) =>
+          findOfferById(offer) ? { ...offer, isFavorite } : offer
+        );
 
         const existingIndex = state.favoriteOffers.findIndex(
           (offer) => offer.id === id
