@@ -1,15 +1,9 @@
+import Logo from '../../ui/logo/logo';
+
 function Footer() {
   return (
-    <footer className="footer">
-      <a className="footer__logo-link" href="main.html">
-        <img
-          className="footer__logo"
-          src="img/logo.svg"
-          alt="6 cities logo"
-          width="64"
-          height="33"
-        />
-      </a>
+    <footer className="footer container">
+      <Logo classPrefix="footer" width="64" height="33" />
     </footer>
   );
 }

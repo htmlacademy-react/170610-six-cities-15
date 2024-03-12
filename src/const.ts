@@ -1,3 +1,5 @@
+import leaflet from 'leaflet';
+
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const PIN_MARKER_DEFAULT = 'img/pin.svg';
@@ -112,3 +114,17 @@ export enum Cities {
 }
 
 export const citiesNames = Array.from(Object.values(Cities));
+
+export const activeMarkerIcon = leaflet.icon({
+  iconUrl: PIN_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+export const defaultMarkerIcon = leaflet.icon({
+  iconUrl: PIN_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+export const DEFAULT_MAP_ZOOM = 10;

@@ -9,8 +9,6 @@ import { TAppDispatch, TState } from '../types/state.js';
 import { TUserData } from '../types/user-data';
 import { redirectToRoute } from './action';
 
-/* User - Process */
-
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
@@ -54,8 +52,6 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
 });
-
-/* App Data  */
 
 export const fetchOffersAction = createAsyncThunk<
   TOffers,
@@ -132,5 +128,18 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   }
 >('data/fetchFavoriteOffers', async (_arg, { extra: api }) => {
   const { data } = await api.get<TOffers>(APIRoute.Favorite);
+  return data;
+});
+
+export const fetchUserDataAction = createAsyncThunk<
+  TUserData,
+  undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('data/fetchUserData', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TUserData>(APIRoute.Login);
   return data;
 });

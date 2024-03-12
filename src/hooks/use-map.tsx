@@ -1,26 +1,34 @@
 import leaflet, { Map } from 'leaflet';
 import React, { useEffect, useRef, useState } from 'react';
-import { TILE_LAYER_ATTRIBUTION, TILE_LAYER_URL_PATTERN } from '../const';
-import { TLocation } from '../types/offer';
+import {
+  TILE_LAYER_ATTRIBUTION,
+  TILE_LAYER_URL_PATTERN,
+  DEFAULT_MAP_ZOOM,
+} from '../const';
+import { TLocation, TOffers } from '../types/offer';
 
 type UseMapProps = {
-  containerRef: React.RefObject<HTMLElement | null>;
-  location: TLocation;
+  location?: TLocation | undefined;
+  containerRef: React.RefObject<HTMLDivElement>;
+  offers?: TOffers;
 };
 
-export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {
+export const useMap = ({
+  location = undefined,
+  containerRef,
+  offers = [],
+}: UseMapProps): Map | null => {
   const [map, setMap] = useState<Map | null>(null);
-  // const [map, setMap] = useState<LeafletMap | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect((): void => {
     if (containerRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(containerRef.current, {
         center: {
-          lat: location.latitude,
-          lng: location.longitude,
+          lat: location ? location.latitude : 0,
+          lng: location ? location.longitude : 0,
         },
-        zoom: location.zoom,
+        zoom: location ? location.zoom : DEFAULT_MAP_ZOOM,
       });
 
       leaflet
@@ -32,7 +40,7 @@ export const useMap = ({ location, containerRef }: UseMapProps): Map | null => {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [containerRef, location]);
+  }, [containerRef, location, offers]);
 
   return map;
 };
