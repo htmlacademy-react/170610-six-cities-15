@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   AuthorizationStatus,
   MAX_OFFER_SCREEN_COMMENTS_COUNT,
@@ -15,11 +16,13 @@ type OfferReviewsProps = {
 function OfferReviews({ comments }: OfferReviewsProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  let sortedComments = [...comments];
-
-  sortedComments = sortedComments
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT);
+  const sortedComments = useMemo(
+    () =>
+      [...comments]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, MAX_OFFER_SCREEN_COMMENTS_COUNT),
+    [comments]
+  );
 
   return (
     <section className="offer__reviews reviews">
