@@ -12,7 +12,13 @@ function LoginScreen(): JSX.Element {
   const [randomCity, setRandomCity] = useState(randomCityKey);
 
   useEffect(() => {
-    setRandomCity(randomCityKey);
+    let isMounted = true;
+    if (isMounted) {
+      setRandomCity(randomCityKey);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [randomCityKey]);
 
   return (
