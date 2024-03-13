@@ -2,15 +2,19 @@ import leaflet from 'leaflet';
 
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
-export const PIN_MARKER_DEFAULT = 'img/pin.svg';
-export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
+
+export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
+export const MAX_IMAGES_COUNT = 6;
+export const MAX_OFFER_SCREEN_COMMENTS_COUNT = 10;
+
 export const TILE_LAYER_URL_PATTERN =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const TILE_LAYER_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
-export const MAX_OFFER_SCREEN_COMMENTS_COUNT = 10;
-export const MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT = 3;
-export const MAX_IMAGES = 6;
+
+export const PIN_MARKER_DEFAULT = 'img/pin.svg';
+export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
+export const DEFAULT_MAP_ZOOM = 5;
 
 export enum AppRoute {
   Main = '/',
@@ -126,5 +130,3 @@ export const defaultMarkerIcon = leaflet.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
-export const DEFAULT_MAP_ZOOM = 10;
