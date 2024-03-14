@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const';
 import { loginAction } from '../../../store/api-actions';
 import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import LoginInputEmail from '../login-input-email/login-input-email';
 import LoginInputPassword from '../login-input-password/login-input-password';
 

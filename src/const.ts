@@ -16,6 +16,9 @@ export const PIN_MARKER_DEFAULT = 'img/pin.svg';
 export const PIN_MARKER_CURRENT = 'img/pin-active.svg';
 export const DEFAULT_MAP_ZOOM = 5;
 
+export const logoSrcPath = 'img/logo.svg';
+export const logoSrcAlt = '6 cities logo';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
