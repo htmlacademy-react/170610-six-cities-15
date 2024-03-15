@@ -1,9 +1,12 @@
 import { AuthorizationStatus, NameSpace } from '../../const';
 import { TState } from '../../types/state';
+import { makeFakeUser } from '../../utils/mocks';
 import {
-  getAuthorizationStatus,
   getAuthCheckedStatus,
+  getAuthorizationStatus,
+  getUserData,
 } from './user-process.selectors';
+
 describe('getAuthorizationStatus', () => {
   it('should return correct authorization status', () => {
     const mockState = {
@@ -29,5 +32,31 @@ describe('getAuthCheckedStatus', () => {
       mockState as Pick<TState, NameSpace.User>
     );
     expect(result).toBe(true);
+  });
+});
+
+describe('getUserData', () => {
+  it('should return correct UserData', () => {
+    const mockUser = makeFakeUser();
+
+    const mockState = {
+      [NameSpace.User]: {
+        userData: mockUser,
+      },
+    };
+    const expectedUserData = mockUser;
+
+    expect(getUserData(mockState as Pick<TState, NameSpace.User>)).toEqual(
+      expectedUserData
+    );
+  });
+
+  it('test_getUserData_returnsUndefined', () => {
+    const mockState = {
+      [NameSpace.User]: {},
+    };
+    expect(
+      getUserData(mockState as Pick<TState, NameSpace.User>)
+    ).toBeUndefined();
   });
 });

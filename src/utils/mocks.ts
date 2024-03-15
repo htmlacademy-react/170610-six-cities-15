@@ -1,6 +1,7 @@
-import { address, datatype, lorem, random, name, image } from 'faker';
+import { address, datatype, lorem, random, name, image, internet } from 'faker';
 import { TOffer } from '../types/offer';
 import { TComment } from '../types/comment';
+import { TUserData } from '../types/user-data';
 
 const numGoods = Math.floor(Math.random() * 6) + 1;
 const goods = Array.from({ length: numGoods }, () => lorem.word());
@@ -91,8 +92,10 @@ export function makeFakeNearbyOffer() {
   return nearbyOffer;
 }
 
-export function makeFakeUser(): TComment['user'] {
+export function makeFakeUser(): TUserData {
   const user = {
+    email: internet.email(),
+    token: datatype.string(),
     name: name.findName(),
     avatarUrl: image.imageUrl(),
     isPro: datatype.boolean(),
