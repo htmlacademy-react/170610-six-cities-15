@@ -12,8 +12,6 @@ import {
   getOffersDataLoadingStatus,
   getSubmitErrorStatus,
 } from '../../store/app-data/app-data.selectors';
-import { TComments } from '../../types/comment';
-import { TOffers } from '../../types/offer';
 import { TState } from '../../types/state';
 import {
   getRandomNumber,
@@ -24,38 +22,58 @@ import {
 } from '../../utils/mocks';
 
 describe('AppData selectors', () => {
+  const mockOffer = makeFakeOffer();
+  const mockOffers = Array.from(
+    { length: getRandomNumber(1, 15) },
+    () => mockOffer
+  );
+  const mockComment = makeFakeComment();
+  const mockComments = Array.from(
+    { length: getRandomNumber(1, 15) },
+    () => mockComment
+  );
+  const mockNearbyOffer = makeFakeNearbyOffer();
+  const mockNearbyOffers = Array.from(
+    { length: getRandomNumber(1, 15) },
+    () => mockNearbyOffer
+  );
+  const mockFavoriteOffer = makeFakeFavoriteOffer();
+  const mockFavoriteOffers = Array.from(
+    { length: getRandomNumber(1, 15) },
+    () => mockFavoriteOffer
+  );
+
+  const mockState = {
+    [NameSpace.Data]: {
+      offers: mockOffers,
+      isOffersDataLoading: true,
+      hasError: true,
+      offer: mockOffer,
+      isOfferDataLoading: true,
+      comments: mockComments,
+      nearbyOffers: mockNearbyOffers,
+      favoriteOffers: mockFavoriteOffers,
+      isCommentDataSending: true,
+      hasSubmitError: true,
+      hasOfferDataLoadingError: true,
+    },
+  };
+
   describe('getOffers', () => {
     it('should returns correct offers from the given state', () => {
-      const mockOffer = makeFakeOffer();
-      const mockOffers = Array.from(
-        { length: getRandomNumber(1, 15) },
-        () => mockOffer
-      );
-      const mockState = {
-        [NameSpace.Data]: {
-          offers: mockOffers,
-        },
-      };
-
+      const { offers } = mockState[NameSpace.Data];
       const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
-      expect(result).toEqual(mockState[NameSpace.Data].offers);
+      expect(result).toEqual(offers);
     });
 
     it('should returns empty array when no offers', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          offers: [] as TOffers,
-        },
-      };
-
+      mockState[NameSpace.Data].offers = [];
       const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toEqual([]);
     });
 
     it('should returns undefined when offers not present', () => {
-      const mockState = {
-        [NameSpace.Data]: {},
-      };
+      mockState[NameSpace.Data] = {} as TState[NameSpace.Data];
       const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toBeUndefined();
     });
@@ -63,11 +81,7 @@ describe('AppData selectors', () => {
 
   describe('getOffersDataLoadingStatus', () => {
     it('should return true when isOffersDataLoading is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          isOffersDataLoading: true,
-        },
-      };
+      mockState[NameSpace.Data].isOffersDataLoading = true;
       const result = getOffersDataLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
@@ -77,11 +91,7 @@ describe('AppData selectors', () => {
 
   describe('getErrorStatus', () => {
     it('should return true when hasError is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          hasError: true,
-        },
-      };
+      mockState[NameSpace.Data].hasError = true;
       const result = getErrorStatus(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toBe(true);
     });
@@ -89,19 +99,13 @@ describe('AppData selectors', () => {
 
   describe('getOffer', () => {
     it('should returns correct offer from the given state', () => {
-      const mockOffer = makeFakeOffer();
-      const mockState = {
-        [NameSpace.Data]: { offer: mockOffer },
-      };
-
+      const { offer } = mockState[NameSpace.Data];
       const result = getOffer(mockState as Pick<TState, NameSpace.Data>);
-      expect(result).toEqual(result);
+      expect(result).toEqual(offer);
     });
 
     it('should returns undefined when offer not present', () => {
-      const mockState = {
-        [NameSpace.Data]: {},
-      };
+      mockState[NameSpace.Data] = {} as TState[NameSpace.Data];
       const result = getOffer(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toBeUndefined();
     });
@@ -109,11 +113,7 @@ describe('AppData selectors', () => {
 
   describe('isOfferDataLoading ', () => {
     it('should return true when isOfferDataLoading is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          isOfferDataLoading: true,
-        },
-      };
+      mockState[NameSpace.Data].isOfferDataLoading = true;
       const result = getOfferDataLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
@@ -123,27 +123,13 @@ describe('AppData selectors', () => {
 
   describe('getComments', () => {
     it('should return correct comments from the given state', () => {
-      const mockComment = makeFakeComment();
-      const mockComments = Array.from(
-        { length: getRandomNumber(1, 15) },
-        () => mockComment
-      );
-
-      const mockState = {
-        [NameSpace.Data]: {
-          comments: mockComments,
-        },
-      };
+      const { comments } = mockState[NameSpace.Data];
       const result = getComments(mockState as Pick<TState, NameSpace.Data>);
-      expect(result).toEqual(mockComments);
+      expect(result).toEqual(comments);
     });
 
     it('should return an empty array if there are no comments in the state', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          comments: [] as TComments,
-        },
-      };
+      mockState[NameSpace.Data].comments = [];
       const result = getComments(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toEqual([]);
     });
@@ -151,27 +137,13 @@ describe('AppData selectors', () => {
 
   describe('getNearbyOffers', () => {
     it('should return correct nearby offers from the given state', () => {
-      const mockNearbyOffer = makeFakeNearbyOffer();
-      const mockNearbyOffers = Array.from(
-        { length: getRandomNumber(1, 15) },
-        () => mockNearbyOffer
-      );
-
-      const mockState = {
-        [NameSpace.Data]: {
-          nearbyOffers: mockNearbyOffers,
-        },
-      };
+      const { nearbyOffers } = mockState[NameSpace.Data];
       const result = getNearbyOffers(mockState as Pick<TState, NameSpace.Data>);
-      expect(result).toEqual(mockState[NameSpace.Data].nearbyOffers);
+      expect(result).toEqual(nearbyOffers);
     });
 
     it('should return an empty array if there are no nearby offers in the state', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          nearbyOffers: [] as TOffers,
-        },
-      };
+      mockState[NameSpace.Data].nearbyOffers = [];
       const result = getNearbyOffers(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toEqual([]);
     });
@@ -179,30 +151,15 @@ describe('AppData selectors', () => {
 
   describe('getFavoriteOffers', () => {
     it('should returns correct favorite offers from the given state', () => {
-      const mockFavoriteOffer = makeFakeFavoriteOffer();
-      const mockFavoriteOffers = Array.from(
-        { length: getRandomNumber(1, 15) },
-        () => mockFavoriteOffer
-      );
-      const mockState = {
-        [NameSpace.Data]: {
-          favoriteOffers: mockFavoriteOffers,
-        },
-      };
-
+      const { favoriteOffers } = mockState[NameSpace.Data];
       const result = getFavoriteOffers(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toEqual(mockState[NameSpace.Data].favoriteOffers);
+      expect(result).toEqual(favoriteOffers);
     });
 
     it('should returns empty array when no favorite offers', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          favoriteOffers: [] as TOffers,
-        },
-      };
-
+      mockState[NameSpace.Data].favoriteOffers = [];
       const result = getFavoriteOffers(
         mockState as Pick<TState, NameSpace.Data>
       );
@@ -210,9 +167,7 @@ describe('AppData selectors', () => {
     });
 
     it('should returns undefined when favorite offers not present', () => {
-      const mockState = {
-        [NameSpace.Data]: {},
-      };
+      mockState[NameSpace.Data] = {} as TState[NameSpace.Data];
       const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
       expect(result).toBeUndefined();
     });
@@ -220,11 +175,7 @@ describe('AppData selectors', () => {
 
   describe('getCommentDataSendingStatus', () => {
     it('should return true when isCommentDataSending is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          isCommentDataSending: true,
-        },
-      };
+      mockState[NameSpace.Data].isCommentDataSending = true;
       const result = getCommentDataSendingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
@@ -234,11 +185,7 @@ describe('AppData selectors', () => {
 
   describe('getSubmitErrorStatus', () => {
     it('should return true when state hasSubmitError is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          hasSubmitError: true,
-        },
-      };
+      mockState[NameSpace.Data].hasSubmitError = true;
       const result = getSubmitErrorStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
@@ -248,11 +195,7 @@ describe('AppData selectors', () => {
 
   describe('getErrorOfferLoadingStatus', () => {
     it('should return true when hasOfferDataLoadingError is true', () => {
-      const mockState = {
-        [NameSpace.Data]: {
-          hasOfferDataLoadingError: true,
-        },
-      };
+      mockState[NameSpace.Data].hasOfferDataLoadingError = true;
       const result = getErrorOfferLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
