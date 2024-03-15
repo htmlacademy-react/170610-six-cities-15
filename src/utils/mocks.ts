@@ -45,6 +45,38 @@ export function makeFakeOffer(): TOffer {
   return offer;
 }
 
+function makeFakeCity(): TOffer['city'] {
+  const city = {
+    name: address.city(),
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number({ min: 10, max: 15 }),
+    },
+  };
+  return city;
+}
+export function makeFakeNearbyOffer() {
+  const nearbyOffer = {
+    id: datatype.uuid(),
+    title: lorem.words(),
+    type: random.arrayElement(['apartment', 'house', 'hotel']),
+    price: datatype.number(),
+    city: makeFakeCity(),
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number({ min: 10, max: 15 }),
+    },
+    isFavorite: datatype.boolean(),
+    isPremium: datatype.boolean(),
+    rating: datatype.number({ min: 1, max: 5 }),
+    previewImage: image.imageUrl(),
+  };
+
+  return nearbyOffer;
+}
+
 export function makeFakeUser(): TComment['user'] {
   const user = {
     name: name.findName(),

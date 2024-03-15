@@ -2,6 +2,7 @@ import { NameSpace } from '../../const';
 import {
   getComments,
   getErrorStatus,
+  getNearbyOffers,
   getOffer,
   getOfferDataLoadingStatus,
   getOffers,
@@ -13,11 +14,12 @@ import { TState } from '../../types/state';
 import {
   getRandomNumber,
   makeFakeComment,
+  makeFakeNearbyOffer,
   makeFakeOffer,
 } from '../../utils/mocks';
 
 describe('getOffers', () => {
-  it('should returns correct offers', () => {
+  it('should returns correct offers from the given state', () => {
     const mockOffer = makeFakeOffer();
     const mockOffers = Array.from(
       { length: getRandomNumber(1, 15) },
@@ -80,7 +82,7 @@ describe('getErrorStatus', () => {
 });
 
 describe('getOffer', () => {
-  it('should returns correct offer', () => {
+  it('should returns correct offer from the given state', () => {
     const mockOffer = makeFakeOffer();
     const mockState = {
       [NameSpace.Data]: { offer: mockOffer },
@@ -114,7 +116,7 @@ describe('isOfferDataLoading ', () => {
 });
 
 describe('getComments', () => {
-  it('should return the comments from the given state', () => {
+  it('should return correct comments from the given state', () => {
     const mockComment = makeFakeComment();
     const mockComments = Array.from(
       { length: getRandomNumber(1, 15) },
@@ -137,6 +139,34 @@ describe('getComments', () => {
       },
     };
     const result = getComments(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual([]);
+  });
+});
+
+describe('getNearbyOffers', () => {
+  it('should return correct nearby offers from the given state', () => {
+    const mockNearbyOffer = makeFakeNearbyOffer();
+    const mockNearbyOffers = Array.from(
+      { length: getRandomNumber(1, 15) },
+      () => mockNearbyOffer
+    );
+
+    const mockState = {
+      [NameSpace.Data]: {
+        nearbyOffers: mockNearbyOffers,
+      },
+    };
+    const result = getNearbyOffers(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual(mockState[NameSpace.Data].nearbyOffers);
+  });
+
+  it('should return an empty array if there are no nearby offers in the state', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        nearbyOffers: [] as TOffers,
+      },
+    };
+    const result = getNearbyOffers(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toEqual([]);
   });
 });
