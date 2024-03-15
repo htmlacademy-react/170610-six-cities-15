@@ -2,6 +2,7 @@ import { NameSpace } from '../../const';
 import {
   getOffers,
   getOffersDataLoadingStatus,
+  getErrorStatus,
 } from '../../store/app-data/app-data.selectors';
 import { TOffers } from '../../types/offer';
 import { TState } from '../../types/state';
@@ -43,6 +44,18 @@ describe('getOffersDataLoadingStatus', () => {
     const result = getOffersDataLoadingStatus(
       mockState as Pick<TState, NameSpace.Data>
     );
+    expect(result).toBe(true);
+  });
+});
+
+describe('getErrorStatus', () => {
+  it('should return true when hasError is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        hasError: true,
+      },
+    };
+    const result = getErrorStatus(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toBe(true);
   });
 });
