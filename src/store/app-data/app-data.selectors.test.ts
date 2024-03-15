@@ -81,19 +81,19 @@ describe('AppData selectors', () => {
 
   describe('getOffersDataLoadingStatus', () => {
     it('should return true when isOffersDataLoading is true', () => {
-      mockState[NameSpace.Data].isOffersDataLoading = true;
+      const { isOffersDataLoading } = mockState[NameSpace.Data];
       const result = getOffersDataLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(isOffersDataLoading);
     });
   });
 
   describe('getErrorStatus', () => {
     it('should return true when hasError is true', () => {
-      mockState[NameSpace.Data].hasError = true;
+      const { hasError } = mockState[NameSpace.Data];
       const result = getErrorStatus(mockState as Pick<TState, NameSpace.Data>);
-      expect(result).toBe(true);
+      expect(result).toBe(hasError);
     });
   });
 
@@ -113,11 +113,11 @@ describe('AppData selectors', () => {
 
   describe('isOfferDataLoading ', () => {
     it('should return true when isOfferDataLoading is true', () => {
-      mockState[NameSpace.Data].isOfferDataLoading = true;
+      const { isOfferDataLoading } = mockState[NameSpace.Data];
       const result = getOfferDataLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(isOfferDataLoading);
     });
   });
 
@@ -175,31 +175,31 @@ describe('AppData selectors', () => {
 
   describe('getCommentDataSendingStatus', () => {
     it('should return true when isCommentDataSending is true', () => {
-      mockState[NameSpace.Data].isCommentDataSending = true;
+      const { isCommentDataSending } = mockState[NameSpace.Data];
       const result = getCommentDataSendingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(isCommentDataSending);
     });
   });
 
   describe('getSubmitErrorStatus', () => {
     it('should return true when state hasSubmitError is true', () => {
-      mockState[NameSpace.Data].hasSubmitError = true;
+      const { hasSubmitError } = mockState[NameSpace.Data];
       const result = getSubmitErrorStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(hasSubmitError);
     });
   });
 
   describe('getErrorOfferLoadingStatus', () => {
     it('should return true when hasOfferDataLoadingError is true', () => {
-      mockState[NameSpace.Data].hasOfferDataLoadingError = true;
+      const { hasOfferDataLoadingError } = mockState[NameSpace.Data];
       const result = getErrorOfferLoadingStatus(
         mockState as Pick<TState, NameSpace.Data>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(hasOfferDataLoadingError);
     });
   });
 });
