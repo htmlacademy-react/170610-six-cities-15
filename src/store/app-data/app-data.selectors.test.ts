@@ -7,6 +7,7 @@ import {
   getOfferDataLoadingStatus,
   getOffers,
   getOffersDataLoadingStatus,
+  getFavoriteOffers,
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffers } from '../../types/offer';
@@ -16,6 +17,7 @@ import {
   makeFakeComment,
   makeFakeNearbyOffer,
   makeFakeOffer,
+  makeFakeFavoriteOffer,
 } from '../../utils/mocks';
 
 describe('getOffers', () => {
@@ -168,5 +170,42 @@ describe('getNearbyOffers', () => {
     };
     const result = getNearbyOffers(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toEqual([]);
+  });
+});
+
+describe('getFavoriteOffers', () => {
+  it('should returns correct favorite offers from the given state', () => {
+    const mockFavoriteOffer = makeFakeFavoriteOffer();
+    const mockFavoriteOffers = Array.from(
+      { length: getRandomNumber(1, 15) },
+      () => mockFavoriteOffer
+    );
+    const mockState = {
+      [NameSpace.Data]: {
+        favoriteOffers: mockFavoriteOffers,
+      },
+    };
+
+    const result = getFavoriteOffers(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual(mockState[NameSpace.Data].favoriteOffers);
+  });
+
+  it('should returns empty array when no favorite offers', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        favoriteOffers: [] as TOffers,
+      },
+    };
+
+    const result = getFavoriteOffers(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual([]);
+  });
+
+  it('should returns undefined when favorite offers not present', () => {
+    const mockState = {
+      [NameSpace.Data]: {},
+    };
+    const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toBeUndefined();
   });
 });

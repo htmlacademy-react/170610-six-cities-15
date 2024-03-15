@@ -8,20 +8,25 @@ export function getRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function makeFakeCity(): TOffer['city'] {
+  const city = {
+    name: address.city(),
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number({ min: 10, max: 15 }),
+    },
+  };
+  return city;
+}
+
 export function makeFakeOffer(): TOffer {
   const offer = {
     id: datatype.uuid(),
     title: lorem.words(),
     type: random.arrayElement(['apartment', 'house', 'hotel']),
     price: datatype.number(),
-    city: {
-      name: address.city(),
-      location: {
-        latitude: datatype.number(),
-        longitude: datatype.number(),
-        zoom: datatype.number({ min: 10, max: 15 }),
-      },
-    },
+    city: makeFakeCity(),
     location: {
       latitude: datatype.number(),
       longitude: datatype.number(),
@@ -45,17 +50,26 @@ export function makeFakeOffer(): TOffer {
   return offer;
 }
 
-function makeFakeCity(): TOffer['city'] {
-  const city = {
-    name: address.city(),
+export function makeFakeFavoriteOffer() {
+  const favoriteOffer = {
+    id: datatype.uuid(),
+    title: lorem.words(),
+    type: random.arrayElement(['apartment', 'house', 'hotel']),
+    price: datatype.number(),
+    city: makeFakeCity(),
     location: {
       latitude: datatype.number(),
       longitude: datatype.number(),
       zoom: datatype.number({ min: 10, max: 15 }),
     },
+    isFavorite: datatype.boolean(),
+    isPremium: datatype.boolean(),
+    rating: datatype.number({ min: 1, max: 5 }),
+    description: lorem.paragraph(),
   };
-  return city;
+  return favoriteOffer;
 }
+
 export function makeFakeNearbyOffer() {
   const nearbyOffer = {
     id: datatype.uuid(),
