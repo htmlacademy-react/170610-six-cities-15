@@ -1,14 +1,15 @@
 import { NameSpace } from '../../const';
 import {
+  getCommentDataSendingStatus,
   getComments,
+  getErrorOfferLoadingStatus,
   getErrorStatus,
+  getFavoriteOffers,
   getNearbyOffers,
   getOffer,
   getOfferDataLoadingStatus,
   getOffers,
   getOffersDataLoadingStatus,
-  getFavoriteOffers,
-  getCommentDataSendingStatus,
   getSubmitErrorStatus,
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
@@ -17,9 +18,9 @@ import { TState } from '../../types/state';
 import {
   getRandomNumber,
   makeFakeComment,
+  makeFakeFavoriteOffer,
   makeFakeNearbyOffer,
   makeFakeOffer,
-  makeFakeFavoriteOffer,
 } from '../../utils/mocks';
 
 describe('getOffers', () => {
@@ -234,6 +235,20 @@ describe('getSubmitErrorStatus', () => {
       },
     };
     const result = getSubmitErrorStatus(
+      mockState as Pick<TState, NameSpace.Data>
+    );
+    expect(result).toBe(true);
+  });
+});
+
+describe('getErrorOfferLoadingStatus', () => {
+  it('should return true when hasOfferDataLoadingError is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        hasOfferDataLoadingError: true,
+      },
+    };
+    const result = getErrorOfferLoadingStatus(
       mockState as Pick<TState, NameSpace.Data>
     );
     expect(result).toBe(true);
