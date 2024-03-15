@@ -1,10 +1,14 @@
 import { address, datatype, lorem, random, name, image } from 'faker';
 import { TOffer } from '../types/offer';
+import { TComment } from '../types/comment';
 
 const numGoods = Math.floor(Math.random() * 6) + 1;
 const goods = Array.from({ length: numGoods }, () => lorem.word());
+export function getRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-export const makeFakeOffer: () => TOffer = () => {
+export function makeFakeOffer(): TOffer {
   const offer = {
     id: datatype.uuid(),
     title: lorem.words(),
@@ -39,4 +43,24 @@ export const makeFakeOffer: () => TOffer = () => {
     previewImage: image.imageUrl(),
   };
   return offer;
-};
+}
+
+export function makeFakeUser(): TComment['user'] {
+  const user = {
+    name: name.findName(),
+    avatarUrl: image.imageUrl(),
+    isPro: datatype.boolean(),
+  };
+  return user;
+}
+export function makeFakeComment(): TComment {
+  const comment = {
+    id: datatype.uuid(),
+    date: datatype.datetime().toJSON(),
+    user: makeFakeUser(),
+    comment: lorem.paragraph(),
+    rating: datatype.number({ min: 1, max: 5 }),
+  };
+
+  return comment;
+}

@@ -1,19 +1,28 @@
 import { NameSpace } from '../../const';
 import {
-  getOffers,
-  getOffersDataLoadingStatus,
+  getComments,
   getErrorStatus,
   getOffer,
   getOfferDataLoadingStatus,
+  getOffers,
+  getOffersDataLoadingStatus,
 } from '../../store/app-data/app-data.selectors';
+import { TComments } from '../../types/comment';
 import { TOffers } from '../../types/offer';
 import { TState } from '../../types/state';
-import { makeFakeOffer } from '../../utils/mocks';
+import {
+  getRandomNumber,
+  makeFakeComment,
+  makeFakeOffer,
+} from '../../utils/mocks';
 
 describe('getOffers', () => {
   it('should returns correct offers', () => {
     const mockOffer = makeFakeOffer();
-    const mockOffers = Array.from({ length: 3 }, () => mockOffer);
+    const mockOffers = Array.from(
+      { length: getRandomNumber(1, 15) },
+      () => mockOffer
+    );
     const mockState = {
       [NameSpace.Data]: {
         offers: mockOffers,
@@ -32,7 +41,7 @@ describe('getOffers', () => {
     };
 
     const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
-    expect(result).toEqual(mockState[NameSpace.Data].offers);
+    expect(result).toEqual([]);
   });
 
   it('should returns undefined when offers not present', () => {
@@ -101,5 +110,33 @@ describe('isOfferDataLoading ', () => {
       mockState as Pick<TState, NameSpace.Data>
     );
     expect(result).toBe(true);
+  });
+});
+
+describe('getComments', () => {
+  it('should return the comments from the given state', () => {
+    const mockComment = makeFakeComment();
+    const mockComments = Array.from(
+      { length: getRandomNumber(1, 15) },
+      () => mockComment
+    );
+
+    const mockState = {
+      [NameSpace.Data]: {
+        comments: mockComments,
+      },
+    };
+    const result = getComments(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual(mockComments);
+  });
+
+  it('should return an empty array if there are no comments in the state', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        comments: [] as TComments,
+      },
+    };
+    const result = getComments(mockState as Pick<TState, NameSpace.Data>);
+    expect(result).toEqual([]);
   });
 });
