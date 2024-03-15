@@ -9,6 +9,7 @@ import {
   getOffersDataLoadingStatus,
   getFavoriteOffers,
   getCommentDataSendingStatus,
+  getSubmitErrorStatus,
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffers } from '../../types/offer';
@@ -219,6 +220,20 @@ describe('getCommentDataSendingStatus', () => {
       },
     };
     const result = getCommentDataSendingStatus(
+      mockState as Pick<TState, NameSpace.Data>
+    );
+    expect(result).toBe(true);
+  });
+});
+
+describe('getSubmitErrorStatus', () => {
+  it('should return true when state hasSubmitError is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        hasSubmitError: true,
+      },
+    };
+    const result = getSubmitErrorStatus(
       mockState as Pick<TState, NameSpace.Data>
     );
     expect(result).toBe(true);
