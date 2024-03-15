@@ -8,54 +8,44 @@ import {
 } from './user-process.selectors';
 
 describe('UserProcess selectors', () => {
+  const mockUser = makeFakeUser();
+  const mockState = {
+    [NameSpace.User]: {
+      authorizationStatus: AuthorizationStatus.Auth,
+      userData: mockUser,
+    },
+  };
   describe('getAuthorizationStatus', () => {
     it('should return correct authorization status', () => {
-      const mockState = {
-        [NameSpace.User]: {
-          authorizationStatus: AuthorizationStatus.Auth,
-        },
-      };
+      const { authorizationStatus } = mockState[NameSpace.User];
       const result = getAuthorizationStatus(
         mockState as Pick<TState, NameSpace.User>
       );
-      expect(result).toBe(AuthorizationStatus.Auth);
+      expect(result).toBe(authorizationStatus);
     });
   });
 
   describe('getAuthCheckedStatus', () => {
-    it('should return true when user authorization status is not unknown', () => {
-      const mockState = {
-        [NameSpace.User]: {
-          authorizationStatus: AuthorizationStatus.Auth,
-        },
-      };
+    it('should return false when user authorization status is not unknown', () => {
+      mockState[NameSpace.User].authorizationStatus =
+        AuthorizationStatus.Unknown;
       const result = getAuthCheckedStatus(
         mockState as Pick<TState, NameSpace.User>
       );
-      expect(result).toBe(true);
+      expect(result).toBe(false);
     });
   });
 
   describe('getUserData', () => {
     it('should return correct UserData', () => {
-      const mockUser = makeFakeUser();
-
-      const mockState = {
-        [NameSpace.User]: {
-          userData: mockUser,
-        },
-      };
       const expectedUserData = mockUser;
-
       expect(getUserData(mockState as Pick<TState, NameSpace.User>)).toEqual(
         expectedUserData
       );
     });
 
     it('test_getUserData_returnsUndefined', () => {
-      const mockState = {
-        [NameSpace.User]: {},
-      };
+      mockState[NameSpace.User] = {} as TState[NameSpace.User];
       expect(
         getUserData(mockState as Pick<TState, NameSpace.User>)
       ).toBeUndefined();
