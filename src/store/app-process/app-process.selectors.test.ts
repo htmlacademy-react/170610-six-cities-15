@@ -3,8 +3,8 @@ import { TState } from '../../types/state';
 import { getRandomCityName } from '../../utils/common';
 import { getCity } from './app-process.selectors';
 
-describe('getCity function tests', () => {
-  it('test_getCity_returnsCity', () => {
+describe('getCity', () => {
+  it('should return correct city', () => {
     const mockCity = getRandomCityName(citiesNames);
     const mockState = {
       [NameSpace.App]: {

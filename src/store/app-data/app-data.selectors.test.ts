@@ -4,6 +4,7 @@ import {
   getOffersDataLoadingStatus,
   getErrorStatus,
   getOffer,
+  getOfferDataLoadingStatus,
 } from '../../store/app-data/app-data.selectors';
 import { TOffers } from '../../types/offer';
 import { TState } from '../../types/state';
@@ -86,5 +87,19 @@ describe('getOffer', () => {
     };
     const result = getOffer(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toBeUndefined();
+  });
+});
+
+describe('isOfferDataLoading ', () => {
+  it('should return true when isOfferDataLoading is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        isOfferDataLoading: true,
+      },
+    };
+    const result = getOfferDataLoadingStatus(
+      mockState as Pick<TState, NameSpace.Data>
+    );
+    expect(result).toBe(true);
   });
 });
