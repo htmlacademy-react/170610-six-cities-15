@@ -3,25 +3,22 @@ import { Helmet } from 'react-helmet-async';
 import Locations from '../../components/login-screen/locations/locations';
 import LoginForm from '../../components/login-screen/login-form/login-form';
 import Header from '../../components/ui/header/header/header';
-import { cityData } from '../../const';
+import { citiesNames } from '../../const';
+import { getRandomCityName } from '../../utils/common';
 
 function LoginScreen(): JSX.Element {
-  const randomCityKey =
-    Object.keys(cityData)[
-      Math.floor(Math.random() * Object.keys(cityData).length)
-    ];
-
-  const [randomCity, setRandomCity] = useState(randomCityKey);
+  const randomCityName = getRandomCityName(citiesNames);
+  const [randomCity, setRandomCity] = useState(randomCityName);
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      setRandomCity(randomCityKey);
+      setRandomCity(randomCityName);
     }
     return () => {
       isMounted = false;
     };
-  }, [randomCityKey]);
+  }, [randomCityName]);
 
   return (
     <div className="page page--gray page--login">
