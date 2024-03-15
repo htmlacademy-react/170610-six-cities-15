@@ -8,6 +8,7 @@ import {
   getOffers,
   getOffersDataLoadingStatus,
   getFavoriteOffers,
+  getCommentDataSendingStatus,
 } from '../../store/app-data/app-data.selectors';
 import { TComments } from '../../types/comment';
 import { TOffers } from '../../types/offer';
@@ -207,5 +208,19 @@ describe('getFavoriteOffers', () => {
     };
     const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toBeUndefined();
+  });
+});
+
+describe('getCommentDataSendingStatus', () => {
+  it('should return true when isCommentDataSending is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        isCommentDataSending: true,
+      },
+    };
+    const result = getCommentDataSendingStatus(
+      mockState as Pick<TState, NameSpace.Data>
+    );
+    expect(result).toBe(true);
   });
 });
