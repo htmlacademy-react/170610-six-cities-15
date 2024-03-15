@@ -1,5 +1,8 @@
 import { NameSpace } from '../../const';
-import { getOffers } from '../../store/app-data/app-data.selectors';
+import {
+  getOffers,
+  getOffersDataLoadingStatus,
+} from '../../store/app-data/app-data.selectors';
 import { TOffers } from '../../types/offer';
 import { TState } from '../../types/state';
 import { makeFakeOffer } from '../../utils/mocks';
@@ -27,5 +30,19 @@ describe('getOffers', () => {
 
     const result = getOffers(mockState as Pick<TState, NameSpace.Data>);
     expect(result).toEqual(mockState[NameSpace.Data].offers);
+  });
+});
+
+describe('getOffersDataLoadingStatus', () => {
+  it('should return true when isOffersDataLoading is true', () => {
+    const mockState = {
+      [NameSpace.Data]: {
+        isOffersDataLoading: true,
+      },
+    };
+    const result = getOffersDataLoadingStatus(
+      mockState as Pick<TState, NameSpace.Data>
+    );
+    expect(result).toBe(true);
   });
 });
