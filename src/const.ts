@@ -95,12 +95,12 @@ export enum NameSpace {
 
 export const activeMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_CURRENT,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
 
 export const defaultMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_DEFAULT,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
