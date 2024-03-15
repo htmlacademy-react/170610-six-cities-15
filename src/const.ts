@@ -47,56 +47,38 @@ export const ratingsData = [
   { value: '1', title: 'terribly' },
 ];
 
-export const cityCoordinates = [
-  {
-    name: 'PARIS',
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export const DEFAULT_CITY_NAME = Cities.Paris;
+
+export const cityData = {
+  Paris: { latitude: 48.85661, longitude: 2.351499 },
+  Cologne: { latitude: 50.938361, longitude: 6.959974 },
+  Brussels: { latitude: 50.846557, longitude: 4.351697 },
+  Amsterdam: { latitude: 52.37454, longitude: 4.889689 },
+  Hamburg: { latitude: 53.551086, longitude: 10.000654 },
+  Dusseldorf: { latitude: 51.225402, longitude: 6.776314 },
+};
+
+export const citiesNames = Object.keys(cityData);
+
+export const cityCoordinates = Object.entries(cityData).map(
+  ([name, { latitude, longitude }]) => ({
+    name: name.toUpperCase(),
     location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
-      zoom: 12,
+      latitude,
+      longitude,
+      zoom: 13,
     },
-  },
-  {
-    name: 'COLOGNE',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'BRUSSELS',
-    location: {
-      latitude: 50.846557,
-      longitude: 4.351697,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'AMSTERDAM',
-    location: {
-      latitude: 52.37454,
-      longitude: 4.889689,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'HAMBURG',
-    location: {
-      latitude: 53.551086,
-      longitude: 10.000654,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'DUSSELDORF',
-    location: {
-      latitude: 51.225402,
-      longitude: 6.776314,
-      zoom: 12,
-    },
-  },
-];
+  })
+);
 
 export enum Sorting {
   Popular = 'Popular',
@@ -110,17 +92,6 @@ export enum NameSpace {
   App = 'APP',
   User = 'USER',
 }
-
-export enum Cities {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
-
-export const citiesNames = Array.from(Object.values(Cities));
 
 export const activeMarkerIcon = leaflet.icon({
   iconUrl: PIN_MARKER_CURRENT,

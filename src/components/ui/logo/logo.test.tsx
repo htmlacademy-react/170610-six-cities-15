@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { expect, it } from 'vitest';
 import { AppRoute } from '../../../const';
 import { withHistory } from '../../../utils/mock-component';
 import Logo from './logo';

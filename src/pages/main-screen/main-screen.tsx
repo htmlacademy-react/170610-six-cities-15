@@ -4,7 +4,7 @@ import MemoizedTabs from '../../components/common/tabs/tabs';
 import OffersSection from '../../components/main-screen/offers-section/offers-section';
 import SortOffers from '../../components/main-screen/sort-offers/sort-offers';
 import Header from '../../components/ui/header/header/header';
-import { Cities, Sorting, citiesNames } from '../../const';
+import { Sorting, citiesNames } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/app-data.selectors';
 import { getCity } from '../../store/app-process/app-process.selectors';
@@ -19,7 +19,7 @@ function MainScreen(): JSX.Element {
 
   const offers = useAppSelector(getOffers);
   const activeCity = useAppSelector(getCity);
-  const cityMap = activeCity in Cities ? activeCity : undefined;
+  const cityMap = citiesNames.includes(activeCity) ? activeCity : undefined;
 
   if (offers.length === 0) {
     return <ErrorScreen />;

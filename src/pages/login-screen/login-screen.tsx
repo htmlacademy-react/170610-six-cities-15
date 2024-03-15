@@ -3,11 +3,13 @@ import { Helmet } from 'react-helmet-async';
 import Locations from '../../components/login-screen/locations/locations';
 import LoginForm from '../../components/login-screen/login-form/login-form';
 import Header from '../../components/ui/header/header/header';
-import { Cities } from '../../const';
+import { cityData } from '../../const';
 
 function LoginScreen(): JSX.Element {
   const randomCityKey =
-    Object.keys(Cities)[Math.floor(Math.random() * Object.keys(Cities).length)];
+    Object.keys(cityData)[
+      Math.floor(Math.random() * Object.keys(cityData).length)
+    ];
 
   const [randomCity, setRandomCity] = useState(randomCityKey);
 
