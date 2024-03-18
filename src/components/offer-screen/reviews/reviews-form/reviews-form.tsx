@@ -21,12 +21,18 @@ function ReviewsForm(): JSX.Element {
   const [isFormDisabled, setIsFormDisabled] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsFormDisabled(commentDataSendingStatus);
+    let isMounted = true;
+    if (isMounted) {
+      setIsFormDisabled(commentDataSendingStatus);
 
-    if (!commentDataSendingStatus && !hasSubmitError) {
-      setRating('');
-      setReview('');
+      if (!commentDataSendingStatus && !hasSubmitError) {
+        setRating('');
+        setReview('');
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   }, [commentDataSendingStatus, hasSubmitError]);
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {

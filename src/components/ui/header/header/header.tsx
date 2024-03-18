@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const';
 import {
@@ -11,7 +11,7 @@ import {
   getAuthorizationStatus,
   getUserData,
 } from '../../../../store/user-process/user-process.selectors';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import Logo from '../../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
 import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';
@@ -25,10 +25,14 @@ function Header() {
   const userData = useAppSelector(getUserData);
 
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    let isMounted = true;
+    if (isMounted && authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchUserDataAction());
       dispatch(fetchFavoriteOffersAction());
     }
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, authorizationStatus]);
 
   const handleLogout = (evt: React.FormEvent) => {

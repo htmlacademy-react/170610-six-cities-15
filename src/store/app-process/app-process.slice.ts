@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cities, NameSpace } from '../../const';
+import { DEFAULT_CITY_NAME, NameSpace } from '../../const';
 import { TAppProcess } from '../../types/state';
 
 const initialState: TAppProcess = {
-  city: Cities.Paris,
+  city: DEFAULT_CITY_NAME as TAppProcess['city'],
 };
 
 export const appProcess = createSlice({

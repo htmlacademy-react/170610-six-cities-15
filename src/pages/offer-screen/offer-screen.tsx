@@ -45,21 +45,37 @@ function OfferScreen(): JSX.Element {
   const [offersToMap, setOffersToMap] = useState<TOffers>([]);
 
   useEffect(() => {
-    if (id) {
+    let isMounted = true;
+    if (isMounted && id) {
       dispatch(fetchOfferAction(id));
       dispatch(fetchCommentsAction(id));
       dispatch(fetchNearbyOffersAction(id));
     }
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id]);
 
   useEffect(() => {
-    setSlicedNearbyOffers(
-      nearbyOffers.slice(0, MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT)
-    );
+    let isMounted = true;
+    if (isMounted && nearbyOffers.length > 0) {
+      setSlicedNearbyOffers(
+        nearbyOffers.slice(0, MAX_OFFER_SCREEN_NEARBY_OFFERS_COUNT)
+      );
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [nearbyOffers]);
 
   useEffect(() => {
-    setOffersToMap([offer, ...slicedNearbyOffers]);
+    let isMounted = true;
+    if (isMounted && offer) {
+      setOffersToMap([offer, ...slicedNearbyOffers]);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [offer, slicedNearbyOffers]);
 
   if (isOfferDataLoading) {

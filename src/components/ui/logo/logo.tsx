@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
+import { logoSrcPath, logoSrcAlt } from '../../../const.ts';
 
 type LogoProps = {
   classPrefix: string;
@@ -23,8 +24,8 @@ function Logo({
     >
       <img
         className={`${classPrefix}__logo`}
-        src="img/logo.svg"
-        alt="6 cities logo"
+        src={logoSrcPath}
+        alt={logoSrcAlt}
         width={width}
         height={height}
       />
