@@ -44,7 +44,7 @@ describe('UserProcess selectors', () => {
       );
     });
 
-    it('test_getUserData_returnsUndefined', () => {
+    it('should return undefined when user authorization status not present', () => {
       mockState[NameSpace.User] = {} as TState[NameSpace.User];
       expect(
         getUserData(mockState as Pick<TState, NameSpace.User>)
