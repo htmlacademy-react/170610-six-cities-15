@@ -12,10 +12,12 @@ import {
   extractActionsTypes,
   getRandomNumber,
   makeFakeOffer,
+  makeFakeNearbyOffer,
 } from '../utils/mocks';
 import { redirectToRoute } from './action';
 import {
   checkAuthAction,
+  fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
   loginAction,
@@ -34,7 +36,9 @@ describe('Async actions', () => {
   let store: ReturnType<typeof mockStoreCreator>;
 
   beforeEach(() => {
-    store = mockStoreCreator({ DATA: { offers: [] } });
+    store = mockStoreCreator({
+      DATA: { offers: [], offer: {}, nearbyOffers: [] },
+    });
   });
 
   describe('checkAuthAction', () => {
@@ -189,6 +193,54 @@ describe('Async actions', () => {
       expect(actions).toEqual([
         fetchOfferAction.pending.type,
         fetchOfferAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchNearbyOffersAction', () => {
+    it('should dispatch "fetchNearbyOffersAction.pending", "fetchNearbyOffersAction.fulfilled", when server response 200', async () => {
+      const mockOffer = makeFakeOffer();
+      const mockNearbyOffer = makeFakeNearbyOffer();
+      const mockNearbyOffers = Array.from(
+        { length: getRandomNumber(1, 15) },
+        () => mockNearbyOffer
+      );
+
+      mockAxiosAdapter
+        .onGet(`${APIRoute.Offers}/${mockOffer.id}/nearby`)
+        .reply(200, mockNearbyOffers);
+
+      await store.dispatch(fetchNearbyOffersAction(mockOffer.id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchNearbyOffersActionFulfilled = emittedActions.at(
+        1
+      ) as ReturnType<typeof fetchNearbyOffersAction.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchNearbyOffersAction.pending.type,
+        fetchNearbyOffersAction.fulfilled.type,
+      ]);
+
+      expect(fetchNearbyOffersActionFulfilled.payload).toEqual(
+        mockNearbyOffers
+      );
+    });
+
+    it('should dispatch "fetchNearbyOffersAction.pending", "fetchNearbyOffersAction.rejected" when server response 400', async () => {
+      const mockOffer = makeFakeOffer();
+
+      mockAxiosAdapter
+        .onGet(`${APIRoute.Offers}/${mockOffer.id}/nearby`)
+        .reply(400, []);
+
+      await store.dispatch(fetchNearbyOffersAction(mockOffer.id));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        fetchNearbyOffersAction.pending.type,
+        fetchNearbyOffersAction.rejected.type,
       ]);
     });
   });
