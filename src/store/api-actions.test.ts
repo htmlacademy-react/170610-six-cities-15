@@ -12,9 +12,9 @@ import {
   extractActionsTypes,
   getRandomNumber,
   makeFakeComment,
+  makeFakeFavoriteOffer,
   makeFakeNearbyOffer,
   makeFakeOffer,
-  makeFakeFavoriteOffer,
 } from '../utils/mocks';
 import { redirectToRoute } from './action';
 import {
@@ -27,8 +27,8 @@ import {
   loginAction,
   logoutAction,
   postCommentAction,
+  toggleFavoriteAction,
 } from './api-actions';
-import { TCommentData } from '../types/comment';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -394,6 +394,71 @@ describe('Async actions', () => {
       expect(actions).toEqual([
         postCommentAction.pending.type,
         postCommentAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('toggleFavoriteAction', () => {
+    it('should dispatch "toggleFavoriteAction.pending", "toggleFavoriteAction.fulfilled", when server response 200', async () => {
+      const mockOffer = makeFakeOffer();
+      const toggledFavoriteMockOffer = {
+        ...mockOffer,
+        isFavorite: !mockOffer.isFavorite,
+      };
+      const toggledFavoriteData = {
+        id: mockOffer.id,
+        status: Number(!mockOffer.isFavorite),
+      };
+
+      mockAxiosAdapter
+        .onPost(
+          `${APIRoute.Favorite}/${mockOffer.id}/${Number(
+            !mockOffer.isFavorite
+          )}`
+        )
+        .reply(200, toggledFavoriteMockOffer);
+
+      await store.dispatch(toggleFavoriteAction(toggledFavoriteData));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const toggleFavoriteActionFulfilled = emittedActions.at(1) as ReturnType<
+        typeof fetchOfferAction.fulfilled
+      >;
+
+      expect(extractedActionsTypes).toEqual([
+        toggleFavoriteAction.pending.type,
+        toggleFavoriteAction.fulfilled.type,
+      ]);
+
+      expect(toggleFavoriteActionFulfilled.payload).toEqual(
+        toggledFavoriteMockOffer
+      );
+    });
+
+    it('should dispatch "toggleFavoriteAction.pending", "toggleFavoriteAction.rejected" when server response 400', async () => {
+      const mockOffer = makeFakeOffer();
+
+      const toggledFavoriteData = {
+        id: mockOffer.id,
+        status: Number(!mockOffer.isFavorite),
+      };
+
+      mockAxiosAdapter
+        .onPost(
+          `${APIRoute.Favorite}/${mockOffer.id}/${Number(
+            !mockOffer.isFavorite
+          )}`
+        )
+        .reply(400, {});
+
+      await store.dispatch(toggleFavoriteAction(toggledFavoriteData));
+
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        toggleFavoriteAction.pending.type,
+        toggleFavoriteAction.rejected.type,
       ]);
     });
   });
