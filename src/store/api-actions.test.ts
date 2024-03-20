@@ -16,6 +16,7 @@ import {
 import { redirectToRoute } from './action';
 import {
   checkAuthAction,
+  fetchOfferAction,
   fetchOffersAction,
   loginAction,
   logoutAction,
@@ -148,6 +149,46 @@ describe('Async actions', () => {
       expect(actions).toEqual([
         fetchOffersAction.pending.type,
         fetchOffersAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchOfferAction', () => {
+    it('should dispatch "fetchOfferAction.pending", "fetchOfferAction.fulfilled", when server response 200', async () => {
+      const mockOffer = makeFakeOffer();
+      mockAxiosAdapter
+        .onGet(`${APIRoute.Offers}/${mockOffer.id}`)
+        .reply(200, mockOffer);
+
+      await store.dispatch(fetchOfferAction(mockOffer.id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchOfferActionFulfilled = emittedActions.at(1) as ReturnType<
+        typeof fetchOfferAction.fulfilled
+      >;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchOfferAction.pending.type,
+        fetchOfferAction.fulfilled.type,
+      ]);
+
+      expect(fetchOfferActionFulfilled.payload).toEqual(mockOffer);
+    });
+
+    it('should dispatch "fetchOfferAction.pending", "fetchOfferAction.rejected" when server response 400', async () => {
+      const mockOffer = makeFakeOffer();
+
+      mockAxiosAdapter
+        .onGet(`${APIRoute.Offers}/${mockOffer.id}`)
+        .reply(400, {});
+
+      await store.dispatch(fetchOfferAction(mockOffer.id));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        fetchOfferAction.pending.type,
+        fetchOfferAction.rejected.type,
       ]);
     });
   });
