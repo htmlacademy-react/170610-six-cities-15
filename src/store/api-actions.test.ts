@@ -26,7 +26,9 @@ import {
   fetchOffersAction,
   loginAction,
   logoutAction,
+  postCommentAction,
 } from './api-actions';
+import { TCommentData } from '../types/comment';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -338,6 +340,60 @@ describe('Async actions', () => {
       expect(actions).toEqual([
         fetchFavoriteOffersAction.pending.type,
         fetchFavoriteOffersAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('postCommentAction', () => {
+    it('should dispatch "postCommentAction.pending", "postCommentAction.fulfilled", when server response 200', async () => {
+      const mockOffer = makeFakeOffer();
+      const mockComment = makeFakeComment();
+      const mockCommentData = {
+        id: mockOffer.id,
+        comment: mockComment.comment,
+        rating: mockComment.rating,
+      };
+
+      mockAxiosAdapter
+        .onPost(`${APIRoute.Comments}/${mockOffer.id}`)
+        .reply(200, mockComment);
+
+      await store.dispatch(postCommentAction(mockCommentData));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const postCommentActionFulfilled = emittedActions.at(1) as ReturnType<
+        typeof postCommentAction.fulfilled
+      >;
+
+      expect(extractedActionsTypes).toEqual([
+        postCommentAction.pending.type,
+        postCommentAction.fulfilled.type,
+      ]);
+
+      expect(postCommentActionFulfilled.payload).toEqual(mockComment);
+    });
+
+    it('should dispatch "postCommentAction.pending", "postCommentAction.rejected" when server response 400', async () => {
+      const mockOffer = makeFakeOffer();
+      const mockComment = makeFakeComment();
+      const mockCommentData = {
+        id: mockOffer.id,
+        comment: mockComment.comment,
+        rating: mockComment.rating,
+      };
+
+      mockAxiosAdapter
+        .onPost(`${APIRoute.Comments}/${mockOffer.id}`)
+        .reply(400, {});
+
+      await store.dispatch(postCommentAction(mockCommentData));
+
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        postCommentAction.pending.type,
+        postCommentAction.rejected.type,
       ]);
     });
   });
