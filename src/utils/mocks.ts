@@ -1,7 +1,20 @@
-import { address, datatype, lorem, random, name, image, internet } from 'faker';
-import { TOffer } from '../types/offer';
+import { address, datatype, image, internet, lorem, name, random } from 'faker';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { createAPI } from '../services/api';
 import { TComment } from '../types/comment';
+import { TOffer } from '../types/offer';
+import { TState } from '../types/state';
 import { TUserData } from '../types/user-data';
+
+export type AppThunkDispatch = ThunkDispatch<
+  TState,
+  ReturnType<typeof createAPI>,
+  Action
+>;
+
+export const extractActionsTypes = (actions: Action<string>[]) =>
+  actions.map(({ type }) => type);
 
 const numGoods = Math.floor(Math.random() * 6) + 1;
 const goods = Array.from({ length: numGoods }, () => lorem.word());
