@@ -95,4 +95,18 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/What's inside/i)).toBeInTheDocument();
   });
+
+  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      makeFakeStore()
+    );
+    const unknownRoute = '/unknown-route';
+    mockHistory.push(unknownRoute);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
+  });
 });
