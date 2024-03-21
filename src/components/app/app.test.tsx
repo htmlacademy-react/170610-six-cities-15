@@ -82,4 +82,17 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
+
+  it('should render "OfferScreen" when user navigate to "/offer/:id"', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      makeFakeStore()
+    );
+    mockHistory.push(AppRoute.Offer);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText(/What's inside/i)).toBeInTheDocument();
+  });
 });
