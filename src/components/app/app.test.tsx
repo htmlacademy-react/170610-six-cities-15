@@ -24,4 +24,18 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/Places/i)).toBeInTheDocument();
   });
+
+  it('should render "LoginScreen" when user navigate to "/login"', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      makeFakeStore()
+    );
+    mockHistory.push(AppRoute.Login);
+
+    render(withStoreComponent);
+
+    const signInTitle = screen.getByTestId('login-title');
+    expect(signInTitle).toHaveTextContent(/Sign in/i);
+  });
 });
