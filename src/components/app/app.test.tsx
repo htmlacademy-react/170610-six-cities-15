@@ -1,8 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { AppRoute } from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  DEFAULT_OFFER_DATA,
+  DEFAULT_USER_DATA,
+} from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { makeFakeStore } from '../../utils/mocks';
+import {
+  getRandomNumber,
+  makeFakeOffer,
+  makeFakeStore,
+} from '../../utils/mocks';
 import App from './app';
 
 describe('Application Routing', () => {
@@ -37,5 +46,40 @@ describe('Application Routing', () => {
 
     const signInTitle = screen.getByTestId('login-title');
     expect(signInTitle).toHaveTextContent(/Sign in/i);
+  });
+
+  it('should render "FavoritesScreen" when user navigate to "/favorites"', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      makeFakeStore({
+        DATA: {
+          offers: [],
+          isOffersDataLoading: false,
+          hasError: false,
+          isToggleFavoriteLoading: false,
+          offer: DEFAULT_OFFER_DATA,
+          isOfferDataLoading: false,
+          comments: [],
+          nearbyOffers: [],
+          favoriteOffers: Array.from({ length: getRandomNumber(1, 5) }, () =>
+            makeFakeOffer()
+          ),
+          isCommentDataSending: false,
+          hasSubmitError: false,
+          hasOfferDataLoadingError: false,
+        },
+        USER: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          userData: DEFAULT_USER_DATA,
+          isUserDataLoading: false,
+        },
+      })
+    );
+    mockHistory.push(AppRoute.Favorites);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 });
