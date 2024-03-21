@@ -1,6 +1,7 @@
 import { address, datatype, image, internet, lorem, name, random } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { DEFAULT_STATE } from '../const';
 import { createAPI } from '../services/api';
 import { TComment } from '../types/comment';
 import { TOffer } from '../types/offer';
@@ -18,6 +19,7 @@ export const extractActionsTypes = (actions: Action<string>[]) =>
 
 const numGoods = Math.floor(Math.random() * 6) + 1;
 const goods = Array.from({ length: numGoods }, () => lorem.word());
+
 export function getRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -115,6 +117,7 @@ export function makeFakeUser(): TUserData {
   };
   return user;
 }
+
 export function makeFakeComment(): TComment {
   const comment = {
     id: datatype.uuid(),
@@ -126,3 +129,8 @@ export function makeFakeComment(): TComment {
 
   return comment;
 }
+
+export const makeFakeStore = (initialState?: Partial<TState>): TState => ({
+  ...DEFAULT_STATE,
+  ...(initialState ?? {}),
+});

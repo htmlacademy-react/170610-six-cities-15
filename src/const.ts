@@ -106,3 +106,66 @@ export const defaultMarkerIcon = leaflet.icon({
   iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
+
+export const DEFAULT_USER_DATA = {
+  email: '',
+  token: '',
+  avatarUrl: '',
+  name: '',
+  isPro: false,
+};
+
+export const DEFAULT_LOCATION = {
+  latitude: 0,
+  longitude: 0,
+  zoom: 0,
+};
+
+export const DEFAULT_OFFER_DATA = {
+  id: '',
+  title: '',
+  type: '',
+  price: 0,
+  previewImage: '',
+  city: {
+    name: '',
+    location: DEFAULT_LOCATION,
+  },
+  location: DEFAULT_LOCATION,
+  isFavorite: false,
+  isPremium: false,
+  rating: 0,
+  description: '',
+  bedrooms: 0,
+  goods: [],
+  host: {
+    name: '',
+    avatarUrl: '',
+    isPro: false,
+  },
+  images: [],
+  maxAdults: 0,
+};
+
+export const DEFAULT_STATE = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.NoAuth,
+    userData: DEFAULT_USER_DATA,
+    isUserDataLoading: false,
+  },
+  DATA: {
+    offers: [],
+    isOffersDataLoading: false,
+    hasError: false,
+    isToggleFavoriteLoading: false,
+    offer: DEFAULT_OFFER_DATA,
+    isOfferDataLoading: false,
+    comments: [],
+    nearbyOffers: [],
+    favoriteOffers: [],
+    isCommentDataSending: false,
+    hasSubmitError: false,
+    hasOfferDataLoadingError: false,
+  },
+  APP: { city: DEFAULT_CITY_NAME },
+};
