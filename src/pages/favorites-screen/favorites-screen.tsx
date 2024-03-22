@@ -27,7 +27,10 @@ function FavoritesScreen(): JSX.Element {
     favoriteOffers.length === 0 ? favoritesEmptyClass : '';
 
   return (
-    <div className={`page ${favoritesEmptyClassToggler}`}>
+    <div
+      className={`page ${favoritesEmptyClassToggler}`}
+      data-testid="favorites-page"
+    >
       <Helmet>
         <title>6 cities :: Favorites</title>
       </Helmet>
