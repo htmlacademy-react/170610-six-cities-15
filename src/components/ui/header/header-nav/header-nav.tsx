@@ -4,7 +4,7 @@ type HeaderNavProps = {
 
 function HeaderNav({ renderAuthLinks }: HeaderNavProps): JSX.Element {
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="header-nav">
       <ul className="header__nav-list">{renderAuthLinks()}</ul>
     </nav>
   );
