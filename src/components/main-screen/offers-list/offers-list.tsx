@@ -15,7 +15,7 @@ function OffersList({
   onOfferHover = () => {},
 }: OffersListProps): JSX.Element {
   return (
-    <div className={`${className}`}>
+    <div className={`${className}`} data-testid="offers-list">
       {offers.map((offer) => (
         <Card
           key={offer.id}
