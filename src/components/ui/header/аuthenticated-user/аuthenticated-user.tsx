@@ -19,10 +19,7 @@ function AuthenticatedUser({
         favoriteOffersCount={favoriteOffersCount}
         data-testid="header-nav-item-user"
       />
-      <HeaderNavItemListItem
-        onLogout={onLogout}
-        data-testid="header-nav-list-item"
-      />
+      <HeaderNavItemListItem onLogout={onLogout} />
     </>
   );
 }
