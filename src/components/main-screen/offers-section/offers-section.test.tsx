@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { DEFAULT_CITY_NAME } from '../../../const';
-import { withHistory } from '../../../utils/mock-component';
-import { getRandomNumber, makeFakeOffer } from '../../../utils/mocks';
+import { withHistory, withStore } from '../../../utils/mock-component';
+import {
+  getRandomNumber,
+  makeFakeOffer,
+  makeFakeStore,
+} from '../../../utils/mocks';
 import OffersSection from './offers-section';
 
 describe('Component: OffersSection', () => {
@@ -17,6 +21,7 @@ describe('Component: OffersSection', () => {
       makeFakeOffer()
     );
     const expectedText = 'Places';
+
     const withHistoryComponent = withHistory(
       <OffersSection
         activeCity={DEFAULT_CITY_NAME}
@@ -31,8 +36,12 @@ describe('Component: OffersSection', () => {
       />,
       mockHistory
     );
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      makeFakeStore()
+    );
 
-    render(withHistoryComponent);
+    render(withStoreComponent);
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
