@@ -12,7 +12,7 @@ function ReviewsList({ comments }: ReviewsListProps): JSX.Element {
   }
 
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid="reviews-list">
       {comments.map((comment) => (
         <ReviewsItem key={uuidv4()} comment={comment} />
       ))}
