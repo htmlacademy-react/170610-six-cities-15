@@ -15,7 +15,11 @@ function FavoritesItem(): JSX.Element {
   return (
     <>
       {favoritesCities.map((city) => (
-        <li className="favorites__locations-items" key={city}>
+        <li
+          className="favorites__locations-items"
+          key={city}
+          data-testid="favorites-item"
+        >
           <LocationsItem city={city} />
           <div className="favorites__places">
             {filterOffersByCityName(favoriteOffers, city).map((offer) => (
