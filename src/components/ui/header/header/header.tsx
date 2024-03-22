@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   fetchFavoriteOffersAction,
   fetchUserDataAction,
@@ -11,7 +12,6 @@ import {
   getAuthorizationStatus,
   getUserData,
 } from '../../../../store/user-process/user-process.selectors';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import Logo from '../../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
 import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';
@@ -74,7 +74,7 @@ function Header() {
   );
 
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
