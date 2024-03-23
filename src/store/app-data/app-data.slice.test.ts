@@ -28,7 +28,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should return default initial state with empty action', () => {
     const emptyAction = { type: '' };
     const expectedState = {
@@ -39,8 +38,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Tests fetchOffersAction */
 
   it('should set "isOffersDataLoading" to "true", "hasError" to "false" with "fetchOffersAction.pending"', () => {
     const expectedState = {
@@ -84,8 +81,6 @@ describe('AppData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  /* Tests toggleFavoriteAction */
-
   it('should set "isToggleFavoriteLoading" to "true", "hasError" to "false" with "toggleFavoriteAction.pending"', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -97,40 +92,44 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Test for "toggleFavoriteAction.fulfilled" */
-  it('should set "favoriteOffers" with new favorite offer if "status" is "1", "isToggleFavoriteLoading" to "false" with "toggleFavoriteAction.fulfilled"', () => {
-    const mockOffer = makeFakeOffer();
+  it('should set "offer", "favoriteOffers", "offers", "nearbyOffers" with new favorite offer if "status" is "1", "isToggleFavoriteLoading" to "false" with "toggleFavoriteAction.fulfilled"', () => {
+    const mockOffer = { ...makeFakeOffer(), isFavorite: false };
     const { id } = mockOffer;
-    const mockFavoriteStatus = 1;
 
-    const mockOfferWithNewFavoriteStatus = {
+    const mockStatus = {
+      id: id,
+      status: 1,
+    };
+
+    const mockToggledFavoriteOffer = {
       ...mockOffer,
-      isFavorite: mockFavoriteStatus === 1,
+      isFavorite: true,
+    };
+
+    const initialState = {
+      ...DEFAULT_STATE.DATA,
+      offers: [mockOffer],
+      nearbyOffers: [mockOffer],
     };
 
     const expectedState = {
-      ...DEFAULT_STATE.DATA,
-      favoriteOffers: Array.from(
-        { length: 1 },
-        () => mockOfferWithNewFavoriteStatus
-      ),
-
+      ...initialState,
+      favoriteOffers: [mockToggledFavoriteOffer],
+      offers: [mockToggledFavoriteOffer],
+      nearbyOffers: [mockToggledFavoriteOffer],
       isToggleFavoriteLoading: false,
       hasError: false,
     };
 
     const result = appData.reducer(
-      undefined,
-      toggleFavoriteAction.fulfilled(mockOfferWithNewFavoriteStatus, '', {
-        id: id,
-        status: mockFavoriteStatus,
+      initialState,
+      toggleFavoriteAction.fulfilled(mockToggledFavoriteOffer, '', {
+        ...mockStatus,
       })
     );
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "isToggleFavoriteLoading" to "false", "hasError" to "true" with "toggleFavoriteAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -141,8 +140,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Tests fetchOfferAction */
 
   it('should set "isOfferDataLoading" to "true", "hasOfferDataLoadingError" to "false" with "fetchOfferAction.pending"', () => {
     const expectedState = {
@@ -155,7 +152,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "offer" to offer, "isOfferDataLoading" to "false", "hasOfferDataLoadingError" to "false" with "fetchOfferAction.fulfilled"', () => {
     const mockOffer = makeFakeOffer();
     const { id } = mockOffer;
@@ -174,7 +170,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "isOfferDataLoading" to "false", "hasOfferDataLoadingError" to "true" with "fetchOfferAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -186,8 +181,6 @@ describe('AppData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  /* Tests fetchCommentsAction */
-
   it('should set "hasError" to "false" with "fetchCommentsAction.pending"', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -198,7 +191,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "comments" to comments with "fetchCommentsAction.fulfilled"', () => {
     const mockOffer = makeFakeOffer();
     const { id } = mockOffer;
@@ -218,7 +210,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "hasError" to "true" with "fetchCommentsAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -228,8 +219,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Tests fetchNearbyOffersAction */
 
   it('should set "hasError" to "false" with "fetchNearbyOffersAction.pending"', () => {
     const expectedState = {
@@ -241,7 +230,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "nearbyOffers" to nearbyOffers with "fetchNearbyOffersAction.fulfilled"', () => {
     const mockOffer = makeFakeOffer();
     const { id } = mockOffer;
@@ -261,7 +249,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "hasError" to "true" with "fetchNearbyOffersAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -271,8 +258,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Tests postCommentAction */
 
   it('should set "isCommentDataSending" to "true", "hasSubmitError" to "false" with "postCommentAction.pending"', () => {
     const expectedState = {
@@ -285,7 +270,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "isCommentDataSending" to "false", "hasSubmitError" to "false" with "postCommentAction.fulfilled"', () => {
     const mockOffer = makeFakeOffer();
     const { id } = mockOffer;
@@ -310,7 +294,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "isCommentDataSending" to "false", "hasSubmitError" to "true" with "postCommentAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -321,8 +304,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  /* Tests fetchFavoriteOffersAction */
 
   it('should set "hasError" to "false" with "fetchFavoriteOffersAction.pending"', () => {
     const expectedState = {
@@ -337,7 +318,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "favoriteOffers" to favoriteOffers with "fetchFavoriteOffersAction.fulfilled"', () => {
     const mockOffers = Array.from({ length: getRandomNumber(1, 15) }, () =>
       makeFakeOffer()
@@ -355,7 +335,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "hasError" to "true" with "fetchFavoriteOffersAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -369,8 +348,6 @@ describe('AppData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  /* Tests fetchUserDataAction */
-
   it('should set "isUserDataLoading" to "true" with "fetchUserDataAction.pending"', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -381,7 +358,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "userData" to userData, set "isUserDataLoading" to "false" with "fetchUserDataAction.fulfilled"', () => {
     const mockUserData = makeFakeUser();
 
@@ -398,7 +374,6 @@ describe('AppData Slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
   it('should set "isUserDataLoading" to "false" with "fetchUserDataAction.rejected', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
