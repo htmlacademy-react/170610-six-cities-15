@@ -6,6 +6,7 @@ import {
 } from '../../utils/mocks';
 import {
   fetchCommentsAction,
+  fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
   toggleFavoriteAction,
@@ -80,6 +81,7 @@ describe('AppData Slice', () => {
   });
 
   /* Tests toggleFavoriteAction */
+
   it('should set "isToggleFavoriteLoading" to "true", "hasError" to "false" with "toggleFavoriteAction.pending"', () => {
     const expectedState = {
       ...DEFAULT_STATE.DATA,
@@ -219,6 +221,49 @@ describe('AppData Slice', () => {
       hasError: true,
     };
     const result = appData.reducer(undefined, fetchCommentsAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  /* Tests fetchNearbyOffersAction */
+
+  it('should set "hasError" to "false" with "fetchNearbyOffersAction.pending"', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      hasError: false,
+    };
+
+    const result = appData.reducer(undefined, fetchNearbyOffersAction.pending);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "nearbyOffers" to nearbyOffers with "fetchNearbyOffersAction.fulfilled"', () => {
+    const mockOffer = makeFakeOffer();
+    const { id } = mockOffer;
+    const mockOffers = Array.from({ length: getRandomNumber(1, 15) }, () =>
+      makeFakeOffer()
+    );
+
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      nearbyOffers: mockOffers,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      fetchNearbyOffersAction.fulfilled(mockOffers, '', id)
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "hasError" to "true" with "fetchNearbyOffersAction.rejected', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      hasError: true,
+    };
+    const result = appData.reducer(undefined, fetchNearbyOffersAction.rejected);
 
     expect(result).toEqual(expectedState);
   });
