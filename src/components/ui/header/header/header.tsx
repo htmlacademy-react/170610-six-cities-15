@@ -7,11 +7,11 @@ import {
   fetchUserDataAction,
   logoutAction,
 } from '../../../../store/api-actions';
-import { getFavoriteOffers } from '../../../../store/app-data/app-data.selectors';
 import {
-  getAuthorizationStatus,
+  getFavoriteOffers,
   getUserData,
-} from '../../../../store/user-process/user-process.selectors';
+} from '../../../../store/app-data/app-data.selectors';
+import { getAuthorizationStatus } from '../../../../store/user-process/user-process.selectors';
 import Logo from '../../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
 import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';

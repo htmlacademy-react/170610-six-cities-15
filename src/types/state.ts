@@ -6,8 +6,6 @@ import { TUserData } from './user-data';
 
 export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;
-  userData: TUserData;
-  isUserDataLoading: boolean;
 };
 
 export type TAppData = {
@@ -23,6 +21,8 @@ export type TAppData = {
   isCommentDataSending: boolean;
   hasSubmitError: boolean;
   hasOfferDataLoadingError: boolean;
+  isUserDataLoading: boolean;
+  userData: TUserData;
 };
 
 export type TAppProcess = {

@@ -150,8 +150,6 @@ export const DEFAULT_OFFER_DATA = {
 export const DEFAULT_STATE = {
   USER: {
     authorizationStatus: AuthorizationStatus.NoAuth,
-    userData: DEFAULT_USER_DATA,
-    isUserDataLoading: false,
   },
   DATA: {
     offers: [],
@@ -166,6 +164,8 @@ export const DEFAULT_STATE = {
     isCommentDataSending: false,
     hasSubmitError: false,
     hasOfferDataLoadingError: false,
+    userData: DEFAULT_USER_DATA,
+    isUserDataLoading: false,
   },
   APP: { city: DEFAULT_CITY_NAME },
 };

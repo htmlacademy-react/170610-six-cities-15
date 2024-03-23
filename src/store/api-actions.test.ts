@@ -15,6 +15,7 @@ import {
   makeFakeFavoriteOffer,
   makeFakeNearbyOffer,
   makeFakeOffer,
+  makeFakeUser,
 } from '../utils/mocks';
 import { redirectToRoute } from './action';
 import {
@@ -24,6 +25,7 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
+  fetchUserDataAction,
   loginAction,
   logoutAction,
   postCommentAction,
@@ -49,6 +51,7 @@ describe('Async actions', () => {
         nearbyOffers: [],
         comments: [],
         favoriteOffers: [],
+        userData: {},
       },
     });
   });
@@ -459,6 +462,39 @@ describe('Async actions', () => {
       expect(actions).toEqual([
         toggleFavoriteAction.pending.type,
         toggleFavoriteAction.rejected.type,
+      ]);
+    });
+  });
+  describe('fetchUserData', () => {
+    it('should dispatch "fetchUserDataAction.pending", "fetchUserDataAction.fulfilled", when server response 200', async () => {
+      const mockUser = makeFakeUser();
+      mockAxiosAdapter.onGet(APIRoute.Login).reply(200, mockUser);
+
+      await store.dispatch(fetchUserDataAction());
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchUserDataActionFulfilled = emittedActions.at(1) as ReturnType<
+        typeof fetchUserDataAction.fulfilled
+      >;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchUserDataAction.pending.type,
+        fetchUserDataAction.fulfilled.type,
+      ]);
+
+      expect(fetchUserDataActionFulfilled.payload).toEqual(mockUser);
+    });
+
+    it('should dispatch "fetchUserDataAction.pending", "fetchUserDataAction.rejected" when server response 400', async () => {
+      mockAxiosAdapter.onGet(APIRoute.Login).reply(400, []);
+
+      await store.dispatch(fetchUserDataAction());
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        fetchUserDataAction.pending.type,
+        fetchUserDataAction.rejected.type,
       ]);
     });
   });

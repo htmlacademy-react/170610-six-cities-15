@@ -68,11 +68,11 @@ describe('Application Routing', () => {
           isCommentDataSending: false,
           hasSubmitError: false,
           hasOfferDataLoadingError: false,
+          userData: DEFAULT_USER_DATA,
+          isUserDataLoading: false,
         },
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
-          userData: DEFAULT_USER_DATA,
-          isUserDataLoading: false,
         },
       })
     );

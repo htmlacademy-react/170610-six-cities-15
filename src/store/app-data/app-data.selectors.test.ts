@@ -11,6 +11,7 @@ import {
   getOffers,
   getOffersDataLoadingStatus,
   getSubmitErrorStatus,
+  getUserData,
 } from '../../store/app-data/app-data.selectors';
 import { TState } from '../../types/state';
 import {
@@ -19,6 +20,7 @@ import {
   makeFakeFavoriteOffer,
   makeFakeNearbyOffer,
   makeFakeOffer,
+  makeFakeUser,
 } from '../../utils/mocks';
 
 describe('AppData selectors', () => {
@@ -43,6 +45,8 @@ describe('AppData selectors', () => {
     () => mockFavoriteOffer
   );
 
+  const mockUser = makeFakeUser();
+
   const mockState = {
     [NameSpace.Data]: {
       offers: mockOffers,
@@ -56,6 +60,7 @@ describe('AppData selectors', () => {
       isCommentDataSending: true,
       hasSubmitError: true,
       hasOfferDataLoadingError: true,
+      userData: mockUser,
     },
   };
 
@@ -200,6 +205,21 @@ describe('AppData selectors', () => {
         mockState as Pick<TState, NameSpace.Data>
       );
       expect(result).toBe(hasOfferDataLoadingError);
+    });
+  });
+
+  describe('getUserData', () => {
+    it('should return correct UserData', () => {
+      const { userData } = mockState[NameSpace.Data];
+      const result = getUserData(mockState as Pick<TState, NameSpace.Data>);
+      expect(result).toEqual(userData);
+    });
+
+    it('should return undefined when user authorization status not present', () => {
+      mockState[NameSpace.Data] = {} as TState[NameSpace.Data];
+      expect(
+        getUserData(mockState as Pick<TState, NameSpace.Data>)
+      ).toBeUndefined();
     });
   });
 });
