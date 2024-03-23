@@ -1,6 +1,6 @@
 import { DEFAULT_STATE } from '../../const';
 import { getRandomNumber, makeFakeOffer } from '../../utils/mocks';
-import { fetchOffersAction } from '../api-actions';
+import { fetchOffersAction, toggleFavoriteAction } from '../api-actions';
 import { appData } from './app-data.slice';
 
 describe('AppData Slice', () => {
@@ -66,6 +66,61 @@ describe('AppData Slice', () => {
       hasError: true,
     };
     const result = appData.reducer(undefined, fetchOffersAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isToggleFavoriteLoading" to "true", "hasError" to "false" with "toggleFavoriteAction.pending"', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isToggleFavoriteLoading: true,
+      hasError: false,
+    };
+
+    const result = appData.reducer(undefined, toggleFavoriteAction.pending);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "favoriteOffers" with new favorite offer if "status" is "1", "isToggleFavoriteLoading" to "false" with "toggleFavoriteAction.fulfilled"', () => {
+    const mockOffer = makeFakeOffer();
+    const { id } = mockOffer;
+    const mockFavoriteStatus = 1;
+
+    const mockOfferWithNewFavoriteStatus = {
+      ...mockOffer,
+      isFavorite: mockFavoriteStatus === 1,
+    };
+
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      favoriteOffers: Array.from(
+        { length: 1 },
+        () => mockOfferWithNewFavoriteStatus
+      ),
+
+      isToggleFavoriteLoading: false,
+      hasError: false,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      toggleFavoriteAction.fulfilled(mockOfferWithNewFavoriteStatus, '', {
+        id: id,
+        status: mockFavoriteStatus,
+      })
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isToggleFavoriteLoading" to "false", "hasError" to "true" with "toggleFavoriteAction.rejected', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isToggleFavoriteLoading: false,
+      hasError: true,
+    };
+    const result = appData.reducer(undefined, toggleFavoriteAction.rejected);
 
     expect(result).toEqual(expectedState);
   });

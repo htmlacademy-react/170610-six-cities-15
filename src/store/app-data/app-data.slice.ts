@@ -78,6 +78,7 @@ export const appData = createSlice({
         }
 
         state.isToggleFavoriteLoading = false;
+        state.hasError = false;
       })
       .addCase(toggleFavoriteAction.rejected, (state) => {
         state.isToggleFavoriteLoading = false;
