@@ -6,6 +6,7 @@ import {
 } from '../../utils/mocks';
 import {
   fetchCommentsAction,
+  fetchFavoriteOffersAction,
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
@@ -315,6 +316,53 @@ describe('AppData Slice', () => {
       hasSubmitError: true,
     };
     const result = appData.reducer(undefined, postCommentAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  /* Tests fetchFavoriteOffersAction */
+
+  it('should set "hasError" to "false" with "fetchFavoriteOffersAction.pending"', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      hasError: false,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      fetchFavoriteOffersAction.pending
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "favoriteOffers" to favoriteOffers with "fetchFavoriteOffersAction.fulfilled"', () => {
+    const mockOffers = Array.from({ length: getRandomNumber(1, 15) }, () =>
+      makeFakeOffer()
+    );
+
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      favoriteOffers: mockOffers,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      fetchFavoriteOffersAction.fulfilled(mockOffers, '', undefined)
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "hasError" to "true" with "fetchFavoriteOffersAction.rejected', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      hasError: true,
+    };
+    const result = appData.reducer(
+      undefined,
+      fetchFavoriteOffersAction.rejected
+    );
 
     expect(result).toEqual(expectedState);
   });
