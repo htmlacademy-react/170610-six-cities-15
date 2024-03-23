@@ -5,12 +5,16 @@ import LoginForm from './login-form';
 
 describe('Component: LoginForm', () => {
   it('should render correctly', () => {
-    const expectedText = 'Sign in';
+    const expectedButtonText = 'Sign in';
+    const expectedEMailText = 'E-mail';
+    const expectedPasswordText = 'Password';
 
     const { withStoreComponent } = withStore(<LoginForm />, makeFakeStore());
 
     render(withStoreComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByText(expectedButtonText)).toBeInTheDocument();
+    expect(screen.getByText(expectedEMailText)).toBeInTheDocument();
+    expect(screen.getByText(expectedPasswordText)).toBeInTheDocument();
   });
 });
