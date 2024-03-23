@@ -12,7 +12,7 @@ import {
   getOffersDataLoadingStatus,
   getSubmitErrorStatus,
   getUserData,
-} from '../../store/app-data/app-data.selectors';
+} from './app-data.selectors.ts';
 import { TState } from '../../types/state';
 import {
   getRandomNumber,

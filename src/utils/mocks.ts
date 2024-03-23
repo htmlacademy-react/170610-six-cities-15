@@ -25,7 +25,7 @@ export function getRandomNumber(min: number, max: number) {
 }
 
 function makeFakeCity(): TOffer['city'] {
-  const city = {
+  return {
     name: address.city(),
     location: {
       latitude: datatype.number(),
@@ -33,11 +33,10 @@ function makeFakeCity(): TOffer['city'] {
       zoom: datatype.number({ min: 10, max: 15 }),
     },
   };
-  return city;
 }
 
 export function makeFakeOffer(): TOffer {
-  const offer = {
+  return {
     id: datatype.uuid(),
     title: lorem.words(),
     type: random.arrayElement(['apartment', 'house', 'hotel']),
@@ -63,11 +62,10 @@ export function makeFakeOffer(): TOffer {
     maxAdults: datatype.number({ min: 1, max: 10 }),
     previewImage: image.imageUrl(),
   };
-  return offer;
 }
 
 export function makeFakeFavoriteOffer() {
-  const favoriteOffer = {
+  return {
     id: datatype.uuid(),
     title: lorem.words(),
     type: random.arrayElement(['apartment', 'house', 'hotel']),
@@ -83,11 +81,10 @@ export function makeFakeFavoriteOffer() {
     rating: datatype.number({ min: 1, max: 5 }),
     description: lorem.paragraph(),
   };
-  return favoriteOffer;
 }
 
 export function makeFakeNearbyOffer() {
-  const nearbyOffer = {
+  return {
     id: datatype.uuid(),
     title: lorem.words(),
     type: random.arrayElement(['apartment', 'house', 'hotel']),
@@ -103,31 +100,26 @@ export function makeFakeNearbyOffer() {
     rating: datatype.number({ min: 1, max: 5 }),
     previewImage: image.imageUrl(),
   };
-
-  return nearbyOffer;
 }
 
 export function makeFakeUser(): TUserData {
-  const user = {
+  return {
     email: internet.email(),
     token: datatype.string(),
     name: name.findName(),
     avatarUrl: image.imageUrl(),
     isPro: datatype.boolean(),
   };
-  return user;
 }
 
 export function makeFakeComment(): TComment {
-  const comment = {
+  return {
     id: datatype.uuid(),
     date: datatype.datetime().toJSON(),
     user: makeFakeUser(),
     comment: lorem.paragraph(),
     rating: datatype.number({ min: 1, max: 5 }),
   };
-
-  return comment;
 }
 
 export const makeFakeStore = (initialState?: Partial<TState>): TState => ({
