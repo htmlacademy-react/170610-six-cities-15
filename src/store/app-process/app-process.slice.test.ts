@@ -1,11 +1,10 @@
-import { Cities, citiesNames, DEFAULT_CITY_NAME } from '../../const';
-import { getRandomCityName } from '../../utils/common';
+import { Cities, DEFAULT_CITY_NAME } from '../../const';
 import { appProcess, changeCity } from './app-process.slice';
 
 describe('AppProcess Slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
-    const expectedState = { city: getRandomCityName(citiesNames) };
+    const expectedState = { city: DEFAULT_CITY_NAME };
 
     const result = appProcess.reducer(expectedState, emptyAction);
 

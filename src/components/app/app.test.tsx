@@ -1,11 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import {
-  AppRoute,
-  AuthorizationStatus,
-  DEFAULT_OFFER_DATA,
-  DEFAULT_USER_DATA,
-} from '../../const';
+import { AppRoute, AuthorizationStatus, DEFAULT_STATE } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
 import {
   getRandomNumber,
@@ -54,22 +49,10 @@ describe('Application Routing', () => {
       withHistoryComponent,
       makeFakeStore({
         DATA: {
-          offers: [],
-          isOffersDataLoading: false,
-          hasError: false,
-          isToggleFavoriteLoading: false,
-          offer: DEFAULT_OFFER_DATA,
-          isOfferDataLoading: false,
-          comments: [],
-          nearbyOffers: [],
+          ...DEFAULT_STATE.DATA,
           favoriteOffers: Array.from({ length: getRandomNumber(1, 5) }, () =>
             makeFakeOffer()
           ),
-          isCommentDataSending: false,
-          hasSubmitError: false,
-          hasOfferDataLoadingError: false,
-          userData: DEFAULT_USER_DATA,
-          isUserDataLoading: false,
         },
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,

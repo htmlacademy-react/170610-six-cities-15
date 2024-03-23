@@ -1,4 +1,5 @@
 import leaflet from 'leaflet';
+import { TAppData } from './types/state';
 
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -107,46 +108,6 @@ export const defaultMarkerIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const DEFAULT_USER_DATA = {
-  email: '',
-  token: '',
-  avatarUrl: '',
-  name: '',
-  isPro: false,
-};
-
-export const DEFAULT_LOCATION = {
-  latitude: 0,
-  longitude: 0,
-  zoom: 0,
-};
-
-export const DEFAULT_OFFER_DATA = {
-  id: '',
-  title: '',
-  type: '',
-  price: 0,
-  previewImage: '',
-  city: {
-    name: '',
-    location: DEFAULT_LOCATION,
-  },
-  location: DEFAULT_LOCATION,
-  isFavorite: false,
-  isPremium: false,
-  rating: 0,
-  description: '',
-  bedrooms: 0,
-  goods: [],
-  host: {
-    name: '',
-    avatarUrl: '',
-    isPro: false,
-  },
-  images: [],
-  maxAdults: 0,
-};
-
 export const DEFAULT_STATE = {
   USER: {
     authorizationStatus: AuthorizationStatus.NoAuth,
@@ -156,7 +117,7 @@ export const DEFAULT_STATE = {
     isOffersDataLoading: false,
     hasError: false,
     isToggleFavoriteLoading: false,
-    offer: DEFAULT_OFFER_DATA,
+    offer: {} as TAppData['offer'],
     isOfferDataLoading: false,
     comments: [],
     nearbyOffers: [],
@@ -164,8 +125,8 @@ export const DEFAULT_STATE = {
     isCommentDataSending: false,
     hasSubmitError: false,
     hasOfferDataLoadingError: false,
-    userData: DEFAULT_USER_DATA,
     isUserDataLoading: false,
+    userData: {} as TAppData['userData'],
   },
   APP: { city: DEFAULT_CITY_NAME },
 };
