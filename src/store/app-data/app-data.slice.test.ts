@@ -3,6 +3,7 @@ import {
   getRandomNumber,
   makeFakeComment,
   makeFakeOffer,
+  makeFakeUser,
 } from '../../utils/mocks';
 import {
   fetchCommentsAction,
@@ -10,6 +11,7 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
+  fetchUserDataAction,
   postCommentAction,
   toggleFavoriteAction,
 } from '../api-actions';
@@ -363,6 +365,46 @@ describe('AppData Slice', () => {
       undefined,
       fetchFavoriteOffersAction.rejected
     );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  /* Tests fetchUserDataAction */
+
+  it('should set "isUserDataLoading" to "true" with "fetchUserDataAction.pending"', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isUserDataLoading: true,
+    };
+
+    const result = appData.reducer(undefined, fetchUserDataAction.pending);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "userData" to userData, set "isUserDataLoading" to "false" with "fetchUserDataAction.fulfilled"', () => {
+    const mockUserData = makeFakeUser();
+
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isUserDataLoading: false,
+      userData: mockUserData,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      fetchUserDataAction.fulfilled(mockUserData, '', undefined)
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isUserDataLoading" to "false" with "fetchUserDataAction.rejected', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isUserDataLoading: false,
+    };
+    const result = appData.reducer(undefined, fetchUserDataAction.rejected);
 
     expect(result).toEqual(expectedState);
   });
