@@ -9,6 +9,7 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
+  postCommentAction,
   toggleFavoriteAction,
 } from '../api-actions';
 import { appData } from './app-data.slice';
@@ -264,6 +265,56 @@ describe('AppData Slice', () => {
       hasError: true,
     };
     const result = appData.reducer(undefined, fetchNearbyOffersAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  /* Tests postCommentAction */
+
+  it('should set "isCommentDataSending" to "true", "hasSubmitError" to "false" with "postCommentAction.pending"', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isCommentDataSending: true,
+      hasSubmitError: false,
+    };
+
+    const result = appData.reducer(undefined, postCommentAction.pending);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isCommentDataSending" to "false", "hasSubmitError" to "false" with "postCommentAction.fulfilled"', () => {
+    const mockOffer = makeFakeOffer();
+    const { id } = mockOffer;
+    const mockComment = makeFakeComment();
+    const { comment, rating } = mockComment;
+
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      comments: [mockComment],
+      isCommentDataSending: false,
+      hasSubmitError: false,
+    };
+
+    const result = appData.reducer(
+      undefined,
+      postCommentAction.fulfilled(mockComment, '', {
+        id,
+        comment,
+        rating,
+      })
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isCommentDataSending" to "false", "hasSubmitError" to "true" with "postCommentAction.rejected', () => {
+    const expectedState = {
+      ...DEFAULT_STATE.DATA,
+      isCommentDataSending: false,
+      hasSubmitError: true,
+    };
+    const result = appData.reducer(undefined, postCommentAction.rejected);
 
     expect(result).toEqual(expectedState);
   });
