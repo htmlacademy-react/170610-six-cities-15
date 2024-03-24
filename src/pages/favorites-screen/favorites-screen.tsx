@@ -29,7 +29,7 @@ function FavoritesScreen(): JSX.Element {
   return (
     <div
       className={`page ${favoritesEmptyClassToggler}`}
-      data-testid="favorites-page"
+      data-testid="favoritesPageElement"
     >
       <Helmet>
         <title>6 cities :: Favorites</title>

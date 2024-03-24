@@ -12,7 +12,7 @@ describe('Component: FavoritesScreen', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'favorites-page';
+    const favoritesPageElementTestId = 'favoritesPageElement';
 
     const withHistoryComponent = withHistory(<FavoritesScreen />, mockHistory);
     const { withStoreComponent } = withStore(
@@ -22,6 +22,6 @@ describe('Component: FavoritesScreen', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(favoritesPageElementTestId)).toBeInTheDocument();
   });
 });

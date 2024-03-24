@@ -108,7 +108,7 @@ function OfferScreen(): JSX.Element {
       <Header />
       <main
         className="page__main page__main--offer"
-        data-testid="offerMainElement"
+        data-testid="offerMainPageElement"
       >
         <section className="offer">
           <OfferGallery images={offer.images} />

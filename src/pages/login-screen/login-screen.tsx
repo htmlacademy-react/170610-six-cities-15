@@ -28,7 +28,7 @@ function LoginScreen(): JSX.Element {
       <Header />
       <main
         className="page__main page__main--login"
-        data-testid="login-main-page"
+        data-testid="loginMainPageElement"
       >
         <div className="page__login-container container">
           <section className="login">

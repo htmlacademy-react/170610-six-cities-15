@@ -12,7 +12,7 @@ describe('Component: LoginScreen', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'login-main-page';
+    const loginMainPageElementTestId = 'loginMainPageElement';
     const withHistoryComponent = withHistory(<LoginScreen />, mockHistory);
     const { withStoreComponent } = withStore(
       withHistoryComponent,
@@ -21,6 +21,6 @@ describe('Component: LoginScreen', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(loginMainPageElementTestId)).toBeInTheDocument();
   });
 });
