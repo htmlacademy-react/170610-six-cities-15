@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import LoginInputEmail from './login-input-email';
 
 describe('Component: LoginInputEmail', () => {
@@ -12,5 +13,21 @@ describe('Component: LoginInputEmail', () => {
     expect(
       screen.getByPlaceholderText(expectedPlaceholder)
     ).toBeInTheDocument();
+  });
+
+  it('should render correctly when user enter email', async () => {
+    const emailElementTestId = 'emailElement';
+    const expectedEmailValue = 'sofanad957@nimadir.com';
+
+    const preparedComponent = <LoginInputEmail loginRef={{ current: null }} />;
+
+    render(preparedComponent);
+
+    await userEvent.type(
+      screen.getByTestId(emailElementTestId),
+      expectedEmailValue
+    );
+
+    expect(screen.getByDisplayValue(expectedEmailValue)).toBeInTheDocument();
   });
 });
