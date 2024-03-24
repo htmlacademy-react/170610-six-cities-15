@@ -13,7 +13,7 @@ describe('Component: Card', () => {
 
   it('should render correctly', () => {
     const mockOffer = makeFakeOffer();
-    const testId = 'card';
+    const cardArticleElementTestId = 'cardArticleElement';
 
     const withHistoryComponent = withHistory(
       <Card
@@ -34,6 +34,6 @@ describe('Component: Card', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(cardArticleElementTestId)).toBeInTheDocument();
   });
 });

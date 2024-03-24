@@ -6,7 +6,7 @@ type ReviewsTextProps = {
 
 function ReviewsText({ comment }: ReviewsTextProps): JSX.Element {
   return (
-    <p className="reviews__text" data-testid="reviews-text">
+    <p className="reviews__text" data-testid="reviewsTextElement">
       {comment.comment}
     </p>
   );

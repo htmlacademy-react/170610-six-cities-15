@@ -14,7 +14,7 @@ describe('Component: Tabs', () => {
 
   it('should render correctly', () => {
     const mockCities = citiesNames;
-    const testId = 'tabs';
+    const tabsElementTestId = 'tabsElement';
 
     const withHistoryComponent = withHistory(
       <Tabs cities={mockCities} />,
@@ -27,6 +27,6 @@ describe('Component: Tabs', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(tabsElementTestId)).toBeInTheDocument();
   });
 });

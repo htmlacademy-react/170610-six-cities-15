@@ -11,7 +11,7 @@ describe('Component: UnauthenticatedUser', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'header-nav-item-user';
+    const navNoAuthUserElementTestId = 'navNoAuthUserElement';
     const withHistoryComponent = withHistory(
       <UnauthenticatedUser />,
       mockHistory
@@ -19,6 +19,6 @@ describe('Component: UnauthenticatedUser', () => {
 
     render(withHistoryComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(navNoAuthUserElementTestId)).toBeInTheDocument();
   });
 });

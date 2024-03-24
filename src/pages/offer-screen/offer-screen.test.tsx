@@ -12,7 +12,7 @@ describe('Component: OfferScreen', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'offer-page';
+    const offerMainElementTestId = 'offerMainElement';
 
     const withHistoryComponent = withHistory(<OfferScreen />, mockHistory);
     const { withStoreComponent } = withStore(
@@ -22,6 +22,6 @@ describe('Component: OfferScreen', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(offerMainElementTestId)).toBeInTheDocument();
   });
 });

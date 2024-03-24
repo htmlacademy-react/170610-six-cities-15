@@ -14,7 +14,7 @@ describe('Component: Locations', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'locations-item';
+    const locationsItemElementTestId = 'locationsItemElement';
     const mockCityName = getRandomCityName(citiesNames);
 
     const withHistoryComponent = withHistory(
@@ -28,7 +28,7 @@ describe('Component: Locations', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(locationsItemElementTestId)).toBeInTheDocument();
     expect(screen.getByText(mockCityName)).toBeInTheDocument();
   });
 });

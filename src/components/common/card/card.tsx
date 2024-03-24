@@ -59,7 +59,7 @@ function Card({
       className={`${pagePrefix}__card place-card ${isActive ? 'active' : ''}`}
       onMouseEnter={() => onOfferHover && onOfferHover(id)}
       onMouseLeave={() => onOfferHover && onOfferHover('')}
-      data-testid="card"
+      data-testid="cardArticleElement"
     >
       {isPremium && (
         <div className="place-card__mark">

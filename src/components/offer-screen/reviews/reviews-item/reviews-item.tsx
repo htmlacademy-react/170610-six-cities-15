@@ -15,7 +15,7 @@ function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
   const formattedDateTime = date.format('YYYY-MM-DD');
 
   return (
-    <li className="reviews__item" data-testid="reviews-item">
+    <li className="reviews__item" data-testid="reviewsItemElement">
       <div className="reviews__user user">
         <ReviewsAvatar user={user} />
         <span className="reviews__user-name">{user.name}</span>

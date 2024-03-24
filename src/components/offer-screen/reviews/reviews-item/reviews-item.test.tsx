@@ -4,11 +4,11 @@ import ReviewsItem from './reviews-item';
 
 describe('Component: ReviewsItem', () => {
   it('should render correctly', () => {
-    const testId = 'reviews-item';
+    const reviewsItemElementTestId = 'reviewsItemElement';
     const mockComment = makeFakeComment();
 
     render(<ReviewsItem comment={mockComment} />);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(reviewsItemElementTestId)).toBeInTheDocument();
   });
 });

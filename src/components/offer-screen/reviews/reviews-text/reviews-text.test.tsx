@@ -4,11 +4,11 @@ import ReviewsText from './reviews-text';
 
 describe('Component: ReviewsText', () => {
   it('should render correctly', () => {
-    const testId = 'reviews-text';
+    const reviewsTextElementTestId = 'reviewsTextElement';
     const mockComment = makeFakeComment();
 
     render(<ReviewsText comment={mockComment} />);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(reviewsTextElementTestId)).toBeInTheDocument();
   });
 });

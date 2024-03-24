@@ -18,7 +18,7 @@ function FavoritesItem(): JSX.Element {
         <li
           className="favorites__locations-items"
           key={city}
-          data-testid="favorites-item"
+          data-testid="favoritesItemElement"
         >
           <LocationsItem city={city} />
           <div className="favorites__places">

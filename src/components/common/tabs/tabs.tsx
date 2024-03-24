@@ -18,7 +18,7 @@ function Tabs({ cities }: TabsProps): JSX.Element {
   };
 
   return (
-    <div className="tabs" data-testid="tabs">
+    <div className="tabs" data-testid="tabsElement">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city) => (

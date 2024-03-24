@@ -20,7 +20,7 @@ describe('Component: FavoritesItem', () => {
     const mockOffers = Array.from({ length: getRandomNumber(1, 5) }, () =>
       makeFakeOffer()
     );
-    const testId = 'favorites-item';
+    const favoritesItemElementTestId = 'favoritesItemElement';
 
     const withHistoryComponent = withHistory(<FavoritesItem />, mockHistory);
     const { withStoreComponent } = withStore(
@@ -34,7 +34,7 @@ describe('Component: FavoritesItem', () => {
 
     render(withStoreComponent);
 
-    const elements = screen.getAllByTestId(testId);
+    const elements = screen.getAllByTestId(favoritesItemElementTestId);
     expect(elements.length).toBeGreaterThan(0);
   });
 });

@@ -30,6 +30,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "LoginScreen" when user navigate to "/login"', () => {
+    const loginTitleElementTestId = 'loginTitleElement';
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(
       withHistoryComponent,
@@ -39,7 +40,7 @@ describe('Application Routing', () => {
 
     render(withStoreComponent);
 
-    const signInTitle = screen.getByTestId('login-title');
+    const signInTitle = screen.getByTestId(loginTitleElementTestId);
     expect(signInTitle).toHaveTextContent(/Sign in/i);
   });
 

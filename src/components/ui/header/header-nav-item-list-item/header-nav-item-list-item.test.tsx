@@ -11,7 +11,7 @@ describe('Component: HeaderNavItemListItem', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'header-nav-item';
+    const headerNavItemElementTestId = 'headerNavItemElement';
     const withHistoryComponent = withHistory(
       <HeaderNavItemListItem onLogout={() => {}} />,
       mockHistory
@@ -19,6 +19,6 @@ describe('Component: HeaderNavItemListItem', () => {
 
     render(withHistoryComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(headerNavItemElementTestId)).toBeInTheDocument();
   });
 });

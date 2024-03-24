@@ -17,7 +17,6 @@ function AuthenticatedUser({
       <HeaderNavItemUser
         userData={userData}
         favoriteOffersCount={favoriteOffersCount}
-        data-testid="header-nav-item-user"
       />
       <HeaderNavItemListItem onLogout={onLogout} />
     </>

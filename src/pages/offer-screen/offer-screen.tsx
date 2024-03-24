@@ -106,7 +106,10 @@ function OfferScreen(): JSX.Element {
         <title>6 cities :: Offer</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--offer" data-testid="offer-page">
+      <main
+        className="page__main page__main--offer"
+        data-testid="offerMainElement"
+      >
         <section className="offer">
           <OfferGallery images={offer.images} />
           <OfferDetails

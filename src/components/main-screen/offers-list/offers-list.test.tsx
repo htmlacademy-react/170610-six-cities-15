@@ -20,7 +20,7 @@ describe('Component: OffersList', () => {
       makeFakeOffer()
     );
 
-    const testId = 'offers-list';
+    const offersListElementTestId = 'offersListElement';
 
     const withHistoryComponent = withHistory(
       <OffersList offers={mockOffers} />,
@@ -33,6 +33,6 @@ describe('Component: OffersList', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(offersListElementTestId)).toBeInTheDocument();
   });
 });

@@ -12,7 +12,7 @@ describe('Component: Header', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'header';
+    const headerElementTestId = 'headerElement';
     const withHistoryComponent = withHistory(<Header />, mockHistory);
     const { withStoreComponent } = withStore(
       withHistoryComponent,
@@ -21,6 +21,6 @@ describe('Component: Header', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(headerElementTestId)).toBeInTheDocument();
   });
 });

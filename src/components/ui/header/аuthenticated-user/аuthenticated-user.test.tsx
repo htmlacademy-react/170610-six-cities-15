@@ -11,7 +11,7 @@ describe('Component: AuthenticatedUser', () => {
   });
 
   it('should render correctly', () => {
-    const navItemUserTestId = 'header-nav-item-user';
+    const navAuthUserElementTestId = 'navAuthUserElement';
 
     const withHistoryComponent = withHistory(
       <AuthenticatedUser
@@ -24,6 +24,6 @@ describe('Component: AuthenticatedUser', () => {
 
     render(withHistoryComponent);
 
-    expect(screen.getByTestId(navItemUserTestId)).toBeInTheDocument();
+    expect(screen.getByTestId(navAuthUserElementTestId)).toBeInTheDocument();
   });
 });

@@ -6,10 +6,10 @@ describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
     const mockComment = makeFakeComment();
     const mockComments = Array.from({ length: 5 }, () => mockComment);
-    const testId = 'reviews-list';
+    const reviewsListElementTestId = 'reviewsListElement';
 
     render(<ReviewsList comments={mockComments} />);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(reviewsListElementTestId)).toBeInTheDocument();
   });
 });

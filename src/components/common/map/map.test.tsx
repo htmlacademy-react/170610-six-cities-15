@@ -7,7 +7,7 @@ describe('Component: Map', () => {
     const mockOffers = Array.from({ length: getRandomNumber(0, 5) }, () =>
       makeFakeOffer()
     );
-    const testId = 'map';
+    const mapSectionElementTestId = 'mapSectionElement';
 
     render(
       <Map
@@ -18,6 +18,6 @@ describe('Component: Map', () => {
       />
     );
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(mapSectionElementTestId)).toBeInTheDocument();
   });
 });

@@ -14,7 +14,7 @@ describe('Component: LocationsItem', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'locations-item';
+    const locationsItemElementTestId = 'locationsItemElement';
     const mockCityName = getRandomCityName(citiesNames);
 
     const withHistoryComponent = withHistory(
@@ -28,6 +28,6 @@ describe('Component: LocationsItem', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(locationsItemElementTestId)).toBeInTheDocument();
   });
 });

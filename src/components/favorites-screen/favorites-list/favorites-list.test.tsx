@@ -5,7 +5,7 @@ import FavoritesList from './favorites-list';
 
 describe('Component: FavoritesList', () => {
   it('should render correctly', () => {
-    const testId = 'favorites-list';
+    const favoritesListElementTestId = 'favoritesListElement';
 
     const { withStoreComponent } = withStore(
       <FavoritesList />,
@@ -14,6 +14,6 @@ describe('Component: FavoritesList', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(favoritesListElementTestId)).toBeInTheDocument();
   });
 });

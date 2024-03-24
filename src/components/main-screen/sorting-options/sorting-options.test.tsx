@@ -3,7 +3,7 @@ import SortingOptions from './sorting-options';
 
 describe('Component: SortingOptions', () => {
   it('should render correctly', () => {
-    const testId = 'sort-options';
+    const sortOptionsListElementTestId = 'sortOptionsListElement';
 
     render(
       <SortingOptions
@@ -13,6 +13,8 @@ describe('Component: SortingOptions', () => {
       />
     );
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(sortOptionsListElementTestId)
+    ).toBeInTheDocument();
   });
 });

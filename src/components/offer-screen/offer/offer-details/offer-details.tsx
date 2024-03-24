@@ -40,7 +40,10 @@ function OfferDetails({
   const capitalizedType = capitalizeFirstLetter(type);
 
   return (
-    <section className="offer__container container" data-testid="offer-details">
+    <section
+      className="offer__container container"
+      data-testid="offerDetailsSectionElement"
+    >
       <div className="offer__wrapper">
         {isPremium && (
           <div className="offer__mark">

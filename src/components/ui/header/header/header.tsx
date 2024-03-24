@@ -74,7 +74,7 @@ function Header() {
   );
 
   return (
-    <header className="header" data-testid="header">
+    <header className="header" data-testid="headerElement">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">

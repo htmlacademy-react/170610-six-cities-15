@@ -11,7 +11,7 @@ describe('Component: HeaderNavItemUser', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'header-nav-item-user';
+    const navAuthUserElementTestId = 'navAuthUserElement';
     const withHistoryComponent = withHistory(
       <HeaderNavItemUser
         userData={{ email: '', avatarUrl: '' }}
@@ -22,6 +22,6 @@ describe('Component: HeaderNavItemUser', () => {
 
     render(withHistoryComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(navAuthUserElementTestId)).toBeInTheDocument();
   });
 });

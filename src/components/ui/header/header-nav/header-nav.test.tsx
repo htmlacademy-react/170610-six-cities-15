@@ -3,10 +3,10 @@ import HeaderNav from './header-nav';
 
 describe('Component: HeaderNav', () => {
   it('should render correctly', () => {
-    const testId = 'header-nav';
+    const headerNavElementTestId = 'headerNavElement';
 
     render(<HeaderNav renderAuthLinks={() => <div></div>} />);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(headerNavElementTestId)).toBeInTheDocument();
   });
 });

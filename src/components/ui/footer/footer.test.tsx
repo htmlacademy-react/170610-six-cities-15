@@ -12,12 +12,12 @@ describe('Component: Footer', () => {
   });
 
   it('should render correctly when user navigate to "/favorites"', () => {
-    const testId = 'footer';
+    const footerElementTestId = 'footerElement';
     const withHistoryComponent = withHistory(<Footer />, mockHistory);
     mockHistory.push(AppRoute.Favorites);
 
     render(withHistoryComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(footerElementTestId)).toBeInTheDocument();
   });
 });

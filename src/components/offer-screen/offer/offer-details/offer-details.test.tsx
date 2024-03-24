@@ -12,7 +12,7 @@ describe('Component: OfferDetails', () => {
   });
 
   it('should render correctly', () => {
-    const testId = 'offer-details';
+    const offerDetailsSectionElementTestId = 'offerDetailsSectionElement';
     const mockOffer = makeFakeOffer();
     const withHistoryComponent = withHistory(
       <OfferDetails
@@ -32,6 +32,8 @@ describe('Component: OfferDetails', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(offerDetailsSectionElementTestId)
+    ).toBeInTheDocument();
   });
 });
