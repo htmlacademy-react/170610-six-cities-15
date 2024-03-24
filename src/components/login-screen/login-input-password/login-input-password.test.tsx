@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import LoginInputPassword from './login-input-password';
 
 describe('Component: LoginInputPassword', () => {
@@ -12,5 +13,23 @@ describe('Component: LoginInputPassword', () => {
     expect(
       screen.getByPlaceholderText(expectedPlaceholder)
     ).toBeInTheDocument();
+  });
+
+  it('should render correctly when user enter password', async () => {
+    const passwordElementTestId = 'passwordElement';
+    const expectedPasswordValue = '123456';
+
+    const preparedComponent = (
+      <LoginInputPassword passwordRef={{ current: null }} />
+    );
+
+    render(preparedComponent);
+
+    await userEvent.type(
+      screen.getByTestId(passwordElementTestId),
+      expectedPasswordValue
+    );
+
+    expect(screen.getByDisplayValue(expectedPasswordValue)).toBeInTheDocument();
   });
 });
