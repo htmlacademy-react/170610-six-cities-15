@@ -8,6 +8,7 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
+  fetchUserDataAction,
   postCommentAction,
   toggleFavoriteAction,
 } from '../api-actions';
@@ -25,6 +26,8 @@ const initialState: TAppData = {
   isCommentDataSending: false,
   hasSubmitError: false,
   hasOfferDataLoadingError: false,
+  isUserDataLoading: false,
+  userData: {} as TAppData['userData'],
 };
 
 export const appData = createSlice({
@@ -75,8 +78,8 @@ export const appData = createSlice({
         }
 
         state.isToggleFavoriteLoading = false;
+        state.hasError = false;
       })
-
       .addCase(toggleFavoriteAction.rejected, (state) => {
         state.isToggleFavoriteLoading = false;
         state.hasError = true;
@@ -133,6 +136,16 @@ export const appData = createSlice({
       })
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.hasError = true;
+      })
+      .addCase(fetchUserDataAction.pending, (state) => {
+        state.isUserDataLoading = true;
+      })
+      .addCase(fetchUserDataAction.fulfilled, (state, action) => {
+        state.isUserDataLoading = false;
+        state.userData = action.payload;
+      })
+      .addCase(fetchUserDataAction.rejected, (state) => {
+        state.isUserDataLoading = false;
       });
   },
 });

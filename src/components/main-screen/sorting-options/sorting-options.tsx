@@ -29,6 +29,7 @@ function SortingOptions({
   return (
     <ul
       className={`places__options places__options--custom places__options${isVisible}`}
+      data-testid="sortOptionsListElement"
     >
       {sortingOptionList.map((option) => (
         <li

@@ -11,7 +11,7 @@ function HeaderNavItemUser({
   favoriteOffersCount,
 }: HeaderNavItemUserProps): JSX.Element {
   return (
-    <div className="header__nav-item user">
+    <div className="header__nav-item user" data-testid="navAuthUserElement">
       <Link
         to={AppRoute.Favorites}
         className="header__nav-link header__nav-link--profile"

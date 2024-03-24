@@ -1,4 +1,5 @@
 import leaflet from 'leaflet';
+import { TAppData } from './types/state';
 
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -24,6 +25,7 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  Lose = '/lose',
 }
 
 export enum APIRoute {
@@ -31,6 +33,7 @@ export enum APIRoute {
   Favorite = '/favorite',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {
@@ -104,3 +107,26 @@ export const defaultMarkerIcon = leaflet.icon({
   iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
+
+export const DEFAULT_STATE = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.NoAuth,
+  },
+  DATA: {
+    offers: [],
+    isOffersDataLoading: false,
+    hasError: false,
+    isToggleFavoriteLoading: false,
+    offer: {} as TAppData['offer'],
+    isOfferDataLoading: false,
+    comments: [],
+    nearbyOffers: [],
+    favoriteOffers: [],
+    isCommentDataSending: false,
+    hasSubmitError: false,
+    hasOfferDataLoadingError: false,
+    isUserDataLoading: false,
+    userData: {} as TAppData['userData'],
+  },
+  APP: { city: DEFAULT_CITY_NAME },
+};

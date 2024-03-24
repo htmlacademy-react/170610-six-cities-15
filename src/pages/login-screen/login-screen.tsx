@@ -26,10 +26,15 @@ function LoginScreen(): JSX.Element {
         <title>6 cities :: Login</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--login">
+      <main
+        className="page__main page__main--login"
+        data-testid="loginMainPageElement"
+      >
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title" data-testid="loginTitleElement">
+              Sign in
+            </h1>
             <LoginForm />
           </section>
           <Locations randomCity={randomCity} />

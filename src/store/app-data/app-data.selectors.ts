@@ -1,7 +1,8 @@
 import { NameSpace } from '../../const';
-import { TState } from '../../types/state';
-import { TOffer, TOffers } from '../../types/offer';
 import { TComments } from '../../types/comment';
+import { TOffer, TOffers } from '../../types/offer';
+import { TState } from '../../types/state';
+import { TUserData } from '../../types/user-data';
 
 export const getOffers = (state: Pick<TState, NameSpace.Data>): TOffers =>
   state[NameSpace.Data].offers;
@@ -31,3 +32,5 @@ export const getSubmitErrorStatus = (
 export const getErrorOfferLoadingStatus = (
   state: Pick<TState, NameSpace.Data>
 ): boolean => state[NameSpace.Data].hasOfferDataLoadingError;
+export const getUserData = (state: Pick<TState, NameSpace.Data>): TUserData =>
+  state[NameSpace.Data].userData;

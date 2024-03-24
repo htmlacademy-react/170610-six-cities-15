@@ -3,10 +3,6 @@ export type TCity = {
   location: TLocation;
 };
 
-export type TActiveCity = {
-  city: string;
-};
-
 export type TLocation = {
   latitude: number;
   longitude: number;

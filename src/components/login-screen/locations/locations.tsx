@@ -16,7 +16,7 @@ function Locations({ randomCity }: LocationsProps): JSX.Element {
 
   return (
     <section className="locations locations--login locations--current">
-      <div className="locations__item">
+      <div className="locations__item" data-testid="locationsItemElement">
         <Link
           onClick={() => handleCityClick(randomCity)}
           className="locations__item-link"

@@ -56,7 +56,13 @@ function Map({ city, offers, activeOfferId, page }: TMapProps): JSX.Element {
     }
   }, [activeOfferId, map, offers]);
 
-  return <section className={`${page}__map map`} ref={mapRef} />;
+  return (
+    <section
+      className={`${page}__map map`}
+      ref={mapRef}
+      data-testid="mapSectionElement"
+    />
+  );
 }
 
 export default Map;

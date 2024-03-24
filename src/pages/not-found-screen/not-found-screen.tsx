@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import './not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -19,7 +20,7 @@ function NotFoundScreen(): JSX.Element {
                 <p className="cities__status-description">
                   We could not find any property available at the moment.
                   Please, go{' '}
-                  <Link to="/" style={{ textDecoration: 'underline' }}>
+                  <Link to="/" className="backLink">
                     back to the main page
                   </Link>
                   .

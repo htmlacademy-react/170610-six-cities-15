@@ -17,6 +17,7 @@ function LoginInputPassword({
         placeholder="Password"
         ref={passwordRef}
         required
+        data-testid="passwordElement"
       />
     </div>
   );

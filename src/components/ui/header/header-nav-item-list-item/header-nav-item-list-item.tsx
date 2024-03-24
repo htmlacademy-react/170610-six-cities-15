@@ -9,7 +9,7 @@ function HeaderNavItemListItem({
   onLogout,
 }: HeaderNavItemListItemProps): JSX.Element {
   return (
-    <li className="header__nav-item">
+    <li className="header__nav-item" data-testid="headerNavItemElement">
       <Link className="header__nav-link" to={AppRoute.Main} onClick={onLogout}>
         <span className="header__signout">Sign out</span>
       </Link>

@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   fetchFavoriteOffersAction,
   fetchUserDataAction,
   logoutAction,
 } from '../../../../store/api-actions';
-import { getFavoriteOffers } from '../../../../store/app-data/app-data.selectors';
 import {
-  getAuthorizationStatus,
+  getFavoriteOffers,
   getUserData,
-} from '../../../../store/user-process/user-process.selectors';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+} from '../../../../store/app-data/app-data.selectors';
+import { getAuthorizationStatus } from '../../../../store/user-process/user-process.selectors';
 import Logo from '../../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
 import UnauthenticatedUser from '../unauthenticated-user/unauthenticated-user';
@@ -74,7 +74,7 @@ function Header() {
   );
 
   return (
-    <header className="header">
+    <header className="header" data-testid="headerElement">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
